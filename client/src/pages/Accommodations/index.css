@@ -1,0 +1,15 @@
+.accom_section {
+    border: solid 1px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+.single_accom {
+    border: solid 1px;
+    padding: 5px;
+    margin: auto;
+    width: 150px;
+    height: 150px;
+
+
+}
