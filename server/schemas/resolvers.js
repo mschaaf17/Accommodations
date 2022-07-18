@@ -65,6 +65,7 @@ const resolvers = {
                 { $push: { accommodations: accommodation._id } },
                 { new: true }
               );
+              console.log(accommodation)
       
               return accommodation;
             }

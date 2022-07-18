@@ -29,7 +29,7 @@ type Query {
 
 type Mutation {
     login(username: String!, password: String!): Auth
-    addUser(username: String!): Auth
+    addUser(username: String!, password: String!): Auth
     addAccommodation(title: String): Accommodation
 }
 

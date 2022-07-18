@@ -12,7 +12,12 @@ const AccommodationSchema = new Schema(
         username: {
             type: String
         }
+    },
+    {
+    toJSON: {
+        getters: true
     }
+}
 )
 
 const Accommodation = model('Accommodation', AccommodationSchema)
