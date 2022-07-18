@@ -13,7 +13,13 @@ const userSchema = new Schema(
             type: String,
             required: true,
             minlength: 5
-        }
+        },
+        accommodations: [
+            {
+                type: Schema.Types.ObjectId,
+                ref: 'Accommodation'
+            }
+        ]
     }
 )
 
