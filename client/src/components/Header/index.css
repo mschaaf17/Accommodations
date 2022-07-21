@@ -1,0 +1,25 @@
+/* .nav {
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    padding: 2px;
+    align-items: center;
+} */
+
+.nav-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+   
+
+}
+
+.nav-options {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px;
+    
+}
+.logout {
+    padding-left: 15px;
+}

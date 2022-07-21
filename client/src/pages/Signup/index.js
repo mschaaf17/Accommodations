@@ -1,6 +1,7 @@
 import React, {useState} from 'react'
 import { useMutation } from '@apollo/client'
 import { ADD_USER } from '../../utils/mutations'
+import { Link } from 'react-router-dom'
 
 
 import Auth from '../../utils/auth'
@@ -63,6 +64,10 @@ const Signup = () => {
           </div>
         </div>
       </div>
+      <div>
+          <Link to="/login"> Already a member? Login here</Link>
+
+          </div>
     </main>
   );
 }

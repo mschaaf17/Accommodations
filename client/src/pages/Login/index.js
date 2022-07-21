@@ -1,7 +1,9 @@
 import React, {useState} from 'react'
+import {Link} from 'react-router-dom'
 import {useMutation} from '@apollo/client'
 import { LOGIN_USER } from '../../utils/mutations'
 import Auth from '../../utils/auth'
+
 
 const Login = props => {
     const [formState, setFormState] = useState({ username: '', password: ''})
@@ -24,6 +26,8 @@ const Login = props => {
             variables: {...formState},
           })
           Auth.login(data.login.token)
+          window.location.href = "/accommodations"
+
         } catch (e) {
           console.log(e)
         }
@@ -67,6 +71,10 @@ const Login = props => {
           </div>
         </div>
       </div>
+      <div>
+          <Link to="/signup"> New member? Sign up here</Link>
+
+          </div>
     </main>
     )
 }

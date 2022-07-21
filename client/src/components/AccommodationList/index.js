@@ -9,12 +9,14 @@ const AccommodationList = ({ accommodations, title}) => {
     return (
         <div>
             <h3>{title}</h3>
+            <div className='accom_section'>
             {accommodations && accommodations.map(accommodation => (
-                <div key={accommodation._id}>
+                <div className="single_accom" key={accommodation._id}>
                     <h2>{accommodation.title}</h2>
                     <p>{accommodation.image}</p>
                     </div>
             ))}
+            </div>
         </div>
     )
 }
