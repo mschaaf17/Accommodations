@@ -17,9 +17,9 @@ const Header = () => {
   return (
     <header className="nav">
       <div className="nav-section">
-        <Link to="/">
-          <h1>SupPorts</h1>
-        </Link>
+        
+          <h1>My Support</h1>
+        
 
         <nav className="nav-options">
           {Auth.loggedIn() ? (
