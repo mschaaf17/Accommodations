@@ -8,10 +8,12 @@ export default function Home() {
   return (
     <div className='container'>
         <h1>Always get the support you need</h1>
-       <Link to="/login">Start</Link>
-       <p>Not a member? {' '}
-        <Link to ="/signup">Sign up</Link>
+       <div className='start-section'>
+       <Link className ="btn" to="/login">Start</Link>
+       <p className="not-a-member">Not a member? {' '}
+        <Link className="signup" to ="/signup">Sign up here</Link>
         </p>
+        </div>
       </div>
   )
 }

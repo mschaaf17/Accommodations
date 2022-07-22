@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom'
 import {useMutation} from '@apollo/client'
 import { LOGIN_USER } from '../../utils/mutations'
 import Auth from '../../utils/auth'
+import './index.css'
 
 
 const Login = props => {
@@ -42,9 +43,9 @@ const Login = props => {
         <main className="">
       <div className="">
         <div className="">
-          <h4 className="">Login</h4>
-          <div className="">
-            <form onSubmit={handleFormSubmit}>
+          <h4 className="login-title">Login</h4>
+          <div className="login-form">
+            <form className="user-input"onSubmit={handleFormSubmit}>
               <input
                 className="form-input"
                 placeholder="username"
@@ -72,7 +73,7 @@ const Login = props => {
         </div>
       </div>
       <div>
-          <Link to="/signup"> New member? Sign up here</Link>
+          <Link className ="new-member"to="/signup"> New member? Sign up here</Link>
 
           </div>
     </main>
