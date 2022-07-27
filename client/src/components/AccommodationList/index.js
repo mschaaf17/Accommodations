@@ -13,7 +13,8 @@ const AccommodationList = ({ accommodations, title}) => {
             {accommodations && accommodations.map(accommodation => (
                 <div className="single_accom" key={accommodation._id}>
                     <h2>{accommodation.title}</h2>
-                    <p>{accommodation.image}</p>
+                    <img className ="accomm_img" src={accommodation.image} alt ="Picture of accommodation" />
+                    {/* <p>{accommodation.image}</p> */}
                     </div>
             ))}
             </div>

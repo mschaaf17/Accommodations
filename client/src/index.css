@@ -6,11 +6,23 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  
+ 
+    /* background-image: url('../../assets/images/background.jpg'); */
+    height: 100vh;
+    width: 100vw;
+    background-size:cover;
+    background-color: rgb(242, 231, 217);
+    background: linear-gradient(to bottom, rgb(219, 203, 183), #491798);
+
+ 
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+.container {
+  color: rgb(222, 92, 205);
 }
 

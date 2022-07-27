@@ -1,5 +1,5 @@
 .accom_section {
-    border: solid 1px;
+    /* border: solid 1px; */
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
@@ -9,8 +9,23 @@
     padding: 5px;
     margin: auto;
     width: 150px;
+    height: 250px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+
+}
+
+.single_accom:hover{
+    background-color: aqua;
+}
+
+.nav-active {
+    background-color: aqua;
+}
+.accomm_img {
     height: 150px;
-
-
+    width: 120px;
 }
 

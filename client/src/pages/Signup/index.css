@@ -1,9 +1,9 @@
-.login-title {
+.signup-title {
     font-size: 24px;
     text-align: center;
 
 }
-.login-form {
+.signup-form {
     display: flex;
     justify-content: center;
 }
@@ -19,12 +19,12 @@ input {
 }
 
 
-.signup {
+.login {
     text-decoration: none;
     display: flex;
     justify-content: center;
     
 }
-.signup:hover {
+.login:hover {
     color:rgb(95, 140, 180);
 }

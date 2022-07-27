@@ -18,13 +18,13 @@ const Header = () => {
     <header className="nav">
       <div className="nav-section">
         
-          <h1>My Support</h1>
+          <h1 className="mySupport">My Support</h1>
         
 
         <nav className="nav-options">
           {Auth.loggedIn() ? (
             <>
-            <Link to ="/accommodations">Accommodations</Link>
+            {/* <Link to ="/accommodations">Accommodations</Link> */}
             <a className ="logout" href="/" onClick={logout}>Logout</a>
             </>
           ) : (

@@ -73,7 +73,7 @@ const Login = props => {
         </div>
       </div>
       <div>
-          <Link className ="new-member"to="/signup"> New member? Sign up here</Link>
+          <Link className ="signup"to="/signup"> New member? Sign up here</Link>
 
           </div>
     </main>
