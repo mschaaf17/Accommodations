@@ -20,7 +20,12 @@ const userSchema = new Schema(
                 ref: 'Accommodation'
             }
         ]
-    }
+    },
+    {
+        toJSON: {
+          virtuals: true
+        }
+      }
 )
 
 // set up pre-save middleware to create password

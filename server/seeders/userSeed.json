@@ -3,5 +3,10 @@
         "username": "maddy17",
         "password": "password",
         "accommodations" : []
+    },
+    {
+        "username": "kev",
+        "password": "password",
+        "accommodations" : []
     }
 ]

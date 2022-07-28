@@ -11,6 +11,17 @@ query me {
   } 
   }
 `;
+export const QUERY_USER = gql`
+query user($username: String!) {
+  user(username: $username) {
+  username
+  accommodations {
+    title
+    image
+  }  
+  }
+}
+`;
 
 export const QUERY_ACCOMMODATIONS = gql`
 query accommodations {

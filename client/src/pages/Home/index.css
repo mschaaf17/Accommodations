@@ -124,7 +124,7 @@ h1 {
 }
 .signup {
     text-decoration: none;
-    
+    padding-left: 5px;
 }
 .signup:hover {
     color:rgb(95, 140, 180);
@@ -132,6 +132,7 @@ h1 {
 
 
 
-/* .not-a-member {
-    
-} */
+.not-a-member {
+    display: flex;
+
+}
