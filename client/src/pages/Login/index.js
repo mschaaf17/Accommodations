@@ -64,7 +64,7 @@ const Login = props => {
                 value={formState.password}
                 onChange={handleChange}
               />
-              <button className="" type="submit">
+              <button className="submit-btn" type="submit">
                 Submit
               </button>
             </form>
@@ -73,7 +73,7 @@ const Login = props => {
         </div>
       </div>
       <div>
-          <Link className ="signup"to="/signup"> New member? Sign up here</Link>
+          <Link className ="signup-new "to="/signup"> New member? Sign up</Link>
 
           </div>
     </main>

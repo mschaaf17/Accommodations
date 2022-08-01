@@ -1,3 +1,13 @@
+h2 {
+    font-size: 42px;
+    text-align: center;
+    color: rgb(243, 55, 218);
+}
+h3 {
+    font-size: 32px;
+    
+
+}
 .accom_section {
     /* border: solid 1px; */
     display: flex;
@@ -5,20 +15,26 @@
     justify-content: space-around;
 }
 .single_accom {
-    border: solid 1px;
-    padding: 5px;
+    /* border: solid 1px; */
+    padding: 25px;
     margin: auto;
-    width: 150px;
-    height: 250px;
+    width: 250px;
+    height: 350px;
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
+    transition: all 0.3s ease-in-out;
+    -webkit-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
 
 }
 
 .single_accom:hover{
-    background-color: aqua;
+    /* background-color: cadetblue; */
+    box-shadow: inset 0 -450px 0 0 cadetblue; 
+    border-radius: 25px;
+    padding-bottom: 5px;
 }
 
 .nav-active {
@@ -26,6 +42,20 @@
 }
 .accomm_img {
     height: 150px;
-    width: 120px;
+    width: 180px;
+    border-radius: 5px;
+}
+
+.button-clicked {
+    box-shadow: inset 0 -425px 0 0 cadetblue; 
+    border-radius: 25px;
+    padding: 25px;
+    margin: auto;
+    width: 250px;
+    height: 330px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
 }
 

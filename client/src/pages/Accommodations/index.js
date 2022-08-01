@@ -2,6 +2,7 @@ import React from 'react'
 import {Navigate, useParams} from 'react-router-dom'
 import './index.css';
 import AccommodationList from '../../components/AccommodationList';
+import Messaging from '../../components/Messaging'
 
 import Auth from '../../utils/auth'
 import {useQuery} from '@apollo/client'
@@ -35,9 +36,12 @@ if (!user?.username) {
       
       
     
-    
+      <div>
+      <Messaging />
+    </div>
     
     </div>
+   
   )
 }
 

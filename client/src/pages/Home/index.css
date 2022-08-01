@@ -32,6 +32,7 @@
 }
 
 h1 {
+    font-size: 68px;
      display: flex;
     justify-content: center;
     align-items: center; 
@@ -60,7 +61,7 @@ h1 {
     padding-right: 5px;
 }
 .btn {
-    padding: 5px 20px;
+    padding: 40px 50px;
     background: orange;
     position: relative;
     float:left;
@@ -71,7 +72,7 @@ h1 {
     width: 150px;
     text-decoration: none;
     color: white;
-    font-size: 52px;
+    font-size: 60px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -110,8 +111,8 @@ h1 {
     pointer-events: none;
     border-color: rgba(0, 0, 0, 0);
     border-left-color: orange;
-    border-width: 25px;
-    margin-top: -25px;
+    border-width: 75px;
+    margin-top: -65px;
     margin-left: -10px;
   
 }
@@ -124,15 +125,31 @@ h1 {
 }
 .signup {
     text-decoration: none;
-    padding-left: 5px;
+    padding: 0 15px;
+    color: rgb(127, 190, 190);
+    transition: all 0.3s ease-in-out;
+    -webkit-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+
 }
 .signup:hover {
-    color:rgb(95, 140, 180);
+    color: black;
+    box-shadow: inset 0 -45px 0 0 cadetblue; 
+    border-radius: 25px;
+    padding-bottom: 5px;
 }
 
 
 
 .not-a-member {
     display: flex;
+    font-size: 28px;
+    color: rgb(112, 39, 114);
+   
 
 }
+
+.start-btn:hover {
+ color: orange;
+}
+

@@ -42,7 +42,7 @@ const Signup = () => {
             <form className="user-input" onSubmit={handleFormSubmit}>
               <input
                 className="form-input"
-                placeholder="Your username"
+                placeholder="Type a username"
                 name="username"
                 type="username"
                 id="username"
@@ -58,7 +58,7 @@ const Signup = () => {
                 value={formState.password}
                 onChange={handleChange}
               />
-              <button className="" type="submit">
+              <button className="submit-btn" type="submit">
                 Submit
               </button>
             </form>
@@ -68,7 +68,7 @@ const Signup = () => {
         </div>
       </div>
       <div>
-          <Link className="login" to="/login"> Already a member? Login here</Link>
+          <Link className="login" to="/login"> Already a member? Login</Link>
 
           </div>
     </main>

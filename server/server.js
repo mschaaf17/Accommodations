@@ -1,4 +1,9 @@
 const express = require('express')
+// add instant messaging
+const io = require('socket.io')(3000)
+io.on('connection', socket => {
+    socket.emit('chat-message', 'Hello World')
+})
 
 // import ApolloServer
 const {ApolloServer} = require('apollo-server-express')
