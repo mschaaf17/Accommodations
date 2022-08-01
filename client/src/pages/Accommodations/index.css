@@ -2,6 +2,7 @@ h2 {
     font-size: 42px;
     text-align: center;
     color: rgb(243, 55, 218);
+    text-shadow: 2px 2px #86277f;
 }
 h3 {
     font-size: 32px;
@@ -44,6 +45,7 @@ h3 {
     height: 150px;
     width: 180px;
     border-radius: 5px;
+    opacity: 70%;
 }
 
 .button-clicked {
