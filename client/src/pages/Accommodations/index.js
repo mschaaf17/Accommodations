@@ -2,7 +2,8 @@ import React from 'react'
 import {Navigate, useParams} from 'react-router-dom'
 import './index.css';
 import AccommodationList from '../../components/AccommodationList';
-import Messaging from '../../components/Messaging'
+// import Messaging from '../../components/Messaging'
+import Chat from '../../components/Chat'
 
 import Auth from '../../utils/auth'
 import {useQuery} from '@apollo/client'
@@ -37,7 +38,7 @@ if (!user?.username) {
       
     
       <div>
-      <Messaging />
+      <Chat />
     </div>
     
     </div>

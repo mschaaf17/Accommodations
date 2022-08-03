@@ -1,7 +1,7 @@
 const { AuthenticationError } = require('apollo-server-express')
 const { User, Accommodation } = require('../models')
 const { signToken } = require('../utils/auth');
-
+const messages = []
 
 const resolvers = {
     Query: {
@@ -30,7 +30,8 @@ const resolvers = {
        },
        accommodation: async(parent, { _id}) => {
         return Accommodation.findOne({_id})
-       }
+       },
+       messages: () => messages,
     },
 
     Mutation: {
@@ -71,6 +72,15 @@ const resolvers = {
             }
       
             throw new AuthenticationError('You need to be logged in!');
+          },
+          postMessage: (parent, {user, content}) => {
+            const id = messages.length
+            messages.push({
+              id,
+              user,
+              content
+            })
+            return id 
           }
     }
 }
