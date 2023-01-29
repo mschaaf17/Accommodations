@@ -38,7 +38,7 @@ if (loading) {
 
 
 //pull from student list!! on the it uses mapping to allow myself to user the usernamea again!
-
+//check
   return (
     <div>
         {/* student profile page */}
