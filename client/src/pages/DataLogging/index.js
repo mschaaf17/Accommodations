@@ -53,7 +53,7 @@ export default function DataLogging() {
 
   return (
     <div>
-      <h2>Logging for {user.username}</h2>
+      <h2>Logging for {userParam}</h2>
       <div className="data-to-click">
       {Object.keys(state).map(el => (
         <div  key ={el}>
