@@ -5,7 +5,7 @@ import { QUERY_USER } from '../../utils/queries'
 import { ADD_OUT_OF_SEAT } from '../../utils/mutations'
 import { useParams } from 'react-router-dom'
 
-const Frequnecy = ()=> {
+const Frequency = ()=> {
   // const {username: userParam} = useParams()
   // const [addOutOfSeat, {error}]= useMutation(ADD_OUT_OF_SEAT, {
   //   update(cache, {data: {addOutOfSeat}}){
@@ -58,5 +58,5 @@ const Frequnecy = ()=> {
     )
 }
 
-export default Frequnecy
+export default Frequency
 
