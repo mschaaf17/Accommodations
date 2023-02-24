@@ -92,7 +92,7 @@ export default function DataLogging() {
       {/* <a href ="/studentCharts">View student charts</a> */}
 {/*need a userparam because it wont know what user to look at the charts for!  */}
      <div> <Link className="link-to-page logout" to ={`/teacherdata`}> ← Back to Student List</Link></div>
-      <div ><Link  className="link-to-page logout" to ={`/studentProfile:${user.username}/studentCharts`}>Student Charts → </Link></div>
+      <div ><Link  className="link-to-page logout" to ={`/studentProfile${userParam}/studentCharts`}>Student Charts → </Link></div>
       </div>
     </div>
 

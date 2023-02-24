@@ -67,7 +67,7 @@ function App() {
             {/* <Route path ="dataLogging" element={<DataLogging/>}/> */}
             {/* </Route>  */}
          
-          <Route path ="/studentCharts" element ={<StudentCharts/>}/>
+          <Route path ="/studentProfile:username/studentCharts" element ={<StudentCharts/>}/>
           <Route path="*" element={<NoMatch />} />
         </Routes>
         <Footer />

@@ -16,6 +16,7 @@ export default function TeacherDataTracking() {
       {/* get mern client profile pages */}
       <h2>Pick a student to start logging data</h2>
       <StudentList getAllUsers = {getAllUsers} />
+      
     </div>
   )
 }

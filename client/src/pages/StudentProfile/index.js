@@ -49,7 +49,7 @@ if (loading) {
         
         
         <div className="buttons">
-        <button className = "profile-options logout"><Link className=" link-to-page" to ={`/studentProfile:${userParam}/dataLogging`}>Log Data</Link></button>
+        <button className = "profile-options logout"><Link className=" link-to-page" to ={`/studentProfile${userParam}/dataLogging`}>Log Data</Link></button>
         <button className = "logout">Charts</button>
         </div>
         
