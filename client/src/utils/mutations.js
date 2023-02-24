@@ -18,7 +18,6 @@ mutation addUser($username: String!, $password: String!) {
     user {
       _id
       username
-      
     }
     token
   }
@@ -39,5 +38,17 @@ mutation AddBreak {
     _id
     createdAt
   }
+}
+`;
+
+export const ADD_OUT_OF_SEAT = gql`
+mutation AddOutOfSeat ($username: String) {
+  addOutOfSeat (username: $username) {
+    username
+  outOfSeatCount
+      outOfSeat {
+       createdAt
+      }
+    }
 }
 `;

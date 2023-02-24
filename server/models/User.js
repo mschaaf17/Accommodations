@@ -1,5 +1,6 @@
 const { Schema, model } = require('mongoose')
 const bcrypt = require('bcrypt')
+const outOfSeatSchema = require('./OutOfSeat')
 
 const userSchema = new Schema(
     {
@@ -26,12 +27,13 @@ const userSchema = new Schema(
                 ref: 'Break'
             }
         ],
-        outOfSeat: [
+        seatAwayTaken: [
             {
                 type: Schema.Types.ObjectId,
-                ref: 'OutOfSeat' 
+                ref: 'SeatAway'
             }
-        ]
+        ],
+        outOfSeat: [outOfSeatSchema]
     },
     {
         toJSON: {
@@ -43,6 +45,10 @@ const userSchema = new Schema(
 userSchema.virtual('breakCount').get(function() {
     return this.breaks.length;
 })
+userSchema.virtual('seatAwayCount').get(function() {
+    return this.seatAwayTaken.length;
+})
+
 userSchema.virtual('outOfSeatCount').get(function() {
     return this.outOfSeat.length;
 })

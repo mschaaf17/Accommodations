@@ -2,8 +2,15 @@ const { Schema, model } = require('mongoose')
 const dateFormat = require('../utils/dateFormat');
 
 
-const outOfSeatSchema = new Schema(
+const seatAwaySchema = new Schema(
     {
+        seatAwayClicked: {
+            type: Boolean
+        },
+        seatAwayDate: {
+            type: Date,
+            default: Date.now
+        },
         createdAt: {
             type: Date,
             default: Date.now,
@@ -20,5 +27,5 @@ const outOfSeatSchema = new Schema(
 }
 )
 
-//const OutOfSeatSchema = model('OutOfSeat', outOfSeatSchema)
-module.exports = outOfSeatSchema
+const SeatAway = model('SeatAway', seatAwaySchema)
+module.exports = SeatAway   

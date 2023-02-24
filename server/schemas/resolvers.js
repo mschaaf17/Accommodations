@@ -1,5 +1,5 @@
 const { AuthenticationError } = require('apollo-server-express')
-const { User, Accommodation, Break , OutOfSeat} = require('../models')
+const { User, Accommodation, Break , OutOfSeat, SeatAway} = require('../models');
 const { signToken } = require('../utils/auth');
 
 
@@ -11,6 +11,7 @@ const resolvers = {
                 .select('-__v -password')
                 .populate('accommodations')
                 .populate('breaks')
+                .populate('seatAwayTaken')
 
                 return userData
             }
@@ -26,6 +27,7 @@ const resolvers = {
         .select('-__v -password')
         .populate('accommodations')
         .populate('breaks')
+        .populate('seatAwayTaken')
        },
        accommodations: async (parent, { username }) => {
         const params = username ? { username } : {};
@@ -37,6 +39,10 @@ const resolvers = {
        break: async (parent, { username }) => {
         const params = username ? { username } : {};
         return Break.find(params).sort({ createdAt: -1})
+       },
+       seatAway: async (parent, { username }) => {
+        const params = username ? { username } : {};
+        return SeatAway.find(params).sort({ createdAt: -1})
        },
        outOfSeatQuery: async (parent, { username }) => {
         const params = username ? { username } : {};
@@ -67,6 +73,7 @@ const resolvers = {
             const token = signToken(user);
             return { token, user };
           },
+          //add accommodation is for the teacher to add specific acommodations
           addAccommodation: async (parent, args, context) => {
             if (context.user) {
               const accommodation = await Accommodation.create({ ...args, username: context.user.username });
@@ -83,6 +90,7 @@ const resolvers = {
       
             throw new AuthenticationError('You need to be logged in!');
           },
+          //add break comes from the student
           addBreak: async (parent, args, context) => {
             if (context.user) {
               const updatedBreak = await Break.create({ ...args, username: context.user.username });
@@ -99,19 +107,35 @@ const resolvers = {
       
             throw new AuthenticationError('You need to be logged in!');
           },
-          addOutOfSeat: async (parent, args, context) => {
+          addSeatAway: async (parent, args, context) => {
             if (context.user) {
-              const updatedOutOfSeat = await OutOfSeat.create({ ...args, username: context.user.username });
+              const updatedSeatAway = await SeatAway.create({ ...args, username: context.user.username });
       
               await User.findByIdAndUpdate(
                 { _id: context.user._id },
-                { $push: { outOfSeat: updatedOutOfSeat._id } },
+                { $push: { seatAwayTaken: updatedSeatAway._id } },
                 { new: true, runValidators: true }
               );
+              console.log(updatedSeatAway)
+      
+              return updatedSeatAway;
+            }
+      
+            throw new AuthenticationError('You need to be logged in!');
+          },
+          //out of seat comes from teacher logging
+          addOutOfSeat: async (parent, {username, createdAt}, context) => {
+           if(context.user){
+            
+              const updatedOutOfSeat = await User.findOneAndUpdate(
+                {username: username},
+                {$push: {outOfSeat: {createdAt, username: context.user.username}}},
+                {new: true, runValidators: true}
+                )      
               console.log(updatedOutOfSeat)
       
               return updatedOutOfSeat;
-            }
+              }
       
             throw new AuthenticationError('You need to be logged in!');
           },

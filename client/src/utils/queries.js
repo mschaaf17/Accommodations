@@ -42,6 +42,10 @@ query user($username: String!) {
     createdAt
     breakDate
   }
+  outOfSeat {
+    createdAt
+    username
+  }
   }
 }
 `;
