@@ -28,12 +28,12 @@ function InstantMessage() {
   }, [setSocket]);
 
   return (
-    <div className="App">
-      <div className="app-header">
-        Chat
+    <div className="">
+      <div className="">
+        Messaging: 
       </div> 
       { socket ? (
-        <div className="chat-container">
+        <div className="">
           <Messages socket={socket} />
           <MessageInput socket={socket} />
         </div>

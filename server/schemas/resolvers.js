@@ -74,12 +74,30 @@ const resolvers = {
             return { token, user };
           },
           //add accommodation is for the teacher to add specific acommodations
+          // addAccommodation: async (parent, args, context) => {
+          //   if (context.user) {
+          //     const accommodation = await Accommodation.create({ ...args, username: context.user.username });
+      
+          //     await User.findByIdAndUpdate(
+          //       { _id: context.user._id },
+          //       { $push: { accommodations: accommodation._id } },
+          //       { new: true }
+          //     );
+          //     console.log(accommodation)
+      
+          //     return accommodation;
+          //   }
+      
+          //   throw new AuthenticationError('You need to be logged in!');
+          // },
+          //teacher has to add the accommodations for the student-- right now backend
+          //is set up that the student has to be logged in to and add it for themselves
           addAccommodation: async (parent, args, context) => {
             if (context.user) {
               const accommodation = await Accommodation.create({ ...args, username: context.user.username });
       
               await User.findByIdAndUpdate(
-                { _id: context.user._id },
+                {username: username},
                 { $push: { accommodations: accommodation._id } },
                 { new: true }
               );
@@ -107,6 +125,7 @@ const resolvers = {
       
             throw new AuthenticationError('You need to be logged in!');
           },
+          //add seat away comes from the student-- will need to be connected to accommodation card
           addSeatAway: async (parent, args, context) => {
             if (context.user) {
               const updatedSeatAway = await SeatAway.create({ ...args, username: context.user.username });

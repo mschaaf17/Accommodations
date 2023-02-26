@@ -55,19 +55,19 @@ function App() {
           <Route path ="/breakTimer" element ={<BreakTimer/>} />
           <Route path ="/data" element = {<StudentGraph/>}/>
           <Route path = "/teacherdata" element = {<TeacherDataTracking/>}/>
-          <Route path ="/studentProfile:username" element={<StudentProfile/>}/>
+          <Route path ="/studentProfile/:username" element={<StudentProfile/>}/>
             {/* <Route path =":username" element ={<StudentProfile/>}/>
             <Route path ="" element={<StudentProfile />} /> */}
             {/* <Route path ="dataLogging" element={<DataLogging/>}/> */}
 
             {/* </Route> */}
-            <Route path ="/studentProfile:username/dataLogging"element ={<DataLogging/>}/>
+            <Route path ="/studentProfile/:username/dataLogging"element ={<DataLogging/>}/>
             {/* <Route path = "/studentProfile/:username" element ={<DataLogging/>} /> */}
             {/* <Route path =":username" element ={<DataLogging />}/> */}
             {/* <Route path ="dataLogging" element={<DataLogging/>}/> */}
             {/* </Route>  */}
          
-          <Route path ="/studentProfile:username/studentCharts" element ={<StudentCharts/>}/>
+          <Route path ="/studentProfile/:username/studentCharts" element ={<StudentCharts/>}/>
           <Route path="*" element={<NoMatch />} />
         </Routes>
         <Footer />

@@ -18,7 +18,7 @@ export default function StudentList({getAllUsers}) {
         getAllUsers).map((users, index) => (
           <div key={index}>
             <p>
-             <Link className='link-to-page logout' to = {`/studentProfile:${users.username}`}>{users.username}</Link> 
+             <Link className='link-to-page logout' to = {`/studentProfile/${users.username}`}>{users.username}</Link> 
                
             </p>
 

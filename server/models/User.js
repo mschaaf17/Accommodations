@@ -21,6 +21,7 @@ const userSchema = new Schema(
                 ref: 'Accommodation'
             }
         ],
+       // accommodations: [accommodationsSchema],
         breaks: [
             {
                 type: Schema.Types.ObjectId,
@@ -33,6 +34,7 @@ const userSchema = new Schema(
                 ref: 'SeatAway'
             }
         ],
+        //out of seat is teacher logging for student
         outOfSeat: [outOfSeatSchema]
     },
     {

@@ -29,8 +29,8 @@ export default function Duration() {
 
      
   return (
-    <div>
-      <h2>Duration Data</h2>
+    <div className="data-logging-container">
+      <h2 >Duration Data</h2>
       <p>Start timer when behavior occurs/Stop when behavior is over</p>
       <div className="timer">  
             <span>{('0' + Math.floor((time / 3600000) % 60)).slice(-2)}:</span>

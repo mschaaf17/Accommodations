@@ -6,7 +6,9 @@ import { ADD_OUT_OF_SEAT } from '../../utils/mutations'
 import { useParams } from 'react-router-dom'
 
 const Frequency = ()=> {
-  // const {username: userParam} = useParams()
+   const {username: usernameFromUrl} = useParams();
+   console.log(usernameFromUrl)
+   const [addOutOfSeat, {error}] = useMutation(ADD_OUT_OF_SEAT)
   // const [addOutOfSeat, {error}]= useMutation(ADD_OUT_OF_SEAT, {
   //   update(cache, {data: {addOutOfSeat}}){
 
@@ -22,29 +24,41 @@ const Frequency = ()=> {
   //     }
   //   }
   // })
-  // const {data} = useQuery(userParam, QUERY_USER,
+  const {data} = useQuery(QUERY_USER, {
+    variables: {username: usernameFromUrl}
+  });
+  const user = data?.user || {};
+
+  // const {data} = useQuery(usernameFromUrl, QUERY_USER,
   //   {
-  //     variables: {username: userParam}
+  //     variables: {username: usernameFromUrl}
   //   })
   //   const user = data?.user || {}
 
-  //   const outOfSeatClicked = async () => {
-  //     try {
-  //       await addOutOfSeat({
-  //         variables: {username: user.username},
-  //       });
-  //     } catch (e)
-  //     {
-  //       console.log(e);
-  //     }
-  //     console.log('Out of seat has been clicked')
-   // };
+    const outOfSeatClicked = async () => {
+      try {
+        await addOutOfSeat({
+          variables: {currentUser: user.username},
+        });
+      } catch (e)
+      {
+        console.log(e);
+      }
+      console.log('Out of seat has been clicked')
+   };
     return (
       //need to userParam && ()???
       <div className="data-logging-container">
         <h2>Click each button as behavior occurs</h2>
         <div className="frequency-button-section">
-        {/* <button onClick={outOfSeatClicked}>Out of Seat</button> */}
+          <div> {user.username}</div>
+          {usernameFromUrl && (
+          <button onClick={outOfSeatClicked}>
+
+            Out of Seat 0{user.outOfSeatCount}
+          </button>
+        )}
+ 
         <button>Talk Outs/Noises</button>
         <button>Aggression Towards Others</button>
         <button>Aggression Towards Self</button>
