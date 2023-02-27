@@ -33,6 +33,11 @@ query user($username: String!) {
   _id
   username
   breakCount
+  outOfSeatCount
+  seatAwayCount
+  seatAwayTaken {
+    createdAt
+  }  
   accommodations {
     title
     image
