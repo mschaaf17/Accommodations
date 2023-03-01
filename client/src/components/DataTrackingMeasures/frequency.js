@@ -29,11 +29,16 @@ const Frequency = ()=> {
   });
   const user = data?.user || {};
 
-  const [frequencyCount, setFrequencyCount] = useState(user.outOfSeatCount);
+  //need to save the count to cache so it saves until reset after 12 hours or button is clicked?? 
+  //or query by day and report back through virtual how many clicks happened that day???
+   const [frequencyCount, setFrequencyCount] = useState(user.outOfSeatCount);
+ // const [frequencyCount, setFrequencyCount] = useState(0);
+  const reset = () => {
+    setFrequencyCount(0);
+  }
 
   useEffect(()=> {
   }, [frequencyCount]);
-
   
     const outOfSeatClicked = async (e) => {
       try {
@@ -54,20 +59,20 @@ const Frequency = ()=> {
         <div className="frequency-button-section">
           {usernameFromUrl && (
           <button onClick={outOfSeatClicked}>
+            {/* {`Out Of Seat ${frequencyCount === 0 ? '' : `: ${frequencyCount}`}`} */}
             {`Out Of Seat ${frequencyCount === 0 ? '' : `: ${frequencyCount}`}`}
             {/* front end should reset after 12 hours -- not sure how it will work if the frequency count is coming from backend? */}
           </button>
         )}
- 
         <button>Talk Outs/Noises</button>
         <button>Aggression Towards Others</button>
         <button>Aggression Towards Self</button>
         <button>Throwing items</button>
         <button>Refusing Command</button>
         <button>Other</button>
-        <button>Reset Frequencies Before 12 hours?</button>
+        {/* <button>Reset Frequencies Before 12 hours?</button> */}
         </div>
-  
+        <button className = "red-button" onClick={reset}> Reset Frequency</button>
         
       </div>
     )

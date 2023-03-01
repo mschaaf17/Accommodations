@@ -11,6 +11,7 @@ const typeDefs = gql `
         seatAwayTaken: [SeatAway]
         outOfSeatCount: Int
         outOfSeat: [OutOfSeat]
+       
 
     }
 
@@ -59,6 +60,7 @@ type Query {
     break(username: String!) : [Break]
     seatAway(username: String!) : [SeatAway]
     outOfSeatQuery(username: String) : [OutOfSeat]
+    outOfSeatToday(username: String, createdAt: String) : [OutOfSeat]
     
 }
 

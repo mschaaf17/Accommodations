@@ -44,10 +44,14 @@ const resolvers = {
         const params = username ? { username } : {};
         return SeatAway.find(params).sort({ createdAt: -1})
        },
-       outOfSeatQuery: async (parent, { username }) => {
-        const params = username ? { username } : {};
-        return OutOfSeat.find(params).sort({ createdAt: -1})
-       },
+      //  outOfSeatQuery: async (parent, { username }) => {
+      //   const params = username ? { username } : {};
+      //   return User.find(params).sort({ createdAt: -1})
+      //  },
+      //  outOfSeatToday: async (parent, { username, createdAt }) => {
+      //   const params = username ? { username, createdAt} : {};
+      //   return User.find(params).sort({ createdAt: -1})
+      //  },
     },
 
     Mutation: {
