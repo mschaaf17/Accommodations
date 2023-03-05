@@ -111,11 +111,11 @@ const resolvers = {
             throw new AuthenticationError('You need to be logged in!');
           },
           //not working correctly yet
-          removeAccommodation: async (parent, {username, title}, context) => {
+          removeAccommodation: async (parent, args, context) => {
             if (context.user) {
-              const accommodation = await User.findOneAndUpdate(
-                {username: username},
-                { $pull: { accommodations: {title, username} } },
+              const accommodation = await User.findByIdAndDelete(
+                // {_id: {accommodations: accommodation._id,}},
+                { $pull: { accommodations: accommodation._id }},
                 { new: true, runValidators: true }
               );
               console.log(accommodation)

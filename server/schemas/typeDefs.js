@@ -71,7 +71,7 @@ type Mutation {
     addBreak(_id: ID): Break
     addSeatAway(_id: ID) : SeatAway
     addOutOfSeat(username: String): User
-    removeAccommodation(title: String, username: String): User
+    removeAccommodation(_id: ID): User
 }
 `;
 
