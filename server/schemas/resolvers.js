@@ -96,14 +96,27 @@ const resolvers = {
           // },
           //teacher has to add the accommodations for the student-- right now backend
           //is set up that the student has to be logged in to and add it for themselves
-          addAccommodation: async (parent, args, context) => {
+          addAccommodation: async (parent, {username, image, title}, context) => {
             if (context.user) {
-              const accommodation = await Accommodation.create({ ...args, username: context.user.username });
-      
-              await User.findByIdAndUpdate(
+              const accommodation = await User.findOneAndUpdate(
                 {username: username},
-                { $push: { accommodations: accommodation._id } },
-                { new: true }
+                { $push: { accommodations: {title, image, username: context.user.username} } },
+                { new: true, runValidators: true }
+              );
+              console.log(accommodation)
+      
+              return accommodation;
+            }
+      
+            throw new AuthenticationError('You need to be logged in!');
+          },
+          //not working correctly yet
+          removeAccommodation: async (parent, {username, title}, context) => {
+            if (context.user) {
+              const accommodation = await User.findOneAndUpdate(
+                {username: username},
+                { $pull: { accommodations: {title, username} } },
+                { new: true, runValidators: true }
               );
               console.log(accommodation)
       
@@ -131,6 +144,22 @@ const resolvers = {
           },
           //add seat away comes from the student-- will need to be connected to accommodation card
           addSeatAway: async (parent, args, context) => {
+            if (context.user) {
+              const updatedSeatAway = await SeatAway.create({ ...args, username: context.user.username });
+      
+              await User.findByIdAndUpdate(
+                { _id: context.user._id },
+                { $push: { seatAwayTaken: updatedSeatAway._id } },
+                { new: true, runValidators: true }
+              );
+              console.log(updatedSeatAway)
+      
+              return updatedSeatAway;
+            }
+      
+            throw new AuthenticationError('You need to be logged in!');
+          },
+           addSeatAway: async (parent, args, context) => {
             if (context.user) {
               const updatedSeatAway = await SeatAway.create({ ...args, username: context.user.username });
       

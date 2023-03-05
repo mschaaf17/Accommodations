@@ -1,6 +1,7 @@
 const { Schema, model } = require('mongoose')
 const bcrypt = require('bcrypt')
 const outOfSeatSchema = require('./OutOfSeat')
+const accommodationSchema = require('./Accommodations')
 
 const userSchema = new Schema(
     {
@@ -15,13 +16,13 @@ const userSchema = new Schema(
             required: true,
             minlength: 5
         },
-        accommodations: [
-            {
-                type: Schema.Types.ObjectId,
-                ref: 'Accommodation'
-            }
-        ],
-       // accommodations: [accommodationsSchema],
+        // accommodations: [
+        //     {
+        //         type: Schema.Types.ObjectId,
+        //         ref: 'Accommodation'
+        //     }
+        // ],
+        accommodations: [accommodationSchema],
         breaks: [
             {
                 type: Schema.Types.ObjectId,

@@ -2,7 +2,7 @@ const { Schema, model} = require('mongoose')
 const dateFormat = require('../utils/dateFormat');
 // const breakSchema = require('./Break')
 
-const AccommodationSchema = new Schema(
+const accommodationSchema = new Schema(
     {
         title: {
             type: String
@@ -37,5 +37,6 @@ const AccommodationSchema = new Schema(
 //     return this.breaks.length;
 // })
 
-const Accommodation = model('Accommodation', AccommodationSchema)
-module.exports = Accommodation
+// const Accommodation = model('Accommodation', AccommodationSchema)
+// module.exports = Accommodation\
+module.exports = accommodationSchema
