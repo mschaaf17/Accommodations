@@ -120,13 +120,21 @@ const resolvers = {
       
             throw new AuthenticationError('You need to be logged in!');
           },
+          removeAccommodationCard: async (parent, args) => {
+              const accommodation = await AccommodationCards.findByIdAndDelete(args);
+              console.log(accommodation)
+      
+              return accommodation;
+      
+            throw new AuthenticationError('Could not delete accommodation card');
+          },
           //not working correctly yet
           removeAccommodation: async (parent, args, context) => {
             if (context.user) {
-              const accommodation = await User.findByIdAndDelete(
+              const accommodation = await User.findByIdAndDelete(args
                 // {_id: {accommodations: accommodation._id,}},
-                { $pull: { accommodations: accommodation._id }},
-                { new: true, runValidators: true }
+                //{ $pull: { accommodations: accommodation._id }},
+               // { new: true, runValidators: true }
               );
               console.log(accommodation)
       

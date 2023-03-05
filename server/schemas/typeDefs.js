@@ -81,6 +81,7 @@ type Mutation {
     addOutOfSeat(username: String): User
     removeAccommodation(_id: ID): User
     addAccommodationCard(title: String, image: String, username: String): AccommodationCards
+    removeAccommodationCard(_id: ID): AccommodationCards
 }
 `;
 
