@@ -1,7 +1,48 @@
 # SpedTacular
 
-## For students: This app will help them advocate for themselves by utilizing and understanding their accommodations addressed in their IEP/504.
-## For teachers: This app will provide tools to minimize the amount of paperwork for special education teachers, and help all teachers assist students with appropriate accommodations, thus increasing inclusion in the general education classroom. 
+## Table of Contents
+* [Description](#description)
+* [Deployed Application](#deployed-application)
+* [Usage](#usage)
+* [Installation](#installation)
+* [Contributors](#contributors)
+* [GitHub](#github-profile)
+* [Contact Me](#for-any-questions-contact)
+
+## Description:
+For students: This app will help them advocate for themselves by utilizing and understanding their accommodations addressed in their IEP/504.
+For teachers: This app will provide tools to minimize the amount of paperwork for special education teachers, and help all teachers assist students with appropriate accommodations, thus increasing inclusion in the general education classroom. 
+*Built with: Node.js, React, GraphQl, eCharts, Socket.io, and other npm packages.
+
+![image](https://user-images.githubusercontent.com/97362296/222934467-e705f853-7127-4b90-967c-df24acaaf2cd.png)
+![image](https://user-images.githubusercontent.com/97362296/222934672-ae0547ef-615e-4b53-b7ff-6b74a4f76975.png)
+
+
+
+
+## Deployed Application:
+In the works..
+
+## Usage:
+* To log student behaviors
+* After logging in...
+* The teacher can track and print student data. 
+* The teacher will have access student interventions and tracking.
+* The studnet can access their acommodations.
+
+## Installation:
+Clone the code and then run npm install. Running applicication may require running "npm start" on client and server side, while running "mongod" on root directory.
+
+## Contributors:
+Madison Schaaf
+
+
+## GitHub Profile:
+[mschaaf17](https://github.com/mschaaf17)
+
+
+## For any questions contact: madisonschaaf48@gmail.com
+
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
