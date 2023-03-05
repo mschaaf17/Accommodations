@@ -23,6 +23,14 @@ mutation addUser($username: String!, $password: String!) {
   }
 }
 `;
+export const ADD_ACCOMMODATION_CARD = gql`
+mutation addAccommodationCard($title: String, $image: String) {
+  addAccommodationCard(title: $title, image: $image) {
+    image
+    title
+}
+}
+`;
 
 export const ADD_ACCOMMODATION = gql`
 mutation addAccommodation ($title: String) {

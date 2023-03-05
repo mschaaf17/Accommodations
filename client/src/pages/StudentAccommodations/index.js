@@ -11,7 +11,7 @@ import { QUERY_ACCOMMODATIONS, QUERY_BREAKS, QUERY_ME, QUERY_USER } from '../../
 import { ADD_BREAK} from '../../utils/mutations'
 
 
-const Accommodations =(props)=> {
+const StudentAccommodations =(props)=> {
   const {username: userParam} = useParams()
 
   const [addBreak, {error}] = useMutation(ADD_BREAK, {
@@ -45,7 +45,7 @@ const {loading, data} = useQuery(userParam ? QUERY_USER : QUERY_ME,
 const user = data?.me || data?.user || {}
 
 if (Auth.loggedIn() && Auth.getProfile().data.username === userParam){
-  return <Navigate to ="/accommodations" />
+  return <Navigate to ="/studentAccommodations" />
 }
 if (!user?.username) {
   return (
@@ -107,4 +107,4 @@ const breakClicked = async () => {
   )
 }
 
-export default Accommodations
+export default StudentAccommodations

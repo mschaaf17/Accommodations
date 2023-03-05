@@ -9,7 +9,7 @@ import {
 import { setContext } from '@apollo/client/link/context';
 
 import Home from './pages/Home/'
-import Accommodations  from './pages/Accommodations/';
+import StudentAccommodations  from './pages/StudentAccommodations/';
 import BreakTimer from './pages/BreakTimer'
 import Header from './components/Header'
 import Footer from './components/Footer'
@@ -20,6 +20,7 @@ import TeacherDataTracking from './pages/TeacherDataTracking'
 import StudentProfile from './pages/StudentProfile'
 import DataLogging from './pages/DataLogging'
 import StudentCharts from './pages/StudentCharts'
+import TeacherAddAccommodations from './pages/TeacherAddAccommodations'
 import NoMatch from './pages/NoMatch';
 
 
@@ -51,11 +52,12 @@ function App() {
           <Route path ="/" element = {<Home/>} />
           <Route path ="/login" element = {<Login/>} />
           <Route path ="/signup" element = {<Signup/>} />
-          <Route path ="/accommodations" element = {<Accommodations/>} />
+          <Route path ="/studentAccommodations" element = {<StudentAccommodations/>} />
           <Route path ="/breakTimer" element ={<BreakTimer/>} />
           <Route path ="/data" element = {<StudentGraph/>}/>
           <Route path = "/teacherdata" element = {<TeacherDataTracking/>}/>
           <Route path ="/studentProfile/:username" element={<StudentProfile/>}/>
+          <Route path ="/studentProfile/:username/addAccommodations" element ={<TeacherAddAccommodations/>}/>
             {/* <Route path =":username" element ={<StudentProfile/>}/>
             <Route path ="" element={<StudentProfile />} /> */}
             {/* <Route path ="dataLogging" element={<DataLogging/>}/> */}

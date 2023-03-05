@@ -73,7 +73,7 @@ const BreakTimer= (breakCount) => {
               {/* <button onClick = {submitTime}>Save</button> */}
             </div>
       </div>
-      <button className ="logout accommodation-btn" onClick={handleClickStop}> <Link className= "link-to-page" to ={'/accommodations'}>Back to Accommodations</Link></button>
+      <button className ="logout accommodation-btn" onClick={handleClickStop}> <Link className= "link-to-page" to ={'/studentAccommodations'}>Back to Accommodations</Link></button>
 
         </div>
         )

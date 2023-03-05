@@ -3,5 +3,5 @@ const User = require('./User')
 const Break = require('./Break')
 // const OutOfSeat = require('./OutOfSeat')
 const SeatAway = require('./SeatAway')
-
-module.exports = {User, Break, SeatAway}
+const AccommodationCards = require('./AccommodationCards')
+module.exports = {User, Break, SeatAway, AccommodationCards}

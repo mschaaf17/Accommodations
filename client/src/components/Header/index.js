@@ -34,7 +34,7 @@ const Header = () => {
           {Auth.loggedIn() ? (
             <>
             {/* <Link to ="/accommodations">Accommodations</Link> */}
-            <a  className ="logout" href ="/accommodations">Accommodations</a>
+            <a  className ="logout" href ="/studentAccommodations">Accommodations</a>
             <a  className ="logout" href ="/data">Weekly Data</a>
             <a  className ="logout" href ="/teacherdata">Teacher Tracking</a>
             <a className ="logout" href="/" onClick={logout}>Logout</a>

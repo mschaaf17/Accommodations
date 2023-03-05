@@ -1,5 +1,5 @@
 const { AuthenticationError } = require('apollo-server-express')
-const { User, Accommodation, Break , OutOfSeat, SeatAway} = require('../models');
+const { User, Accommodation, AccommodationCards, Break , OutOfSeat, SeatAway} = require('../models');
 const { signToken } = require('../utils/auth');
 
 
@@ -28,6 +28,9 @@ const resolvers = {
         .populate('accommodations')
         .populate('breaks')
         .populate('seatAwayTaken')
+       },
+       accommodationCards: async () => {
+        return AccommodationCards.find()
        },
        accommodations: async (parent, { username }) => {
         const params = username ? { username } : {};
@@ -77,6 +80,13 @@ const resolvers = {
             const token = signToken(user);
             return { token, user };
           },
+          //add an accommodation card for all users
+          addAccommodationCard: async (parent, args) => {
+            const accommodationCards = await AccommodationCards.create(args);
+      
+            return { accommodationCards };
+          },
+
           //add accommodation is for the teacher to add specific acommodations
           // addAccommodation: async (parent, args, context) => {
           //   if (context.user) {

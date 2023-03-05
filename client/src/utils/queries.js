@@ -54,6 +54,14 @@ query user($username: String!) {
   }
 }
 `;
+export const QUERY_ACCOMMODATION_CARDS = gql`
+query accommodationCards {
+  accommodationCards {
+    title
+    image
+  }
+}
+`;
 export const QUERY_BREAKS = gql`
 query Break($username: String!) {
   break(username: $username) {

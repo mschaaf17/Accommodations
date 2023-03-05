@@ -16,12 +16,12 @@ const userSchema = new Schema(
             required: true,
             minlength: 5
         },
-        // accommodations: [
-        //     {
-        //         type: Schema.Types.ObjectId,
-        //         ref: 'Accommodation'
-        //     }
-        // ],
+        accommodationCards: [
+            {
+                type: Schema.Types.ObjectId,
+                ref: 'AccommodationCards'
+            }
+        ],
         accommodations: [accommodationSchema],
         breaks: [
             {

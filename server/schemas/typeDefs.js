@@ -23,6 +23,13 @@ type Accommodation {
    
 }
 
+type AccommodationCards {
+    _id: ID
+    title: String
+    image: String
+    username: String   
+}
+
 type Break {
     _id: ID
     breakTaken: Boolean
@@ -55,6 +62,7 @@ type Query {
     me: User
     users: [User]
     user(username: String!): User
+    accommodationCards: [Accommodation]
     accommodations(username: String): [Accommodation]
     accommodation(_id: ID!): Accommodation
     break(username: String!) : [Break]
@@ -72,6 +80,7 @@ type Mutation {
     addSeatAway(_id: ID) : SeatAway
     addOutOfSeat(username: String): User
     removeAccommodation(_id: ID): User
+    addAccommodationCard(title: String, image: String, username: String): AccommodationCards
 }
 `;
 
