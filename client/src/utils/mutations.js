@@ -32,11 +32,16 @@ mutation addAccommodationCard($title: String, $image: String) {
 }
 `;
 
-export const ADD_ACCOMMODATION = gql`
-mutation addAccommodation ($title: String) {
-  addAccommodation (title: $title) {
-    title
+export const ADD_ACCOMMODATION_FOR_STUDENT = gql`
+mutation AddAccommodationForStudent($title: String, $image: String, $username: String) {
+  addAccommodationForStudent(title: $title, image: $image, username: $username) {
+    accommodations {
+      image
+      title
+      createdAt
+    }
   }
+  
 }
 `;
 

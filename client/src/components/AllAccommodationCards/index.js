@@ -5,15 +5,15 @@ import thumb from '../../assets/images/thumbs-up-solid.svg'
 
 
 
-const AllAccommodationCards = ({ accommodations}) => {
+const AllAccommodationCards = ({ accommodations, accommodationClicked}) => {
     const [style, setStyle] = useState('single_accom')
 
 
-
+//{changeStyle}
     const changeStyle = (index) => () => {
         setStyle(state => ({
             ...state, 
-            //[index]: !state[index]
+            [index]: !state[index]
         }))
     }
 
@@ -23,11 +23,15 @@ const AllAccommodationCards = ({ accommodations}) => {
     //     </div>
 
     // }
+
+
+    //NOT WORKING YET!!! STILL NEED TO ADD ACCOMMODTION CORRECTLY WHEN CLICKED
     return (
         <div>
              <div className='accom_section'>
              {accommodations && accommodations.map(accommodation => (
-                <div className={style} key={accommodation._id} onClick={changeStyle}>
+
+                <div className={style} key={accommodation._id}  onClick= {accommodationClicked}>
                      <h3>{accommodation.title}</h3>
                      <img className ="accomm_img" src={accommodation.image} alt ="Picture of accommodation" />
                      {/* <p>{accommodation.image}</p> */}

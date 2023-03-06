@@ -3,8 +3,9 @@
 //only person accessing student profile will be the teacher
 import React from 'react'
 import { Navigate, useParams, Link } from 'react-router-dom'
-import {useQuery} from '@apollo/client'
+import {useQuery, useMutation} from '@apollo/client'
 import { QUERY_ACCOMMODATION_CARDS } from '../../utils/queries';
+import { ADD_ACCOMMODATION_FOR_STUDENT } from '../../utils/mutations';
 //import {QUERY_USER, QUERY_ACCOMMODATION_CARDS, QUERY_ME} from '../../utils/queries'
 import AllAccommodationCards from '../../components/AllAccommodationCards';
 import Auth from '../../utils/auth'
@@ -16,6 +17,7 @@ export default function TeacherAddAccommodations() {
 // const {loading, data} = useQuery(QUERY_USER, {
 //   variables: {username: userParam}
 // })
+const [addAccommodationForStudent, {error}] = useMutation(ADD_ACCOMMODATION_FOR_STUDENT)
 
 const {loading, data} = useQuery(QUERY_ACCOMMODATION_CARDS)
 // const { loading, data } = useQuery(userParam ? QUERY_USER : QUERY_ME, {
@@ -31,7 +33,21 @@ const accommodationCards = data?.accommodationCards|| {};
 if (loading) {
   return <div>Loading...</div>;
 }
-
+const accommodationClicked = async () => {
+  try {
+    await addAccommodationForStudent({
+      
+      // variables: { id: user.breaks._id },
+      variables: { id: accommodationCards._id },
+      
+    });
+  } catch (e) {
+    console.error(e);
+  }
+  console.log('Accommodation has been clicked')
+  // need to cache this so that it renders immediately!
+ 
+};
 // if (!user?.username) {
 //   return (
 //     <h4>
@@ -43,9 +59,10 @@ if (loading) {
 
   return (
     <div>
-        <h2>Accommodation cards to pick</h2>
-        <AllAccommodationCards accommodations = {accommodationCards}/>
-        {/* if clicked it needs to add to the user! */}
+        <h2>Which accommodations does {userParam} need?</h2>
+        <AllAccommodationCards accommodations = {accommodationCards}
+        accommodationClicked = {accommodationCards}/>
+        {/* if added checkmark shows -- if clicked twich the accommodation is taken off */}
 
         <div className="buttons">
         <button className = "profile-options logout"><Link className=" link-to-page" to ={`/studentProfile/${userParam}/dataLogging`}>Log Data</Link></button>

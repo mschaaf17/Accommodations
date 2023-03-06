@@ -75,11 +75,11 @@ type Query {
 type Mutation {
     login(username: String!, password: String!): Auth
     addUser(username: String!, password: String!): Auth
-    addAccommodation(title: String, image: String, username: String): User
+    addAccommodationForStudent(title: String, image: String, username: String): User
     addBreak(_id: ID): Break
     addSeatAway(_id: ID) : SeatAway
     addOutOfSeat(username: String): User
-    removeAccommodation(_id: ID): User
+    removeAccommodationFromStudent(_id: ID): User
     addAccommodationCard(title: String, image: String, username: String): AccommodationCards
     removeAccommodationCard(_id: ID): AccommodationCards
 }

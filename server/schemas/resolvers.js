@@ -106,11 +106,12 @@ const resolvers = {
           // },
           //teacher has to add the accommodations for the student-- right now backend
           //is set up that the student has to be logged in to and add it for themselves
-          addAccommodation: async (parent, {username, image, title}, context) => {
+          addAccommodationForStudent: async (parent, {username, image, title}, context) => {
             if (context.user) {
               const accommodation = await User.findOneAndUpdate(
                 {username: username},
-                { $push: { accommodations: {title, image, username: context.user.username} } },
+                { $push: { accommodations: {title, image} } },
+                //, username: context.user.username
                 { new: true, runValidators: true }
               );
               console.log(accommodation)
@@ -128,8 +129,8 @@ const resolvers = {
       
             throw new AuthenticationError('Could not delete accommodation card');
           },
-          //not working correctly yet
-          removeAccommodation: async (parent, args, context) => {
+          //not working correctly yet should rename is to removeAccomodationFromStudent
+          removeAccommodationFromStudent: async (parent, args, context) => {
             if (context.user) {
               const accommodation = await User.findByIdAndDelete(args
                 // {_id: {accommodations: accommodation._id,}},
