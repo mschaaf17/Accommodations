@@ -21,6 +21,7 @@ import StudentProfile from './pages/StudentProfile'
 import DataLogging from './pages/DataLogging'
 import StudentCharts from './pages/StudentCharts'
 import TeacherAddAccommodations from './pages/TeacherAddAccommodations'
+import AdditionalStudentInfo from './pages/AdditionalStudentInfo'
 import NoMatch from './pages/NoMatch';
 
 
@@ -70,6 +71,7 @@ function App() {
             {/* </Route>  */}
          
           <Route path ="/studentProfile/:username/studentCharts" element ={<StudentCharts/>}/>
+          <Route path ="/studentProfile/:username/studentCharts/additionalStudentInfo" element ={<AdditionalStudentInfo/>}/>
           <Route path="*" element={<NoMatch />} />
         </Routes>
         <Footer />

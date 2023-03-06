@@ -5,6 +5,7 @@ import {useQuery} from '@apollo/client'
 import {QUERY_USER, QUERY_ME} from '../../utils/queries'
 import Auth from '../../utils/auth'
 import './index.css'
+import NavigationLinks from '../../components/NavigationLinks'
 
 //props was taken out in StudentProfile(props)
 export default function StudentProfile() {
@@ -48,15 +49,7 @@ if (loading) {
         {/* log data link to = log data page */}
         
         
-        <div className="buttons">
-          <button className='profile-options logout'><Link className=" link-to-page" to ={`/studentProfile/${userParam}/addAccommodations`}> Add Accommodations</Link></button>
-        <button className = "profile-options logout"><Link className=" link-to-page" to ={`/studentProfile/${userParam}/dataLogging`}>Log Data</Link></button>
-        <button className = "profile-options logout"><Link className=" link-to-page" to ={`/studentProfile/${userParam}/studentCharts`}>Charts</Link></button>
-        </div>
-        
-        
-        <div className="student-list-link"> <Link className="link-to-page logout" to ={`/teacherdata`}> ← Back to Student List</Link></div> 
-  
+      <NavigationLinks/>
 
     </div>
   )
