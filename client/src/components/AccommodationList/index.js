@@ -3,12 +3,8 @@ import {Link} from 'react-router-dom'
 import RecommendIcon from '@mui/icons-material/Recommend';
 import thumb from '../../assets/images/thumbs-up-solid.svg'
 
-
-
 const AccommodationList = ({ accommodations, title}) => {
     const [style, setStyle] = useState('single_accom')
-
-
 
     const changeStyle = (index) => () => {
         setStyle(state => ({

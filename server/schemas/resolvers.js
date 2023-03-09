@@ -106,6 +106,8 @@ const resolvers = {
           // },
           //teacher has to add the accommodations for the student-- right now backend
           //is set up that the student has to be logged in to and add it for themselves
+
+          //this one works if I know how to pass in image and title each time== below trying to pass in id only and get all things from accommodatecard
           addAccommodationForStudent: async (parent, {username, image, title}, context) => {
             if (context.user) {
               const accommodation = await User.findOneAndUpdate(
@@ -121,6 +123,23 @@ const resolvers = {
       
             throw new AuthenticationError('You need to be logged in!');
           },
+          // addAccommodationForStudent: async (parent, {_id, username}, context) => {
+          //   if (context.user) {
+          //     const updatedStudentAccommodations = await User.create({...args, username, image, title, _id, createdAt})
+          //     await User.findOneAndUpdate(
+          //       {username: username},
+          //       { $push: { accommodations: updatedStudentAccommodations._id} },
+          //       // { $push: { accommodations: {title, image} } },
+          //       //, username: context.user.username
+          //       { new: true, runValidators: true }
+          //     );
+          //     console.log(updatedStudentAccommodations)
+      
+          //     return updatedStudentAccommodations;
+          //   }
+      
+          //   throw new AuthenticationError('You need to be logged in!');
+          // },
           removeAccommodationCard: async (parent, args) => {
               const accommodation = await AccommodationCards.findByIdAndDelete(args);
               console.log(accommodation)

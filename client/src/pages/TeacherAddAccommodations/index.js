@@ -24,7 +24,7 @@ const {loading, data} = useQuery(QUERY_ACCOMMODATION_CARDS)
 //   variables: { username: userParam },
 // });
 
-const accommodationCards = data?.accommodationCards|| {};
+const accommodationCards = data?.accommodationCards || {};
 
 // if (Auth.loggedIn() && Auth.getProfile().data.username === userParam) {
 //   return <Navigate to={`/studentProfile:${user.username}`} />;
@@ -36,10 +36,13 @@ if (loading) {
 const accommodationClicked = async () => {
   try {
     await addAccommodationForStudent({
-      
+      //how does this know to get the title image and such where is it grabbing it
       // variables: { id: user.breaks._id },
-      variables: { id: accommodationCards._id },
+      // variables: { username: accommodationCards.userParam, title: accommodationCards.title, image: accommodationCards.image },
       
+      //this is working but it only grabbing the username and adding an id to it no image or title
+      //this is specificlaly set to an accommodation so I need to somehow get that info or make the id work!
+      variables: { username: userParam, title: accommodationCards.title, image: accommodationCards.image}
     });
   } catch (e) {
     console.error(e);
@@ -61,7 +64,7 @@ const accommodationClicked = async () => {
     <div>
         <h2>Which accommodations does {userParam} need?</h2>
         <AllAccommodationCards accommodations = {accommodationCards}
-        accommodationClicked = {accommodationCards}/>
+        accommodationClicked = {accommodationClicked}/>
         {/* if added checkmark shows -- if clicked twich the accommodation is taken off */}
 
         <div className="buttons">
