@@ -25,10 +25,10 @@
     -webkit-text-stroke-color: var(--black);
     margin-left: 2vw;
    display: inline-block;
-  color: white;
+  color: rgb(187, 170, 214);
   font-family: 'Righteous', serif;
   font-size: 54px; 
-  text-shadow: .03em .03em 0 hsla(230,40%,50%,1);
+  text-shadow: .15em .10em 0 hsla(230,40%,50%,1);
 
   }
 

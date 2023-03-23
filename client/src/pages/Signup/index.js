@@ -67,9 +67,10 @@ const Signup = () => {
           </div>
         </div>
       </div>
-      <div>
-          <Link className="login" to="/login"> Already a member? Login</Link>
-
+      <div className='start-section'>
+      <p className="not-a-member"> Already a member? {'  '}
+        <Link className="signup " to ="/login">Login</Link>
+        </p>
           </div>
     </main>
   );

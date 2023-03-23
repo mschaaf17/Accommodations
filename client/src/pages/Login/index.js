@@ -73,9 +73,10 @@ const Login = props => {
           </div>
         </div>
       </div>
-      <div>
-          <Link className ="signup-new "to="/signup"> New member? Sign up</Link>
-
+      <div className='start-section'>
+      <p className="not-a-member"> Not yet a member? {'  '}
+        <Link className="signup " to ="/signup">Sign up</Link>
+        </p>
           </div>
     </main>
     )
