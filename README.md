@@ -14,9 +14,14 @@ For students: This app will help them advocate for themselves by utilizing and u
 For teachers: This app will provide tools to minimize the amount of paperwork for special education teachers, and help all teachers assist students with appropriate accommodations, thus increasing inclusion in the general education classroom. 
 *Built with: Node.js, React, GraphQl, eCharts, Socket.io, and other npm packages.
 
-![image](https://user-images.githubusercontent.com/97362296/222934467-e705f853-7127-4b90-967c-df24acaaf2cd.png)
-![image](https://user-images.githubusercontent.com/97362296/222934672-ae0547ef-615e-4b53-b7ff-6b74a4f76975.png)
+![image](https://user-images.githubusercontent.com/97362296/227383596-0674cc18-fbca-4da6-9168-931011b4b40c.png)
 
+![image](https://user-images.githubusercontent.com/97362296/227383685-2f0621f6-e2ae-4952-abbe-110aa380087f.png)
+Watch Videos for current app demo:
+Part one: Student 
+https://www.loom.com/share/de08e7725f444beb9ab00bd7d921fb0c
+Part two: Teacher
+https://www.loom.com/share/ca2a64fe174f4eeb8ea34fb6a6b3a1ca
 
 
 
