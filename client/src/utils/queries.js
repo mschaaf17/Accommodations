@@ -6,6 +6,7 @@ query me {
     _id
   username 
   breakCount
+  isAdmin
   accommodations {
     title
     image
@@ -22,7 +23,8 @@ query me {
 export const QUERY_USERS = gql`
 query Users {
   users {
-  username  
+  username 
+  isAdmin 
   }
 }
 `;
@@ -32,6 +34,7 @@ query user($username: String!) {
   user(username: $username) {
   _id
   username
+  isAdmin
   breakCount
   outOfSeatCount
   seatAwayCount

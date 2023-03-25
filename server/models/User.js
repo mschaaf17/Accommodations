@@ -36,7 +36,11 @@ const userSchema = new Schema(
             }
         ],
         //out of seat is teacher logging for student
-        outOfSeat: [outOfSeatSchema]
+        outOfSeat: [outOfSeatSchema],
+        isAdmin: {
+            type: Boolean,
+            default: false
+        }
     },
     {
         toJSON: {

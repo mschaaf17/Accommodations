@@ -11,6 +11,7 @@ export default function StudentCharts() {
         <button><Link to ={`/studentProfile/${userParam}/studentCharts/additionalStudentInfo`}>Provide more Information on {userParam}</Link></button>
         {/* this button should be similar to a bip or the questionairre for student behavior such as a FBA */}
       <h2>Viewing Charts and Data for {userParam}</h2>
+      <button className = 'logout'>Print Student Data</button>
       <div>Frequency</div>
       <div>Duration</div>
       <div>Contract</div>

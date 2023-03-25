@@ -18,6 +18,7 @@ mutation addUser($username: String!, $password: String!) {
     user {
       _id
       username
+      isAdmin
     }
     token
   }

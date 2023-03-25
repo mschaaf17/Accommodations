@@ -8,14 +8,16 @@ import './index.css'
 import Auth from '../../utils/auth'
 
 const Signup = () => {
-    const [formState, setFormState] = useState({ username: '', password: ''})
+    const [formState, setFormState] = useState({ username: '', password: '', isAdmin: false})
     const [addUser, {error}] = useMutation(ADD_USER)
     const handleChange = event => {
         const { name, value } = event.target
 
         setFormState({
             ...formState,
-            [name]: value
+            [name]: value,
+            // isAdmin not working on front end--working on backend
+            isAdmin: true
         })
     }
 
@@ -58,6 +60,15 @@ const Signup = () => {
                 value={formState.password}
                 onChange={handleChange}
               />
+              {/* how to set up if checked change boolean value from false to true??? */}
+              <div> Are you a Teacher?
+              <input 
+              id='admin_teacher'
+              type="checkbox"
+              label='Teacher?'
+              value ={formState.isAdmin}
+              onChange={handleChange} />
+              </div>
               <button className="submit-btn" type="submit">
                 Submit
               </button>

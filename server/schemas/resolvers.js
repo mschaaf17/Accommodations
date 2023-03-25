@@ -12,6 +12,7 @@ const resolvers = {
                 .populate('accommodations')
                 .populate('breaks')
                 .populate('seatAwayTaken')
+                .populate('isAdmin')
 
                 return userData
             }
@@ -28,6 +29,7 @@ const resolvers = {
         .populate('accommodations')
         .populate('breaks')
         .populate('seatAwayTaken')
+        .populate('isAdmin')
        },
        accommodationCards: async () => {
         return AccommodationCards.find()

@@ -11,6 +11,7 @@ const typeDefs = gql `
         seatAwayTaken: [SeatAway]
         outOfSeatCount: Int
         outOfSeat: [OutOfSeat]
+        isAdmin: Boolean
 
     }
 
@@ -74,7 +75,7 @@ type Query {
 
 type Mutation {
     login(username: String!, password: String!): Auth
-    addUser(username: String!, password: String!): Auth
+    addUser(username: String!, password: String!, isAdmin: Boolean): Auth
     addAccommodationForStudent(title: String, image: String, username: String): User
     addBreak(_id: ID): Break
     addSeatAway(_id: ID) : SeatAway

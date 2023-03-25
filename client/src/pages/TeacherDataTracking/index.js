@@ -3,6 +3,7 @@ import { useQuery } from '@apollo/client'
 import {QUERY_USERS} from '../../utils/queries'
 import StudentList from '../../components/StudentList'
 import SearchBar from '../../components/SearchBar'
+import { Link } from 'react-router-dom'
 
 
 
@@ -16,7 +17,9 @@ export default function TeacherDataTracking() {
     <div>
       {/* student exported list for profiles to take data per student */}
       {/* get mern client profile pages */}
-      <button>Add a Student</button>
+  
+      <Link className='link-to-page logout center' to = {`/addstudent`}>Add a Student</Link> 
+
       <h2>Pick a student to start logging data</h2>
       
       <SearchBar placeholder={"Search Student Name"}/>

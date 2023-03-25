@@ -1,6 +1,7 @@
 import React, {useState} from 'react'
 import {Link} from 'react-router-dom'
-import {useMutation} from '@apollo/client'
+import {useMutation, useQuery} from '@apollo/client'
+import {QUERY_ME} from '../../utils/queries'
 import { LOGIN_USER } from '../../utils/mutations'
 import Auth from '../../utils/auth'
 import './index.css'
@@ -9,17 +10,18 @@ import './index.css'
 const Login = props => {
     const [formState, setFormState] = useState({ username: '', password: ''})
     const [login, {error}] = useMutation(LOGIN_USER)
+    const {loading, data} = useQuery(QUERY_ME)
+    const admin = data?.me.isAdmin || {}
+
     // update state based on form input changes
     const handleChange = event => {
         const {name, value} = event.target
-
         setFormState({
             ...formState,
             [name]: value
         })
     }
 
-    // submit form
     //if user is an admin direct the user to /TeacherDataTracking
     const handleFormSubmit = async event => {
         event.preventDefault()
@@ -28,7 +30,13 @@ const Login = props => {
             variables: {...formState},
           })
           Auth.login(data.login.token)
-          window.location.href = "/studentAccommodations"
+          //not working correctly
+          //Auth.loggedIn() &&
+           admin == true ? (
+          window.location.href = "/teacherdata"
+          ) : (
+            window.location.href ="/studentAccommodations"
+          )
 
         } catch (e) {
           console.log(e)
