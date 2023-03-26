@@ -16,12 +16,23 @@ const Login = props => {
     // update state based on form input changes
     const handleChange = event => {
         const {name, value} = event.target
+        // console.log(`this is admin ${admin}`)
+
         setFormState({
             ...formState,
             [name]: value
         })
     }
-
+      const adminLoggedIn = async(e) => {
+        await e.Auth.loggedIn()
+         
+        if(admin != true) {
+          window.location.href = "/studentAccommodations"
+        }
+        else {
+          window.location.href = "/teacherdata"
+        }
+      } 
     //if user is an admin direct the user to /TeacherDataTracking
     const handleFormSubmit = async event => {
         event.preventDefault()
@@ -30,13 +41,14 @@ const Login = props => {
             variables: {...formState},
           })
           Auth.login(data.login.token)
+          adminLoggedIn()
           //not working correctly
           //Auth.loggedIn() &&
-           admin == true ? (
-          window.location.href = "/teacherdata"
-          ) : (
-            window.location.href ="/studentAccommodations"
-          )
+          //  admin == true ? (
+          // window.location.href = "/teacherdata"
+          // ) : (
+          //   window.location.href ="/studentAccommodations"
+          // )
 
         } catch (e) {
           console.log(e)
