@@ -6,26 +6,25 @@ import { LOGIN_USER } from '../../utils/mutations'
 import Auth from '../../utils/auth'
 import './index.css'
 
-
 const Login = props => {
     const [formState, setFormState] = useState({ username: '', password: ''})
     const [login, {error}] = useMutation(LOGIN_USER)
     const {loading, data} = useQuery(QUERY_ME)
-    const admin = data?.me.isAdmin || {}
+    const admin = data?.me.isAdmin
 
     // update state based on form input changes
     const handleChange = event => {
         const {name, value} = event.target
-        // console.log(`this is admin ${admin}`)
-
+        
         setFormState({
             ...formState,
             [name]: value
         })
     }
+    //not working!!!
       const adminLoggedIn = async(e) => {
-        await e.Auth.loggedIn()
-         
+        await e.Auth.loggedIn() 
+
         if(admin != true) {
           window.location.href = "/studentAccommodations"
         }
@@ -41,6 +40,7 @@ const Login = props => {
             variables: {...formState},
           })
           Auth.login(data.login.token)
+         
           adminLoggedIn()
           //not working correctly
           //Auth.loggedIn() &&

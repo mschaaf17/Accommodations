@@ -59,7 +59,7 @@ export default function AddStudent() {
                 
             </div>
         ))}
-      
+       <div className="student-list-link"> <Link className="link-to-page logout" to ={`/teacherdata`}> ← Back to Student List</Link></div> 
     </div>
   )
 }

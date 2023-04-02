@@ -74,7 +74,7 @@ type Query {
 }
 
 type Mutation {
-    login(username: String!, password: String!): Auth
+    login(username: String!, password: String!, isAdmin: Boolean): Auth
     addUser(username: String!, password: String!, isAdmin: Boolean): Auth
     addAccommodationForStudent(title: String, image: String, username: String): User
     addBreak(_id: ID): Break

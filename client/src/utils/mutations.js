@@ -6,7 +6,7 @@ mutation login($username: String!, $password: String!) {
     token
   user {
     username
-    
+    isAdmin
   }  
   }
 }
