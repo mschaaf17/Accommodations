@@ -21,44 +21,32 @@ const Login = props => {
             [name]: value
         })
     }
-    //not working!!!
-      const adminLoggedIn = async(e) => {
-        await e.Auth.loggedIn() 
-
-        if(admin != true) {
-          window.location.href = "/studentAccommodations"
-        }
-        else {
-          window.location.href = "/teacherdata"
-        }
-      } 
-    //if user is an admin direct the user to /TeacherDataTracking
+    
     const handleFormSubmit = async event => {
-        event.preventDefault()
-        try {
-          const {data} = await login({
-            variables: {...formState},
-          })
-          Auth.login(data.login.token)
-         
-          adminLoggedIn()
-          //not working correctly
-          //Auth.loggedIn() &&
-          //  admin == true ? (
-          // window.location.href = "/teacherdata"
-          // ) : (
-          //   window.location.href ="/studentAccommodations"
-          // )
-
-        } catch (e) {
-          console.log(e)
+      event.preventDefault();
+      try {
+        const { data } = await login({
+          variables: { ...formState },
+        });
+        Auth.login(data.login.token);
+  
+      //not seeming to wait for loading before redirecting? tried making a seperate page at that still didnt work  
+        if (!loading && Auth.loggedIn() && admin != true) {
+          window.location.href = "/studentAccommodations";
+        } else {
+          window.location.href = "/teacherdata";
         }
-        // clear form values
-        setFormState({
-            username: '',
-            password: ''
-        })
-    }
+        
+      } catch (e) {
+        console.log(e);
+      }
+      
+      // Clear form values
+      setFormState({
+        username: "",
+        password: ""
+      });
+    };
 
     return (
         <main className="">
