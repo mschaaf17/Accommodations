@@ -5,6 +5,9 @@ query me {
   me {
     _id
   username 
+  students {
+    username
+  }
   breakCount
   isAdmin
   accommodations {
@@ -18,6 +21,15 @@ query me {
   }
   } 
   }
+`;
+export const QUERY_MY_STUDENTS = gql`
+query Me {
+  me {
+    students {
+      username
+    }
+  }
+}
 `;
 
 export const QUERY_USERS = gql`

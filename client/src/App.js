@@ -9,20 +9,20 @@ import {
 import { setContext } from '@apollo/client/link/context';
 
 import Home from './pages/Home/'
-import StudentAccommodations  from './pages/StudentAccommodations/';
-import BreakTimer from './pages/BreakTimer'
+import StudentAccommodations  from './pages/StudentPages/StudentAccommodations';
+import BreakTimer from './pages/StudentPages/BreakTimer'
 import Header from './components/Header'
 import Footer from './components/Footer'
 import Login from './pages/Login'
 import Signup from './pages/Signup'
 import StudentGraph from './pages/StudentViewableGraphs'
-import TeacherDataTracking from './pages/TeacherDataTracking'
-import StudentProfile from './pages/StudentProfile'
-import DataLogging from './pages/DataLogging'
-import StudentCharts from './pages/StudentCharts'
-import TeacherAddAccommodations from './pages/TeacherAddAccommodations'
-import AdditionalStudentInfo from './pages/AdditionalStudentInfo'
-import AddStudent from './pages/AddStudent'
+import TeacherDataTracking from './pages/TeacherPages/TeacherDataTracking'
+import StudentProfile from './pages/StudentPages/StudentProfile'
+import DataLogging from './pages/TeacherPages/DataLogging'
+import StudentCharts from './pages/TeacherPages/StudentCharts'
+import TeacherAddAccommodations from './pages/TeacherPages/TeacherAddAccommodations'
+import AdditionalStudentInfo from './pages/TeacherPages/AdditionalStudentInfo'
+import AddStudent from './pages/TeacherPages/AddStudent'
 import NoMatch from './pages/NoMatch';
 
 

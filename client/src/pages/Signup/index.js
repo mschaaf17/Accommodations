@@ -10,16 +10,24 @@ import Auth from '../../utils/auth'
 const Signup = () => {
     const [formState, setFormState] = useState({ username: '', password: '', isAdmin: false})
     const [addUser, {error}] = useMutation(ADD_USER)
-    const handleChange = event => {
-        const { name, value } = event.target
 
-        setFormState({
+    const handleChange = event => {
+        const { name, value, type, checked } = event.target
+        if (type === 'checkbox'){
+          setFormState({
             ...formState,
-            [name]: value,
-            // isAdmin not working on front end--working on backend
-            isAdmin: true
+            [name]: checked
+          })
+        } else {
+          setFormState({
+            ...formState,
+            [name]: value
+            
         })
     }
+        }
+
+       
 
     const handleFormSubmit = async event => {
         event.preventDefault()
@@ -65,8 +73,9 @@ const Signup = () => {
               <input 
               id='admin_teacher'
               type="checkbox"
+              name="isAdmin"
               label='Teacher?'
-              value ={formState.isAdmin}
+              checked ={formState.isAdmin}
               onChange={handleChange} />
               </div>
               <button className="submit-btn" type="submit">

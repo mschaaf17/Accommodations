@@ -5,6 +5,7 @@ const typeDefs = gql `
         _id: ID
         username: String
         accommodations: [Accommodation]
+        students: [User]
         breakCount: Int
         breaks: [Break]
         seatAwayCount: Int
@@ -66,6 +67,7 @@ type Query {
     accommodationCards: [Accommodation]
     accommodations(username: String): [Accommodation]
     accommodation(_id: ID!): Accommodation
+    students(username: String!): User
     break(username: String!) : [Break]
     seatAway(username: String!) : [SeatAway]
     outOfSeatQuery(username: String) : [OutOfSeat]
@@ -80,9 +82,10 @@ type Mutation {
     addBreak(_id: ID): Break
     addSeatAway(_id: ID) : SeatAway
     addOutOfSeat(username: String): User
-    removeAccommodationFromStudent(_id: ID): User
+    removeAccommodationFromStudent(accommodationId: ID!, username: String!): User
     addAccommodationCard(title: String, image: String, username: String): AccommodationCards
     removeAccommodationCard(_id: ID): AccommodationCards
+    addStudentToList(studentId: ID!): User
 }
 `;
 

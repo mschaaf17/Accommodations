@@ -23,6 +23,7 @@
     "url": "https://github.com/mschaaf17/Accommodations"
   },
   "dependencies": {
-    "date-fns": "^2.30.0"
+    "date-fns": "^2.30.0",
+    "mongoose": "^7.1.1"
   }
 }

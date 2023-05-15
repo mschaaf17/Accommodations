@@ -11,6 +11,7 @@ const Login = props => {
     const [login, {error}] = useMutation(LOGIN_USER)
     const {loading, data} = useQuery(QUERY_ME)
     const admin = data?.me.isAdmin
+    console.log(data)
 
     // update state based on form input changes
     const handleChange = event => {

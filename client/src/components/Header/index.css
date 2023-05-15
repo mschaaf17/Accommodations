@@ -75,6 +75,11 @@
     border-radius: 25px;
     padding-bottom: 5px;
 }
+.logout.active {
+    box-shadow: inset 0 -45px 0 0 cadetblue; 
+    border-radius: 25px;
+    padding-bottom: 5px;
+}
 
 
 .mySupport {

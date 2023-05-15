@@ -1,11 +1,11 @@
 import React, { useState, useEffect} from 'react'
 import { Link } from 'react-router-dom'
 import './index.css'
-import Auth from '../../utils/auth'
+import Auth from '../../../utils/auth'
 
 
 import {useQuery} from '@apollo/client'
-import {QUERY_USER} from '../../utils/queries'
+import {QUERY_USER} from '../../../utils/queries'
 
 const BreakTimer= (breakCount) => {
 // query break amount length

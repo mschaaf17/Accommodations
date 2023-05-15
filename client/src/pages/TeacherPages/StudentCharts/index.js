@@ -1,9 +1,9 @@
 import React, {useState} from 'react'
 import { Link, useParams } from 'react-router-dom'
-import NavigationLinks from '../../components/NavigationLinks'
+import NavigationLinks from '../../../components/NavigationLinks'
 import { useQuery } from '@apollo/client';
-import WeeklyData from '../../components/StudentData/weekly'
-import {QUERY_USER, QUERY_BREAKS} from '../../utils/queries'
+import WeeklyData from '../../../components/StudentData/weekly'
+import {QUERY_USER, QUERY_BREAKS} from '../../../utils/queries'
 
 // Student Charts for frequency, duration?? eloping/aggression/other?, observation form, abc data   
 export default function StudentCharts() {

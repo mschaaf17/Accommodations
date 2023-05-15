@@ -1,12 +1,12 @@
 import React, {useEffect, useState} from 'react'
 import { Link, useParams } from 'react-router-dom'
 import {useQuery} from '@apollo/client'
-import {QUERY_USER, QUERY_ME} from '../../utils/queries'
-import Duration from '../../components/DataTrackingMeasures/duration'
-import ABC from '../../components/DataTrackingMeasures/ABC'
-import Frequency from '../../components/DataTrackingMeasures/frequency'
-import Observation from '../../components/DataTrackingMeasures/observation'
-import Contracts from '../../components/DataTrackingMeasures/Contracts'
+import {QUERY_USER, QUERY_ME} from '../../../utils/queries'
+import Duration from '../../../components/DataTrackingMeasures/duration'
+import ABC from '../../../components/DataTrackingMeasures/ABC'
+import Frequency from '../../../components/DataTrackingMeasures/frequency'
+import Observation from '../../../components/DataTrackingMeasures/observation'
+import Contracts from '../../../components/DataTrackingMeasures/Contracts'
 
 
 export default function DataLogging() {

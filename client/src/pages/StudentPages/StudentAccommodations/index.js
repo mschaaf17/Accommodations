@@ -1,14 +1,13 @@
 import React from 'react'
 import {Navigate, useParams, Link} from 'react-router-dom'
 import './index.css';
-import AccommodationList from '../../components/AccommodationList';
-import Messaging from '../../components/Messaging'
+import AccommodationList from '../../../components/AccommodationList';
+import Messaging from '../../../components/Messaging'
 // import BreakCard from '../../components/Break'
-import BreakTimer from '../BreakTimer'
-import Auth from '../../utils/auth'
+import Auth from '../../../utils/auth'
 import {useQuery, useMutation} from '@apollo/client'
-import { QUERY_ACCOMMODATIONS, QUERY_BREAKS, QUERY_ME, QUERY_USER } from '../../utils/queries';
-import { ADD_BREAK} from '../../utils/mutations'
+import { QUERY_ACCOMMODATIONS, QUERY_BREAKS, QUERY_ME, QUERY_USER } from '../../../utils/queries';
+import { ADD_BREAK} from '../../../utils/mutations'
 
 
 const StudentAccommodations =(props)=> {

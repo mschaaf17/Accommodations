@@ -13,6 +13,7 @@ const resolvers = {
                 .populate('breaks')
                 .populate('seatAwayTaken')
                 .populate('isAdmin')
+                .populate('students')
 
                 return userData
             }
@@ -89,59 +90,25 @@ const resolvers = {
             return { accommodationCards };
           },
 
-          //add accommodation is for the teacher to add specific acommodations
-          // addAccommodation: async (parent, args, context) => {
-          //   if (context.user) {
-          //     const accommodation = await Accommodation.create({ ...args, username: context.user.username });
-      
-          //     await User.findByIdAndUpdate(
-          //       { _id: context.user._id },
-          //       { $push: { accommodations: accommodation._id } },
-          //       { new: true }
-          //     );
-          //     console.log(accommodation)
-      
-          //     return accommodation;
-          //   }
-      
-          //   throw new AuthenticationError('You need to be logged in!');
-          // },
-          //teacher has to add the accommodations for the student-- right now backend
-          //is set up that the student has to be logged in to and add it for themselves
-
-          //this one works if I know how to pass in image and title each time== below trying to pass in id only and get all things from accommodatecard
-          addAccommodationForStudent: async (parent, {username, image, title}, context) => {
-            if (context.user) {
-              const accommodation = await User.findOneAndUpdate(
-                {username: username},
-                { $push: { accommodations: {title, image} } },
-                //, username: context.user.username
+          addAccommodationForStudent: async (parent, { username, image, title }, context) => {
+            if (context.user && context.user.isAdmin) {
+              const accommodation = { title, image }; 
+              const user = await User.findOneAndUpdate(
+                { username: username },
+                { $push: { accommodations: accommodation } },
                 { new: true, runValidators: true }
               );
-              console.log(accommodation)
-      
-              return accommodation;
+          
+              if (!user) {
+                throw new AuthenticationError('Incorrect credentials');
+              }
+          
+              return user; 
             }
-      
-            throw new AuthenticationError('You need to be logged in!');
+          
+            throw new AuthenticationError('You need to be logged in as an administrator!');
           },
-          // addAccommodationForStudent: async (parent, {_id, username}, context) => {
-          //   if (context.user) {
-          //     const updatedStudentAccommodations = await User.create({...args, username, image, title, _id, createdAt})
-          //     await User.findOneAndUpdate(
-          //       {username: username},
-          //       { $push: { accommodations: updatedStudentAccommodations._id} },
-          //       // { $push: { accommodations: {title, image} } },
-          //       //, username: context.user.username
-          //       { new: true, runValidators: true }
-          //     );
-          //     console.log(updatedStudentAccommodations)
-      
-          //     return updatedStudentAccommodations;
-          //   }
-      
-          //   throw new AuthenticationError('You need to be logged in!');
-          // },
+          
           removeAccommodationCard: async (parent, args) => {
               const accommodation = await AccommodationCards.findByIdAndDelete(args);
               console.log(accommodation)
@@ -150,21 +117,37 @@ const resolvers = {
       
             throw new AuthenticationError('Could not delete accommodation card');
           },
-          //not working correctly yet should rename is to removeAccomodationFromStudent
-          removeAccommodationFromStudent: async (parent, args, context) => {
-            if (context.user) {
-              const accommodation = await User.findByIdAndDelete(args
-                // {_id: {accommodations: accommodation._id,}},
-                //{ $pull: { accommodations: accommodation._id }},
-               // { new: true, runValidators: true }
+          
+          removeAccommodationFromStudent: async (parent, {accommodationId, username}, context) => {
+            if (context.user && context.user.isAdmin) {
+              const user = await User.findOneAndUpdate(
+                { username: username},
+                {$pull: {accommodations: {_id: accommodationId}}},
+                {new: true, runValidators: true}
               );
-              console.log(accommodation)
-      
-              return accommodation;
+              if(!user){
+                throw new AuthenticationError('Inccorrect username')
+              }
+              return user;
             }
       
-            throw new AuthenticationError('You need to be logged in!');
+            throw new AuthenticationError('You need to be logged in as an admin!');
           },
+          addStudentToList: async (parent, { studentId }, context) => {
+            if (context.user) {
+              const updatedUser = await User.findOneAndUpdate(
+                { _id: context.user._id },
+                { $addToSet: { students: studentId } },
+                { new: true }
+              ).populate('students');
+          
+              return updatedUser;
+            }
+          
+            throw new AuthenticationError('You need to be logged in as an admin!');
+          },
+
+      
           //add break comes from the student
           addBreak: async (parent, args, context) => {
             if (context.user) {
@@ -199,22 +182,22 @@ const resolvers = {
       
             throw new AuthenticationError('You need to be logged in!');
           },
-           addSeatAway: async (parent, args, context) => {
-            if (context.user) {
-              const updatedSeatAway = await SeatAway.create({ ...args, username: context.user.username });
+          //  addSeatAway: async (parent, args, context) => {
+          //   if (context.user) {
+          //     const updatedSeatAway = await SeatAway.create({ ...args, username: context.user.username });
       
-              await User.findByIdAndUpdate(
-                { _id: context.user._id },
-                { $push: { seatAwayTaken: updatedSeatAway._id } },
-                { new: true, runValidators: true }
-              );
-              console.log(updatedSeatAway)
+          //     await User.findByIdAndUpdate(
+          //       { _id: context.user._id },
+          //       { $push: { seatAwayTaken: updatedSeatAway._id } },
+          //       { new: true, runValidators: true }
+          //     );
+          //     console.log(updatedSeatAway)
       
-              return updatedSeatAway;
-            }
+          //     return updatedSeatAway;
+          //   }
       
-            throw new AuthenticationError('You need to be logged in!');
-          },
+          //   throw new AuthenticationError('You need to be logged in!');
+          // },
           //out of seat comes from teacher logging
           addOutOfSeat: async (parent, {username, createdAt}, context) => {
            if(context.user){

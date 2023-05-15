@@ -23,6 +23,12 @@ const userSchema = new Schema(
             }
         ],
         accommodations: [accommodationSchema],
+        students: [
+            {
+            type: Schema.Types.ObjectId,
+            ref: 'User'
+            }
+        ],
         breaks: [
             {
                 type: Schema.Types.ObjectId,
@@ -49,6 +55,9 @@ const userSchema = new Schema(
       }
 )
 
+userSchema.virtual('studentCount').get(function(){
+    return this.students.length;
+})
 userSchema.virtual('breakCount').get(function() {
     return this.breaks.length;
 })
@@ -59,6 +68,7 @@ userSchema.virtual('seatAwayCount').get(function() {
 userSchema.virtual('outOfSeatCount').get(function() {
     return this.outOfSeat.length;
 })
+
 
 
 // set up pre-save middleware to create password

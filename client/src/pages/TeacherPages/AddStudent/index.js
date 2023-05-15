@@ -1,13 +1,15 @@
 import React, {useState} from 'react'
-import { useQuery } from '@apollo/client'
-import {QUERY_USERS} from '../../utils/queries'
-import StudentList from '../../components/StudentList'
-import SearchBar from '../../components/SearchBar'
+import { useQuery, useMutation } from '@apollo/client'
+import {QUERY_USERS} from '../../../utils/queries'
+import StudentList from '../../../components/StudentList'
+import SearchBar from '../../../components/SearchBar'
 import { Link } from 'react-router-dom'
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import AddIcon from '@mui/icons-material/Add';
 import CheckIcon from '@mui/icons-material/Check';
 import './index.css'
+import ADD_STUDENT_TO_List from '../../../utils/mutations'
+
 
 //adding a studnet should only be available if the student made an account?
 //if clicked adds the student to the teachers list -for the teacher logged in
@@ -43,7 +45,7 @@ export default function AddStudent() {
       {/* search bar needs to only allow a add or remove instead of going to the students data */}
       <SearchBar placeholder={"Search Student Name"}/>
       {Object.values(getAllUsers &&
-        getAllUsers).map((users, index) => (
+        getAllUsers).filter(user => user.isAdmin === false).map((users, index) => (
             <div className = 'each_student' key={index}>
                 <p>{users.username}</p>
                 {/* need to add the check to the cache or the backend to display when a student is added all the time */}
