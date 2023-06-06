@@ -1,4 +1,4 @@
-# SpedTacular
+# Sped Data Collecting Tool
 
 ## Table of Contents
 * [Description](#description)
