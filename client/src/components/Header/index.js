@@ -6,6 +6,7 @@ import './index.css'
 import Auth from '../../utils/auth'
 
 const Header = () => {
+
   const [activeLink, setActiveLink] = useState('')
   const {loading, data} = useQuery(QUERY_ME)
   const admin = data?.me.isAdmin || {}
@@ -38,7 +39,7 @@ const Header = () => {
           </>
         ) : Auth.loggedIn() && admin === true ? (
           <>
-            <a className={`logout ${activeLink === '/teacherdata' ? 'active' : ''}`} href="/teacherdata">Teacher Tracking</a>
+            <a className={`logout ${activeLink === '/teacherdata/' + data?.me.username ? 'active' : ''}`} href={"/teacherdata/" + data?.me.username}>Teacher Tracking</a>
             <a className="logout" href="/" onClick={logout}>Logout</a>
           </>
           )

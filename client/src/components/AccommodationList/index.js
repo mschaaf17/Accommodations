@@ -16,7 +16,6 @@ const AccommodationList = ({ accommodations, title}) => {
     if (!accommodations.length) {
         return <div>
             <h3>No Accommodations Available</h3>
-            <p>If testing then login as the username: kevin_12345 password: password</p>
         </div>
 
     }

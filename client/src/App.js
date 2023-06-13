@@ -57,7 +57,7 @@ function App() {
           <Route path ="/studentAccommodations" element = {<StudentAccommodations/>} />
           <Route path ="/breakTimer" element ={<BreakTimer/>} />
           <Route path ="/data" element = {<StudentGraph/>}/>
-          <Route path = "/teacherdata" element = {<TeacherDataTracking/>}/>
+          <Route path = "/teacherdata/:username" element = {<TeacherDataTracking/>}/>
           <Route path ="/studentProfile/:username" element={<StudentProfile/>}/>
           <Route path ="/studentProfile/:username/addAccommodations" element ={<TeacherAddAccommodations/>}/>
             {/* <Route path =":username" element ={<StudentProfile/>}/>
@@ -73,7 +73,7 @@ function App() {
          
           <Route path ="/studentProfile/:username/studentCharts" element ={<StudentCharts/>}/>
           <Route path ="/studentProfile/:username/studentCharts/additionalStudentInfo" element ={<AdditionalStudentInfo/>}/>
-          <Route path ="/addstudent" element = {<AddStudent/>}/>
+          <Route path ="/addstudent/:username" element = {<AddStudent/>}/>
           <Route path="*" element={<NoMatch />} />
         </Routes>
         <Footer />

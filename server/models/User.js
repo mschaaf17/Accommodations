@@ -2,6 +2,7 @@ const { Schema, model } = require('mongoose')
 const bcrypt = require('bcrypt')
 const outOfSeatSchema = require('./OutOfSeat')
 const accommodationSchema = require('./Accommodations')
+//import moment from 'moment'
 
 const userSchema = new Schema(
     {
@@ -41,6 +42,20 @@ const userSchema = new Schema(
                 ref: 'SeatAway'
             }
         ],
+        seatAwayCountByDay: [
+            {
+                date: {
+                    type: Date,
+                    require: true,
+                },
+                count: {
+                    type: Number,
+                    required: true,
+                    default: 0
+                }
+            }
+        ],
+       
         //out of seat is teacher logging for student
         outOfSeat: [outOfSeatSchema],
         isAdmin: {

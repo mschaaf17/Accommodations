@@ -2,6 +2,7 @@ const { Schema, model } = require('mongoose')
 const dateFormat = require('../utils/dateFormat');
 
 
+
 const outOfSeatSchema = new Schema(
     {
         createdAt: {
@@ -11,7 +12,20 @@ const outOfSeatSchema = new Schema(
         },
         username: {
             type: String
-        }
+        },
+        outOfSeatCountByDay: [
+            {
+                date: {
+                    type: Date,
+                    require: true,
+                },
+                count: {
+                    type: Number,
+                    required: true,
+                    default: 0
+                }
+            }
+        ],
     },
     {
     toJSON: {

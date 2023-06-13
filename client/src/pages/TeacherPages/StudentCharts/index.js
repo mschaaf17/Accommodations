@@ -47,7 +47,7 @@ export default function StudentCharts() {
       <div>
         Intervention Suggestions:
       </div>
-      <div> <Link className="link-to-page logout" to ={`/teacherdata`}> ← Back to Student List</Link></div>
+      <div> <Link className="link-to-page logout" to ={`/teacherdata/${userParam}`}> ← Back to Student List</Link></div>
     </div>
     </>
   )

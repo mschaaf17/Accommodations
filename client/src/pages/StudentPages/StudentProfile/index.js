@@ -26,7 +26,7 @@ const user = data?.me || data?.user || {};
 // }
 
 if (loading) {
-  return <div>Loading...</div>;
+  return <div className='loader'>Loading...</div>;
 }
 
 // if (!user?.username) {

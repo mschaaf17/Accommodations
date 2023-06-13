@@ -1,8 +1,11 @@
 import React from 'react'
 import { Navigate, useParams, Link } from 'react-router-dom'
+import { useQuery } from '@apollo/client'
+import {QUERY_ME} from '../../utils/queries'
 
 export default function NavigationLinks() {
     const { username: userParam } = useParams()
+    const {loading, data} = useQuery(QUERY_ME)
   return (
     <div>
 
@@ -13,7 +16,7 @@ export default function NavigationLinks() {
         </div>
         
         
-        <div className="student-list-link"> <Link className="link-to-page logout" to ={`/teacherdata`}> ← Back to Student List</Link></div> 
+        <div className="student-list-link"> <Link className="link-to-page logout" to ={`/teacherdata/${data?.me.username}`}> ← Back to Student List</Link></div> 
   
 
     </div>

@@ -45,7 +45,7 @@ export default function DataLogging() {
     const [state, setState] = useState(initalState)
 
     if (loading) {
-      return <div>Loading...</div>;
+      return <div className='loader'>Loading...</div>;
     }
 
   return (
@@ -88,7 +88,7 @@ export default function DataLogging() {
       <div className="view-other-pages">
       {/* <a href ="/studentCharts">View student charts</a> */}
 {/*need a userparam because it wont know what user to look at the charts for!  */}
-     <div> <Link className="link-to-page logout" to ={`/teacherdata`}> ← Back to Student List</Link></div>
+     <div> <Link className="link-to-page logout" to ={`/teacherdata/${userParam}`}> ← Back to Student List</Link></div>
       <div ><Link  className="link-to-page logout" to ={`/studentProfile/${userParam}/studentCharts`}>Student Charts → </Link></div>
       </div>
     </div>

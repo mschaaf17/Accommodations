@@ -1,4 +1,4 @@
-.user_list {
+/* .user_list {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
@@ -16,6 +16,10 @@
 .each_student:hover {
     box-shadow: 9px 5px 2px rgb(237, 226, 237);
 }
+.center_only {
+    display: flex;
+    justify-content: center;
+}
 
 .center {
     display: flex;
@@ -27,4 +31,4 @@
     border-radius: 25px;
     background-color: purple;
     margin: 5px;
-}
+} */

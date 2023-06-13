@@ -20,7 +20,7 @@ export default function TeacherAddAccommodations() {
   const [clickedAccommodations, setClickedAccommodations] = useState([]);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <div className='loader'>Loading...</div>;
   }
 
   const accommodationClicked = async (id, title, image) => {
@@ -77,7 +77,7 @@ export default function TeacherAddAccommodations() {
       </div>
 
       <div className="student-list-link">
-        <Link className="link-to-page logout" to="/teacherdata">
+        <Link className="link-to-page logout" to={`/teacherdata/${userParam}`}>
           ← Back to Student List
         </Link>
       </div>

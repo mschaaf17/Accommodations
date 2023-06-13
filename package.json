@@ -24,6 +24,7 @@
   },
   "dependencies": {
     "date-fns": "^2.30.0",
+    "moment": "^2.29.4",
     "mongoose": "^7.1.1"
   }
 }

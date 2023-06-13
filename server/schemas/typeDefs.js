@@ -53,7 +53,12 @@ type OutOfSeat {
     _id: ID
     createdAt: String
     username: String
+    outOfSeatCountByDay: [OutOfSeatCountByDay]
 }
+type OutOfSeatCountByDay {
+    date: String
+    count: Int
+  }
 
 type Auth {
     token: ID!
@@ -86,6 +91,7 @@ type Mutation {
     addAccommodationCard(title: String, image: String, username: String): AccommodationCards
     removeAccommodationCard(_id: ID): AccommodationCards
     addStudentToList(studentId: ID!): User
+    removeStudentFromList(studentId: ID!): User
 }
 `;
 

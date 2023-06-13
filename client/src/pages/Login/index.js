@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, userParam} from 'react'
 import {Link} from 'react-router-dom'
 import {useMutation, useQuery} from '@apollo/client'
 import {QUERY_ME} from '../../utils/queries'
@@ -7,11 +7,16 @@ import Auth from '../../utils/auth'
 import './index.css'
 
 const Login = props => {
+  // const { username: userParam } = useParams()
     const [formState, setFormState] = useState({ username: '', password: ''})
     const [login, {error}] = useMutation(LOGIN_USER)
     const {loading, data} = useQuery(QUERY_ME)
     const admin = data?.me.isAdmin
     console.log(data)
+    
+    if (loading) {
+      return <div className='loader'>Loading...</div>;
+    }
 
     // update state based on form input changes
     const handleChange = event => {
@@ -35,7 +40,7 @@ const Login = props => {
         if (!loading && Auth.loggedIn() && admin != true) {
           window.location.href = "/studentAccommodations";
         } else {
-          window.location.href = "/teacherdata";
+          window.location.href = `/teacherdata/${data?.me.username}`;
         }
         
       } catch (e) {
@@ -49,6 +54,8 @@ const Login = props => {
       });
     };
 
+
+    
     return (
         <main className="">
       <div className="">

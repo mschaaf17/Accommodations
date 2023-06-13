@@ -7,6 +7,7 @@ query me {
   username 
   students {
     username
+    _id
   }
   breakCount
   isAdmin
@@ -22,21 +23,14 @@ query me {
   } 
   }
 `;
-export const QUERY_MY_STUDENTS = gql`
-query Me {
-  me {
-    students {
-      username
-    }
-  }
-}
-`;
+
 
 export const QUERY_USERS = gql`
 query Users {
   users {
   username 
   isAdmin 
+  _id
   }
 }
 `;

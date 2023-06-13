@@ -60,7 +60,7 @@ h1 {
 .you {
     padding-right: 5px;
 }
-.btn {
+.btn-home {
     padding: 40px 50px;
     background: orange;
     position: relative;
@@ -86,7 +86,7 @@ h1 {
     z-index: 1; */
 }
 
-.btn:after {
+.btn-home:after {
     content: " ";
     border: solid transparent;
     border-width: 0;
@@ -100,7 +100,7 @@ h1 {
   
     
 }
-.btn:hover:after {
+.btn-home:hover:after {
     content: " ";
     display:block;
     border: solid transparent;

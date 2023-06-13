@@ -1,6 +1,7 @@
 const { AuthenticationError } = require('apollo-server-express')
 const { User, Accommodation, AccommodationCards, Break , OutOfSeat, SeatAway} = require('../models');
 const { signToken } = require('../utils/auth');
+const moment = require('moment')
 
 
 const resolvers = {
@@ -14,6 +15,7 @@ const resolvers = {
                 .populate('seatAwayTaken')
                 .populate('isAdmin')
                 .populate('students')
+                .populate('outOfSeat')
 
                 return userData
             }
@@ -26,12 +28,21 @@ const resolvers = {
        },
        user: async (parent, { username }) => {
         return User.findOne({ username })
-        .select('-__v -password')
-        .populate('accommodations')
-        .populate('breaks')
-        .populate('seatAwayTaken')
-        .populate('isAdmin')
-       },
+          .select('-__v -password')
+          .populate('accommodations')
+          .populate('breaks')
+          .populate('seatAwayTaken')
+          .populate('isAdmin')
+          .populate('students')
+          .populate('outOfSeat')
+          .populate({
+            path: 'outOfSeat',
+            populate: {
+              path: 'outOfSeatCountByDay',
+            },
+          });
+      },
+      
        accommodationCards: async () => {
         return AccommodationCards.find()
        },
@@ -146,6 +157,19 @@ const resolvers = {
           
             throw new AuthenticationError('You need to be logged in as an admin!');
           },
+          removeStudentFromList: async (parent, { studentId }, context) => {
+            if (context.user && context.user.isAdmin) {
+              const updatedUser = await User.findOneAndUpdate(
+                { _id: context.user._id },
+                { $pull: { students:  studentId }},
+                { new: true }
+              ).populate('students');
+          
+              return updatedUser;
+            }
+          
+            throw new AuthenticationError('You need to be logged in as an admin!');
+          },
 
       
           //add break comes from the student
@@ -167,21 +191,44 @@ const resolvers = {
           },
           //add seat away comes from the student-- will need to be connected to accommodation card
           addSeatAway: async (parent, args, context) => {
-            if (context.user) {
-              const updatedSeatAway = await SeatAway.create({ ...args, username: context.user.username });
-      
+            if (context.user && context.user.isAdmin) {
+              const { studentId, ...seatAwayData } = args;
+          
+              const updatedSeatAway = await SeatAway.create({
+                ...seatAwayData,
+                username: context.user.username,
+              });
+          
               await User.findByIdAndUpdate(
-                { _id: context.user._id },
-                { $push: { seatAwayTaken: updatedSeatAway._id } },
-                { new: true, runValidators: true }
+                { _id: studentId },
+                {
+                  $push: { seatAwayTaken: updatedSeatAway._id },
+                  $inc: { seatAwayTotalCount: 1 },
+                  $inc: { 'seatAwayCountByDay.$[elem].count': 1 },
+                },
+                {
+                  new: true,
+                  runValidators: true,
+                  arrayFilters: [
+                    {
+                      'elem.date': {
+                        $eq: {
+                          $dateToString: { format: '%Y-%m-%d', date: args.createdAt },
+                        },
+                      },
+                    },
+                  ],
+                }
               );
-              console.log(updatedSeatAway)
-      
+          
+              console.log(updatedSeatAway);
+          
               return updatedSeatAway;
             }
-      
-            throw new AuthenticationError('You need to be logged in!');
+          
+            throw new AuthenticationError('You need to be logged in as an admin!');
           },
+          
           //  addSeatAway: async (parent, args, context) => {
           //   if (context.user) {
           //     const updatedSeatAway = await SeatAway.create({ ...args, username: context.user.username });
@@ -199,21 +246,143 @@ const resolvers = {
           //   throw new AuthenticationError('You need to be logged in!');
           // },
           //out of seat comes from teacher logging
-          addOutOfSeat: async (parent, {username, createdAt}, context) => {
-           if(context.user){
-            
-              const updatedOutOfSeat = await User.findOneAndUpdate(
-                {username: username},
-                {$push: {outOfSeat: {createdAt, username: context.user.username}}},
-                {new: true, runValidators: true}
-                )      
-              console.log(updatedOutOfSeat)
-      
-              return updatedOutOfSeat;
+
+          
+          //if i try to use moment-- need to download moment
+          // addOutOfSeat: async (parent, { username, createdAt }, context) => {
+          //   if (context.user) {
+          //     const query = {
+          //       username,
+          //       'outOfSeat.createdAt': {
+          //         $gte: moment(createdAt).startOf('day').toDate(),
+          //         $lte: moment(createdAt).endOf('day').toDate(),
+          //       },
+          //     };
+          //     const update = {
+          //       $push: { 'outOfSeat.$.outOfSeatCountByDay': { date: createdAt, count: 1 } },
+          //     };
+          //     const options = { new: true, runValidators: true };
+          
+          //     const updatedUser = await User.findOneAndUpdate(query, update, options)
+          //       .select('-__v -password')
+          //       .populate('accommodations')
+          //       .populate('breaks')
+          //       .populate('seatAwayTaken')
+          //       .populate('isAdmin')
+          //       .populate('students')
+          //       .populate({
+          //         path: 'outOfSeat',
+          //         populate: {
+          //           path: 'outOfSeatCountByDay',
+          //         },
+          //       });
+          
+          //     console.log(updatedUser);
+          
+          //     return updatedUser;
+          //   }
+          
+          //   throw new AuthenticationError('You need to be logged in!');
+          // },
+          
+          
+          addOutOfSeat: async (parent, { username, createdAt }, context) => {
+            if (context.user) {
+              let startDate, endDate;
+          
+              try {
+                // Construct a Date object from the createdAt value
+                const parsedDate = new Date(createdAt);
+          
+                if (isNaN(parsedDate.getTime())) {
+                  throw new Error('Invalid date format');
+                }
+          
+                startDate = new Date(parsedDate.getFullYear(), parsedDate.getMonth(), parsedDate.getDate(), 0, 0, 0);
+                endDate = new Date(parsedDate.getFullYear(), parsedDate.getMonth(), parsedDate.getDate(), 23, 59, 59, 999);
+          
+                const query = {
+                  username,
+                  'outOfSeat.createdAt': {
+                    $gte: startDate,
+                    $lte: endDate,
+                  },
+                };
+                const update = {
+                  $push: { 'outOfSeat.$.outOfSeatCountByDay': { date: startDate, count: 1 } },
+                };
+                const options = { new: true, runValidators: true };
+          
+                const updatedUser = await User.findOneAndUpdate(query, update, options)
+                  .select('-__v -password')
+                  .populate('accommodations')
+                  .populate('breaks')
+                  .populate('seatAwayTaken')
+                  .populate('isAdmin')
+                  .populate('students')
+                  .populate({
+                    path: 'outOfSeat',
+                    populate: {
+                      path: 'outOfSeatCountByDay',
+                    },
+                  });
+          
+                console.log(updatedUser);
+          
+                return updatedUser;
+              } catch (error) {
+                throw new Error(`Invalid date: ${error.message}`);
               }
-      
+            }
+          
             throw new AuthenticationError('You need to be logged in!');
           },
+          
+          
+
+
+
+          // addOutOfSeat: async (parent, { username, createdAt }, context) => {
+          //   if (context.user) {
+          //     const query = { username };
+          //     const update = {
+          //       $push: { outOfSeat: { createdAt, username: context.user.username } },
+          //     };
+          
+          //     if (createdAt) {
+          //       const startOfDay = moment(createdAt).startOf('day');
+          //       const endOfDay = moment(createdAt).endOf('day');
+          
+          //       // Add date range query to the update operation
+          //       query['outOfSeat.createdAt'] = { $gte: startOfDay, $lte: endOfDay };
+          //     }
+          
+          //     const options = { new: true, runValidators: true };
+          
+          //     const updatedOutOfSeat = await User.findOneAndUpdate(query, update, options);
+          //     console.log(updatedOutOfSeat);
+          
+          //     return updatedOutOfSeat;
+          //   }
+          
+          //   throw new AuthenticationError('You need to be logged in!');
+          // },
+          
+          // addOutOfSeat: async (parent, {username, createdAt}, context) => {
+          //  if(context.user){
+            
+          //     const updatedOutOfSeat = await User.findOneAndUpdate(
+          //       {username: username},
+          //       {$push: {outOfSeat: {createdAt, username: context.user.username}}},
+          //       {new: true, runValidators: true}
+          //       )      
+          //     console.log(updatedOutOfSeat)
+      
+          //     return updatedOutOfSeat;
+          //     }
+      
+          //   throw new AuthenticationError('You need to be logged in!');
+          // },
             
           
     }

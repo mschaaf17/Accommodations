@@ -74,11 +74,26 @@ mutation AddOutOfSeat ($username: String) {
 }
 `;
 
-export const ADD_STUDENT_TO_List = gql`
+export const ADD_STUDENT_TO_LIST = gql`
 mutation AddStudentToList($studentId: ID!) {
   addStudentToList(studentId: $studentId) {
+    _id
+    username
     students {
       username
+      _id
+    }
+  }
+}
+`;
+
+export const REMOVE_STUDENT_FROM_LIST = gql`
+mutation RemoveStudentFromList($studentId: ID!) {
+  removeStudentFromList(studentId: $studentId) {
+    username
+    students {
+      username
+      _id
     }
   }
 }

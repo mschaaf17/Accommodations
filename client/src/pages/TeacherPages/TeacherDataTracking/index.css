@@ -1,0 +1,54 @@
+.close_btn {
+    border: 1px;
+    padding: 10px;
+}
+.modal-dialog{
+
+    border: 5px solid #f780ef;
+    border-radius: 10px;
+    position: absolute;
+    top: 40%;
+    bottom: 42%;
+    left: 40%;
+    right: 40%;
+    background-color: white;
+    
+   
+
+}
+.modal-content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 10%;
+   
+}
+.modal-cancel {
+margin: 5px;
+}
+.modal-delete {
+margin: 5px;
+}
+
+.btn-close{
+    display: none;
+}
+/* .btn-close{
+    height: 15px;
+    width: 15px;
+    background-color: #FA6900;
+    border-radius: 5px;
+    position: relative;
+}
+.btn-close:after {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    content: "\274c"; 
+    font-size: 8px; 
+    color: #FFF;
+    line-height: 15px;
+    text-align: center;
+} */

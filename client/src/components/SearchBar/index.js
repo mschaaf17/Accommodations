@@ -3,24 +3,13 @@ import { useQuery } from '@apollo/client'
 import {QUERY_USERS} from '../../utils/queries'
 import "./index.css";
 import SearchIcon from '@mui/icons-material/Search';
-import StudentList from "../StudentList";
-import { Link } from 'react-router-dom'
 import AddIcon from '@mui/icons-material/Add';
-import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import BookmarkAddedIcon from '@mui/icons-material/BookmarkAdded';
 
-function SearchBar({placeholder}) {
-    const [style, setStyle] = useState('add_student')
-    const [deleteStyle, setDeleteStyle] = useState('delete_student')
+function SearchBar({placeholder, addStudent, isStudentAdded}) {
     const [filteredData, setFilteredData] = useState([]);
     const {loading, data} = useQuery(QUERY_USERS)
     const getAllUsers = data?.users || []
-
-    const changeAddStyle = (index) => () => {
-        setStyle(state => ({
-            ...state,
-            [index]: !state[index]
-        }))
-    }
 
     const handleFilter = (e) => {
        const searchWord = e.target.value
@@ -33,7 +22,6 @@ function SearchBar({placeholder}) {
        }
        else{
         setFilteredData(newFilter)
-
        }
     }
     return (
@@ -47,21 +35,21 @@ function SearchBar({placeholder}) {
             <div className="dataResult each_student">
                 {filteredData.map((users, index)=>{
                     return (
-                        <p key ={index}>
-                        <Link className='link-to-page logout center' to ={`/studentProfile/${users.username}`}>{users.username}</Link>
-                        <div className="logout center" onClick={changeAddStyle(index)}> {style[index] ? <div><AddIcon/></div> : <div><DeleteForeverIcon/></div>}
-                    </div>
-                    
+                        <p key ={index}>               
+                <p className= 'center' onClick={() => addStudent(users._id)}>
+                {users.username}
+                 {isStudentAdded(users._id) ? (
+                    <BookmarkAddedIcon />
+                  ) : (
+                <AddIcon />
+                 )}
+                 </p>
                         </p>
                     )
                 })}
-                {/* <StudentList className="dataItem" filteredData = {filteredData} getAllUsers={getAllUsers}/> */}
                 </div>
-            
             )}
-
-</div>
-
+            </div>
             </div>
     )
 }
