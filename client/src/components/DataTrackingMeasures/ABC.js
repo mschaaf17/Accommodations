@@ -1,4 +1,5 @@
 import React, {useState} from 'react'
+import './index.css'
 
 export default function ABC() {
 
@@ -19,14 +20,19 @@ const toggleForm = () => {
       ABC Checklist
       <div>
         <h2>ABC Checklist</h2>
-        <button className="submit-btn" onClick = {toggleForm}>
+          <div className='new_block_btn'>
+              <button className="submit-btn new_block_btn" onClick = {toggleForm}>
                {displayForm ? 'Remove Block' : 'Add New Block'}
               </button>
+          </div>
         {/* be able to add a new block with below info  before submit? on each click it should grab a timestamp
         need to make a model that counts this */}
+        
         {displayForm && ( 
         <form className="user-input">
           {/* dropdown */}
+
+          <div className='abc_setup'>
               <input
                 className="form-input"
                 placeholder="Behavior of Concern"
@@ -48,6 +54,8 @@ const toggleForm = () => {
                 type=""
                 id="location"
               />
+
+        </div>    
               <div className='abc_block'>
                 <h3>Antecendent (before behavior)</h3>
                 <div className='abc_checklist'>

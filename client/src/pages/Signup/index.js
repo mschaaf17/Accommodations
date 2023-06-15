@@ -36,7 +36,7 @@ const Signup = () => {
             variables: {...formState}
           })
           Auth.login(data.addUser.token)
-          window.location.href = "/studentAccommodations"
+          window.location.href = "/Loading"
           
         } catch (e) {
           console.error(e)

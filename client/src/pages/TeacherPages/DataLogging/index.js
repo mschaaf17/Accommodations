@@ -40,10 +40,15 @@ export default function DataLogging() {
         observation: false,
         contracts: false
       }
-    
+      const [state, setState] = useState(initalState)
 
-    const [state, setState] = useState(initalState)
-
+    const toggleElement = (el) => {
+      setState((prevState)=> ({
+        ...prevState,
+        [el]:!prevState[el]
+      }))
+    }
+  
     if (loading) {
       return <div className='loader'>Loading...</div>;
     }
@@ -51,46 +56,27 @@ export default function DataLogging() {
   return (
     <div>
       <h2>Logging for {userParam}</h2>
+      
       <div className="data-to-click">
-      {Object.keys(state).map(el => (
-        <div  key ={el}>
-          <button className='logout' onClick={() => {
-            initalState = {frequency: false, duration: false, abc: false, observation: false, contracts: false}
-            if (state[el]) {
-              setState(initalState)
-            } else {
-              initalState[el] = true
-              setState(initalState)
-            }
-          }}
-          >
-            {el.toUpperCase()}
-          </button>
-          {state[el] ? (
-            <div>{forms[el]}</div>
-          ) : null }
+        {Object.keys(state).map((el) => (
+          <div key={el}>
+            <button
+              className="logout"
+              onClick={() => toggleElement(el)}
+            >
+              {el.toUpperCase()}
+            </button>
+            {state[el] ? forms[el] : null}
           </div>
-      ))}
+        ))}
       </div>
-      {/* <button>
-        ABC Form
-      </button>
-      <button>
-        Duration Tracking
-      </button>
-      <button>
-        Frequency Tracking
-        <Frequency/>
-      </button>
-      <button>
-        Observation Form
-      </button> */}
+      
       <div className="view-other-pages">
-      {/* <a href ="/studentCharts">View student charts</a> */}
-{/*need a userparam because it wont know what user to look at the charts for!  */}
-     <div> <Link className="link-to-page logout" to ={`/teacherdata/${userParam}`}> ← Back to Student List</Link></div>
-      <div ><Link  className="link-to-page logout" to ={`/studentProfile/${userParam}/studentCharts`}>Student Charts → </Link></div>
+        <div> <Link className="link-to-page logout" to ={`/teacherdata/${userParam}`}> ← Back to Student List</Link></div>
+        <div ><Link  className="link-to-page logout" to ={`/studentProfile/${userParam}/studentCharts`}>Student Charts → </Link></div>
       </div>
+
+
     </div>
 
     

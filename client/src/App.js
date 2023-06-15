@@ -24,6 +24,7 @@ import TeacherAddAccommodations from './pages/TeacherPages/TeacherAddAccommodati
 import AdditionalStudentInfo from './pages/TeacherPages/AdditionalStudentInfo'
 import AddStudent from './pages/TeacherPages/AddStudent'
 import NoMatch from './pages/NoMatch';
+import LoadingPage from './pages/LoadingPage'
 
 
 const authLink = setContext((_, { headers }) => {
@@ -75,6 +76,7 @@ function App() {
           <Route path ="/studentProfile/:username/studentCharts/additionalStudentInfo" element ={<AdditionalStudentInfo/>}/>
           <Route path ="/addstudent/:username" element = {<AddStudent/>}/>
           <Route path="*" element={<NoMatch />} />
+          <Route path="/Loading" element={<LoadingPage/>} />
         </Routes>
         <Footer />
       </Router>

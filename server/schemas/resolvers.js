@@ -2,6 +2,7 @@ const { AuthenticationError } = require('apollo-server-express')
 const { User, Accommodation, AccommodationCards, Break , OutOfSeat, SeatAway} = require('../models');
 const { signToken } = require('../utils/auth');
 const moment = require('moment')
+const { startOfDay, endOfDay, isEqual } = require('date-fns');
 
 
 const resolvers = {
@@ -70,6 +71,7 @@ const resolvers = {
       //   return User.find(params).sort({ createdAt: -1})
       //  },
     },
+    
 
     Mutation: {
         addUser: async (parent, args) => {
@@ -286,87 +288,187 @@ const resolvers = {
           // },
           
           
-          addOutOfSeat: async (parent, { username, createdAt }, context) => {
-            if (context.user) {
-              let startDate, endDate;
+          // addOutOfSeat: async (parent, { username, createdAt }, context) => {
+          //   if (context.user) {
+          //     let startDate, endDate;
           
-              try {
-                // Construct a Date object from the createdAt value
-                const parsedDate = new Date(createdAt);
+          //     try {
+          //       // Construct a Date object from the createdAt value
+          //       const parsedDate = new Date(createdAt);
           
-                if (isNaN(parsedDate.getTime())) {
-                  throw new Error('Invalid date format');
-                }
+          //       if (isNaN(parsedDate.getTime())) {
+          //         throw new Error('Invalid date format');
+          //       }
           
-                startDate = new Date(parsedDate.getFullYear(), parsedDate.getMonth(), parsedDate.getDate(), 0, 0, 0);
-                endDate = new Date(parsedDate.getFullYear(), parsedDate.getMonth(), parsedDate.getDate(), 23, 59, 59, 999);
+          //       startDate = new Date(parsedDate.getFullYear(), parsedDate.getMonth(), parsedDate.getDate(), 0, 0, 0);
+          //       endDate = new Date(parsedDate.getFullYear(), parsedDate.getMonth(), parsedDate.getDate(), 23, 59, 59, 999);
           
-                const query = {
-                  username,
-                  'outOfSeat.createdAt': {
-                    $gte: startDate,
-                    $lte: endDate,
-                  },
-                };
-                const update = {
-                  $push: { 'outOfSeat.$.outOfSeatCountByDay': { date: startDate, count: 1 } },
-                };
-                const options = { new: true, runValidators: true };
+          //       const query = {
+          //         username,
+          //         'outOfSeat.createdAt': {
+          //           $gte: startDate,
+          //           $lte: endDate,
+          //         },
+          //       };
+          //       const update = {
+          //         $push: { 'outOfSeat.$.outOfSeatCountByDay': { date: startDate, count: 1 } },
+          //       };
+          //       const options = { new: true, runValidators: true };
           
-                const updatedUser = await User.findOneAndUpdate(query, update, options)
-                  .select('-__v -password')
-                  .populate('accommodations')
-                  .populate('breaks')
-                  .populate('seatAwayTaken')
-                  .populate('isAdmin')
-                  .populate('students')
-                  .populate({
-                    path: 'outOfSeat',
-                    populate: {
-                      path: 'outOfSeatCountByDay',
-                    },
-                  });
+          //       const updatedUser = await User.findOneAndUpdate(query, update, options)
+          //         .select('-__v -password')
+          //         .populate('accommodations')
+          //         .populate('breaks')
+          //         .populate('seatAwayTaken')
+          //         .populate('isAdmin')
+          //         .populate('students')
+          //         .populate({
+          //           path: 'outOfSeat',
+          //           populate: {
+          //             path: 'outOfSeatCountByDay',
+          //           },
+          //         });
           
-                console.log(updatedUser);
+          //       console.log(updatedUser);
           
-                return updatedUser;
-              } catch (error) {
-                throw new Error(`Invalid date: ${error.message}`);
-              }
-            }
+          //       return updatedUser;
+          //     } catch (error) {
+          //       throw new Error(`Invalid date: ${error.message}`);
+          //     }
+          //   }
           
-            throw new AuthenticationError('You need to be logged in!');
-          },
+          //   throw new AuthenticationError('You need to be logged in!');
+          // },
           
-          
-
-
-
           // addOutOfSeat: async (parent, { username, createdAt }, context) => {
           //   if (context.user) {
           //     const query = { username };
           //     const update = {
           //       $push: { outOfSeat: { createdAt, username: context.user.username } },
+          //       $inc: { 'outOfSeatCountByDay.$[elem].count': 1 }
           //     };
           
-          //     if (createdAt) {
-          //       const startOfDay = moment(createdAt).startOf('day');
-          //       const endOfDay = moment(createdAt).endOf('day');
+          //     let startOfRequestedDay;
           
-          //       // Add date range query to the update operation
-          //       query['outOfSeat.createdAt'] = { $gte: startOfDay, $lte: endOfDay };
+          //     if (createdAt) {
+          //       const createdAtDate = new Date(createdAt);
+          //       startOfRequestedDay = moment(createdAtDate).startOf('day').toDate();
+          //       const endOfRequestedDay = moment(createdAtDate).endOf('day').toDate();
+          
+          //       query['outOfSeatCountByDay.date'] = {
+          //         $gte: startOfRequestedDay,
+          //         $lte: endOfRequestedDay
+          //       };
           //     }
           
-          //     const options = { new: true, runValidators: true };
+          //     const options = { new: true, runValidators: true, arrayFilters: [{ 'elem.date': startOfRequestedDay }] };
           
-          //     const updatedOutOfSeat = await User.findOneAndUpdate(query, update, options);
-          //     console.log(updatedOutOfSeat);
-          
-          //     return updatedOutOfSeat;
+          //     try {
+          //       const updatedUser = await User.findOneAndUpdate(query, update, options);
+          //       return updatedUser;
+          //     } catch (error) {
+          //       // Handle any errors that occurred during the update
+          //       throw new Error('Failed to add outOfSeat');
+          //     }
           //   }
           
           //   throw new AuthenticationError('You need to be logged in!');
-          // },
+          // }
+          
+          
+          // addOutOfSeat: async (parent, { username, createdAt }, context) => {
+          //   if (context.user) {
+          //     const query = { username };
+          //     const update = {
+          //       $push: { outOfSeat: { createdAt, username: context.user.username } },
+          //       $inc: { 'outOfSeatCountByDay.$[elem].count': 1 }
+          //     };
+          
+          //     let startOfRequestedDay; // Declare the variable
+          
+          //     if (createdAt) {
+          //       const createdAtDate = new Date(createdAt);
+          //       startOfRequestedDay = startOfDay(createdAtDate); // Assign the value
+          //       const endOfRequestedDay = endOfDay(createdAtDate);
+          
+          //       // Add date range query to the update operation
+          //       query['outOfSeatCountByDay.date'] = {
+          //         $gte: startOfRequestedDay,
+          //         $lte: endOfRequestedDay,
+          //       };
+          //     }
+          
+          //     const options = { new: true, runValidators: true, arrayFilters: [{ 'elem.date': startOfRequestedDay }] };
+          
+          //     const updatedUser = await User.findOneAndUpdate(query, update, options);
+          
+          //     // Return the updated user object
+          //     return updatedUser;
+          //   }
+          
+          //   throw new AuthenticationError('You need to be logged in!');
+          // }
+
+          addOutOfSeat: async (parent, { username, createdAt }, context) => {
+            if (context.user) {
+              const query = { username };
+              const update = {
+                $push: { outOfSeat: { createdAt, username: context.user.username } },
+              };
+          
+              if (createdAt) {
+                const startOfDay = moment(createdAt).startOf('day');
+                const endOfDay = moment(createdAt).endOf('day');
+          
+                // Add date range query to the update operation
+                query['outOfSeatCountByDay.createdAt'] = { $gte: startOfDay, $lte: endOfDay };
+              }
+          
+              const options = { new: true, runValidators: true };
+          
+              const updatedOutOfSeat = await User.findOneAndUpdate(query, update, options);
+              console.log(updatedOutOfSeat);
+          
+              return updatedOutOfSeat;
+            }
+          
+            throw new AuthenticationError('You need to be logged in!');
+          },
+          // addOutOfSeat: async (parent, { username, createdAt }, context) => {
+          //   if (context.user) {
+          //     const query = { username };
+          //     const update = {
+          //       $push: { outOfSeat: { createdAt, username: context.user.username } },
+          //       $inc: { 'outOfSeatCountByDay.$[elem].count': 1 }
+          //     };
+          
+          //     let startOfRequestedDay;
+          
+          //     if (createdAt) {
+          //       const createdAtDate = new Date(createdAt);
+          //       startOfRequestedDay = moment(createdAtDate).startOf('day').toDate();
+          //       const endOfRequestedDay = moment(createdAtDate).endOf('day').toDate();
+          
+          //       query['outOfSeatCountByDay.date'] = {
+          //         $gte: startOfRequestedDay,
+          //         $lte: endOfRequestedDay
+          //       };
+          //     }
+          
+          //     const options = { new: true, runValidators: true, arrayFilters: [{ 'elem.date': startOfRequestedDay }] };
+          
+          //     try {
+          //       const updatedUser = await User.findOneAndUpdate(query, update, options);
+          //       return updatedUser;
+          //     } catch (error) {
+          //       // Handle any errors that occurred during the update
+          //       throw new Error('Failed to add outOfSeat');
+          //     }
+          //   }
+          
+          //   throw new AuthenticationError('You need to be logged in!');
+          // }
+          
           
           // addOutOfSeat: async (parent, {username, createdAt}, context) => {
           //  if(context.user){

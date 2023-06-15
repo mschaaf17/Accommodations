@@ -13,10 +13,14 @@ function SearchBar({placeholder, addStudent, isStudentAdded}) {
 
     const handleFilter = (e) => {
        const searchWord = e.target.value
-       const newFilter = getAllUsers.filter((user)=> {
-       return (user.username.toLowerCase().includes(searchWord.toLowerCase()) &&
-       !user.isAdmin);
-       });
+       const newFilter = getAllUsers.filter((user) => {
+        const username = user.username || ''; // Null check
+        return (
+          username.toLowerCase().includes(searchWord.toLowerCase()) &&
+          !user.isAdmin
+        );
+      });
+      
        if (searchWord === "") {
         setFilteredData([]);
        }

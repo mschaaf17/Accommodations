@@ -10,6 +10,7 @@ query me {
     _id
   }
   breakCount
+  hasBreaks
   isAdmin
   accommodations {
     title

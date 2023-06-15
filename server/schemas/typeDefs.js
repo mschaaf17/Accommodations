@@ -7,14 +7,21 @@ const typeDefs = gql `
         accommodations: [Accommodation]
         students: [User]
         breakCount: Int
+        hasBreaks: Boolean
         breaks: [Break]
         seatAwayCount: Int
         seatAwayTaken: [SeatAway]
         outOfSeatCount: Int
         outOfSeat: [OutOfSeat]
         isAdmin: Boolean
+        outOfSeatCountByDay: [OutOfSeatCountByDay]
 
     }
+
+    type OutOfSeatCountByDay {
+        date: String
+        count: Int
+      }
 
 type Accommodation {
     _id: ID

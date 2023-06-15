@@ -85,10 +85,13 @@ const breakClicked = async () => {
         />
       
       {/* {userParam && ( */}
-        <button className ="break-btn" onClick= {breakClicked}>
-          <Link className= "link-to-page" to={'/breakTimer'}>Take a break</Link>
+        
+          <Link className= "link-to-page" to={'/breakTimer'}>
+          <button className ="break-btn" onClick= {breakClicked}>Take a break</button>
+          
+          </Link>
           {/* <BreakTimer breakCount = {user.breakCount}/> */}
-        </button>
+        
       {/* )} */}
       
     {/* <div>Use a break! once it is clicked it will take user to break page and timer starts-- needs reaction count to display how many breaks were taken! set a timeout after 24 hours-- back button to accommodations </div> */}

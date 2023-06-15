@@ -34,14 +34,15 @@ const Login = props => {
         const { data } = await login({
           variables: { ...formState },
         });
+        //seems to break with debugger here
         Auth.login(data.login.token);
-  
+        window.location.href = "/Loading";
       //not seeming to wait for loading before redirecting? tried making a seperate page at that still didnt work  
-        if (!loading && Auth.loggedIn() && admin != true) {
-          window.location.href = "/studentAccommodations";
-        } else {
-          window.location.href = `/teacherdata/${data?.me.username}`;
-        }
+        // if (!loading && Auth.loggedIn() && admin != true) {
+        //   window.location.href = "/studentAccommodations";
+        // } else {
+        //   window.location.href = `/teacherdata/${data?.me.username}`;
+        // }
         
       } catch (e) {
         console.log(e);

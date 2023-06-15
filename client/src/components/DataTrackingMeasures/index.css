@@ -98,6 +98,24 @@
 
 
 }
+.new_block_btn {
+    
+  display: flex;
+  align-items: right;
+  justify-content: center;
+  padding: .82%;    
+
+}
+.abc_setup {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    border: 1px solid black;
+}
+.abc_setup input {
+   margin: 1%;
+   border: 1px solid black;
+}
 
 .abc_block {
     border: 1px black solid;
