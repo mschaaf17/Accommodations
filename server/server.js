@@ -1,4 +1,5 @@
 const express = require('express')
+const puppeteer = require('puppeteer')
 // add instant messaging
 // const io = require('socket.io')(3000)
 // io.on('connection', socket => {
@@ -33,6 +34,42 @@ if (process.env.NODE_ENV === 'production') {
       res.sendFile(path.join(__dirname, '../client/build/index.html'));
     });
   }
+  
+// (async () => {
+//     const browser = await puppeteer.launch();
+//     const page = await browser.newPage();
+//     await page.goto('http://localhost:3000/');
+//     await page.emulateMedia('screen');
+//     await page.pdf({
+//       path: './react.pdf', // path (relative to CWD) to save the PDF to.
+//       printBackground: true,// print background colors
+//       width: '612px', // match the css width and height we set for our PDF
+//       height: '792px',
+//     });
+//     await browser.close();
+//   })()
+  app.get('/generate-pdf', async (req, res) => {
+    const { url } = req.query;
+  
+    try {
+      const browser = await puppeteer.launch();
+      const page = await browser.newPage();
+      await page.goto(url, { waitUntil: 'domcontentloaded' });
+      const pdfBuffer = await page.pdf({ format: 'A4' });
+      await browser.close();
+  
+      res.set({
+        'Content-Type': 'application/pdf',
+        'Content-Disposition': 'attachment; filename="studentData.pdf"',
+      });
+  
+      res.send(pdfBuffer);
+    } catch (error) {
+      console.error('Error generating PDF:', error);
+      res.status(500).send('Error generating PDF');
+    }
+  });
+  
 
 // create a new instance of an Apollo server with the GraphQl schema
 const startApolloServer = async (typeDefs, resolvers) => {

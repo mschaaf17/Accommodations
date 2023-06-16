@@ -1,0 +1,6 @@
+.print_data {
+    display: flex;
+    justify-content: right;
+    margin-right: 10%;
+    margin-bottom: 10%;
+}

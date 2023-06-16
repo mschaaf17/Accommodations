@@ -16,7 +16,10 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "concurrently": "^5.1.0"
+    "@babel/core": "^7.22.5",
+    "@babel/node": "^7.22.5",
+    "concurrently": "^5.1.0",
+    "puppeteer": "^20.7.2"
   },
   "repository": {
     "type": "git",
