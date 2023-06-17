@@ -22,8 +22,9 @@ export default function StudentCharts() {
  
   const breakCount = user.breakCount || {}
   console.log(breakCount)
-  const createdBreaks = user.breaks || {}
-  const breakDates = createdBreaks.createdAt || []
+  const breaks = user.breaks || {}
+  console.log(breaks)
+  const breakDates = breaks.createdAt || []
   
   const handlePrintClick = () => {
     setPdfGenerating(true);
@@ -60,8 +61,9 @@ export default function StudentCharts() {
         <div className = "data-to-click">
       <button className='logout' onClick={handleClick}>Frequency</button>
     {showData && breakCount > 1 && (
-      <WeeklyData totalBreaks = {breakCount}
-      dateOfBreaks = {createdBreaks}
+      <WeeklyData  
+      totalBreaks = {breakCount}
+      userBreaks = {breaks}
       breakDates= {breakDates}
       />
     )}

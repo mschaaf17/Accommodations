@@ -10,9 +10,9 @@ const StudentData = () => {
   
   const {loading, data} = useQuery(QUERY_ME)
   const breakCount = data?.me.breakCount || {}
-  const createdBreaks = data?.me.breaks || {}
-  const breakDates = createdBreaks.createdAt || []
-  console.log(createdBreaks)
+  const breaks = data?.me.breaks || {}
+  const breakDates = breaks.createdAt || []
+  console.log(breaks)
   console.log([breakDates])
 
 
@@ -25,8 +25,9 @@ const StudentData = () => {
     return (
       <>
       <h2>Weekly Data</h2>
-      <WeeklyData totalBreaks = {breakCount}
-      dateOfBreaks = {createdBreaks}
+      <WeeklyData 
+      totalBreaks = {breakCount}
+      userBreaks = {breaks}
       breakDates= {breakDates}
       />
       </>

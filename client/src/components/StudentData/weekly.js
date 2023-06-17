@@ -4,6 +4,7 @@ import './index.css'
 import { ResponsiveLine } from "@nivo/line";
 import { parse } from "date-fns";
 
+
 //need to format date correctly in order to display the chart based on how many breaks were taken in a day
 
 
@@ -41,13 +42,34 @@ const user = {
   ]
 };
 
-export default function WeeklyData({ dateOfBreaks}) {
-  let breakDate = Object.values(dateOfBreaks);
-  let breakArr = breakDate.map((el) => el.createdAt);
-
-
+export default function WeeklyData({ totalBreaks, userBreaks, breakDates}) {
+  console.log(totalBreaks)
+  console.log(userBreaks)
+  console.log(breakDates)
+console.log(user.breaks)
+//aimline needs to be how many breaks were taken on the second day or secocnd time using breaks??? 
   const formatString = "MMM do, yyyy 'at' h:mm aa";
 
+  // const data = [
+  //   {
+  //     id: "breakCount",
+  //     data: Array.isArray(userBreaks) // Check if userBreaks is an array
+  //       ? userBreaks.map((b) => ({
+  //           x: parse(b.createdAt, formatString, new Date()),
+  //           y: b.breakCount
+  //         }))
+  //       : [] // Provide a fallback value if userBreaks is not an array
+  //   }
+  // ];
+  // const data = [
+  //   {
+  //     id: "breakCount",
+  //     data: Object.values(userBreaks && userBreaks).map((b) => ({
+  //       x: parse(b.createdAt, formatString, new Date()),
+  //       y: b.breakCount
+  //     }))
+  //   }
+  // ];
   const data = [
     {
       id: "breakCount",
@@ -55,32 +77,69 @@ export default function WeeklyData({ dateOfBreaks}) {
         x: parse(b.createdAt, formatString, new Date()),
         y: b.breakCount
       }))
-    }
+    },
+    {
+      id: "aimline",
+      data: [
+        {
+          x: new Date(),
+          y: 5 // Adjust the y value according to your aimline target
+        },
+      ],
+    },
   ];
-
+  
+  const chartMargin = { top: 50, right: 110, bottom: 70, left: 60 }; // Adjust the margins as needed
+  
+  const tickValues = data[0].data
+    .filter((entry, index) => index % 1.5 === 0) // Display ticks for every other data point (adjust the condition as needed)
+    .map((entry) => entry.x);
+  
   return (
-    <div className="App" style={{ width: "100%", height: 500 }}>
-      <ResponsiveLine
-        animate
-        isInteractive
-        pointSize={10}
-        data={data}
-        margin={{ top: 50, right: 110, bottom: 50, left: 60 }}
-        xScale={{
-          format: "%Y-%m-%d",
-          precision: "day",
-          type: "time"
-        }}
-        yScale={{
-          type: "linear"
-        }}
-        axisBottom={{
-          format: "%b %d",
-          tickValues: "every 1 days"
-        }}
-        enableSlices="x"
-      />
-    </div>
+    <>
+      <div className="App" style={{ width: "100%", height: 500 }}>
+        <ResponsiveLine
+          animate
+          isInteractive
+          pointSize={10}
+          data={data}
+          margin={chartMargin}
+          xScale={{
+            format: "%Y-%m-%d",
+            precision: "day",
+            type: "time"
+          }}
+          yScale={{
+            type: "linear"
+          }}
+          axisBottom={{
+            format: "%b %d",
+            tickValues: tickValues
+          }}
+          enableSlices="x"
+        />
+      </div>
+  
+
+    <div className='break_table'>
+            <div className='break_table'>
+            <h4>Break information</h4>
+            {Object.values(userBreaks &&
+        userBreaks).map((breaks, index) => (
+          <div key={index}>
+            <p>
+              {breaks.createdAt}
+               
+            </p>
+
+          </div>
+        ))}
+              
+              </div>
+            </div>
+    
+    </>
+
   );
 }
 

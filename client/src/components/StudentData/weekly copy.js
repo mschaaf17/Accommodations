@@ -5,7 +5,7 @@ import './index.css'
 //need to format date correctly in order to display the chart based on how many breaks were taken in a day
 
 
-const WeeklyData = ({ totalBreaks, dateOfBreaks }) => {
+const WeeklyDataCopy = ({ totalBreaks, dateOfBreaks }) => {
   const [showDates, setShowDates] = useState(false);
   const [maxBreaks, setMaxBreaks] = useState(0);
 
@@ -108,4 +108,4 @@ const WeeklyData = ({ totalBreaks, dateOfBreaks }) => {
     );
   }
 
-export default WeeklyData;
+export default WeeklyDataCopy;

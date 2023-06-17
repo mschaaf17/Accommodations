@@ -56,6 +56,7 @@ query user($username: String!) {
     _id
     createdAt
     breakDate
+    username
   }
   outOfSeat {
     createdAt
