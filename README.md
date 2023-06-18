@@ -28,6 +28,8 @@ https://www.loom.com/share/ca2a64fe174f4eeb8ea34fb6a6b3a1ca
 ## Deployed Application:
 [Inclusion App](https://inclusion-student-app-351765654f70.herokuapp.com/)
 
+https://inclusion-student-app-351765654f70.herokuapp.com/login
+
 ## Usage:
 * To log student behaviors
 * After logging in...
