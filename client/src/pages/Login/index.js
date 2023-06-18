@@ -63,7 +63,8 @@ const Login = props => {
         <div className="">
           <h4 className="login-title">Login</h4>
           <div className="login-form">
-            <form className="user-input"onSubmit={handleFormSubmit}>
+            <form onSubmit={handleFormSubmit}>
+              <div className="user-input">
               <input
                 className="form-input"
                 placeholder="username"
@@ -82,9 +83,12 @@ const Login = props => {
                 value={formState.password}
                 onChange={handleChange}
               />
+              </div>
+              <div className='center'>
               <button className="submit-btn" type="submit">
                 Submit
               </button>
+              </div>
             </form>
             {error && <div>Login failed</div>}
           </div>

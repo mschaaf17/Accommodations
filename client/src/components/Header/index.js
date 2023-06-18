@@ -34,7 +34,7 @@ const Header = () => {
           {Auth.loggedIn() && admin != true ? (
             <>
             <a className={`logout ${activeLink === '/studentAccommodations' ? 'active' : ''}`} href="/studentAccommodations">Accommodations</a>
-            <a className={`logout ${activeLink === '/data' ? 'active' : ''}`} href="/data">Weekly Data</a>
+            <a className={`logout ${activeLink === '/data' ? 'active' : ''}`} href="/data">Data</a>
             <a className="logout" href="/" onClick={logout}>Logout</a>
           </>
         ) : Auth.loggedIn() && admin === true ? (

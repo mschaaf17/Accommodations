@@ -8,5 +8,15 @@
         "username": "kev",
         "password": "password",
         "accommodations" : []
+    },
+    {
+        "username": "mike",
+        "password": "password",
+        "accommodations" : []
+    },
+    {
+        "username": "tracy",
+        "password": "password",
+        "accommodations" : []
     }
 ]

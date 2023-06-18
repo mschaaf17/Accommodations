@@ -92,7 +92,8 @@ console.log(user.breaks)
   const chartMargin = { top: 50, right: 110, bottom: 70, left: 60 }; // Adjust the margins as needed
   
   const tickValues = data[0].data
-    .filter((entry, index) => index % 1.5 === 0) // Display ticks for every other data point (adjust the condition as needed)
+  //try 1.5% for more dates
+    .filter((entry, index) => index % 10 === 0) // Display ticks for every other data point (adjust the condition as needed)
     .map((entry) => entry.x);
   
   return (
