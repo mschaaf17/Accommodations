@@ -12,10 +12,6 @@
 .nav-section {
     display: flex;
     flex-wrap: wrap;
-    align-items: center;
-    padding: 10px 0;
-   
-
 }
 
 .mySupport {
@@ -57,13 +53,14 @@
   }
 
 .nav-options {
-    padding: 0 35px 0 0;
-    justify-content: center;
-    margin: auto;
+    margin: auto 0;
     display: flex;
     flex-wrap: wrap;
-    align-items: center;
     
+}
+
+.nav-options a {
+    justify-content: space-around;
 }
 .logout {
     padding: 0 15px;

@@ -1,8 +1,9 @@
 import React from 'react';
+import './index.css'
 
 const Footer = () => {
   return (
-    <footer className="w-100 mt-auto bg-secondary p-4">
+    <footer className="footer">
       <div className="">
         &copy;{new Date().getFullYear()} by MSchaaf1
       </div>

@@ -2,11 +2,12 @@
     display: flex;
     justify-content: space-around;
 } */
-.profile-name {
+/* .profile-name {
     padding: 25px;
     font-weight: bold;
     font-size: 42px;
-}
+    text-decoration: center;
+} */
 .profile-options {
     border-radius: 15px;
     color: black;

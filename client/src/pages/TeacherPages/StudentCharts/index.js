@@ -31,8 +31,8 @@ export default function StudentCharts() {
     //http://localhost:3000/generate-pdf?url=http://localhost:3000/studentProfile/henry.com/studentCharts
    // http://localhost:3000/studentProfile/henry.com/studentCharts
     //const url = `/generate-pdf?url=${encodeURIComponent(window.location.href)}`;
-   // const url = 'http://localhost:3001/generate-pdf?url=' + encodeURIComponent('http://localhost:3000/studentProfile/' + userParam + '/studentCharts');
-   const url = 'https://inclusion-student-app-351765654f70.herokuapp.com/generate-pdf?url=' + encodeURIComponent('https://inclusion-student-app-351765654f70.herokuapp.com/studentProfile/' + userParam + '/studentCharts');
+    //const url = 'http://localhost:3001/generate-pdf?url=' + encodeURIComponent('http://localhost:3000/studentProfile/' + userParam + '/studentCharts');
+    const url = 'https://inclusion-student-app-351765654f70.herokuapp.com/generate-pdf?url=' + encodeURIComponent('https://inclusion-student-app-351765654f70.herokuapp.com/studentProfile/' + userParam + '/studentCharts');
     console.log(url);
     const printWindow = window.open(url, '_blank', 'noopener,noreferrer');
     

@@ -2,12 +2,13 @@ import React from 'react'
 import { Navigate, useParams, Link } from 'react-router-dom'
 import { useQuery } from '@apollo/client'
 import {QUERY_ME} from '../../utils/queries'
+import './index.css'
 
 export default function NavigationLinks() {
     const { username: userParam } = useParams()
     const {loading, data} = useQuery(QUERY_ME)
   return (
-    <div>
+    <div className='nav-center'>
 
         <div className="buttons">
           <button className='profile-options logout'><Link className=" link-to-page" to ={`/studentProfile/${userParam}/addAccommodations`}> Add Accommodations</Link></button>
