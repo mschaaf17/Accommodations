@@ -56,9 +56,9 @@ body {
 }
 
 .center:hover {
-  /* border: solid 1px purple; */
+  border: solid 1px purple;
   border-radius: 25px;
-  /* background-color: purple; */
+  background-color: purple;
   margin: 5px;
 }
 
