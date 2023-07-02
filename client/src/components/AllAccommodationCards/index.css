@@ -1,7 +1,12 @@
-.purple-background{
-    background: purple;
-}
-.accommodation-in-list {
-    background: purple;
+.small-image {
+width: 1px;
+height: 1px;
 }
 
+.border {
+    display: flex;
+    flex-wrap: wrap;
+    border-left: 1px black solid;
+    padding-left: auto;
+    justify-content: center;
+}

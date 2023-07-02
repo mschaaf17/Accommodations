@@ -102,25 +102,28 @@ const resolvers = {
       
             return { accommodationCards };
           },
-
           addAccommodationForStudent: async (parent, { username, image, title }, context) => {
             if (context.user && context.user.isAdmin) {
               const accommodation = { title, image }; 
-              const user = await User.findOneAndUpdate(
-                { username: username },
-                { $push: { accommodations: accommodation } },
-                { new: true, runValidators: true }
-              );
+              const user = await User.findOne({ username: username });
           
-              if (!user) {
-                throw new AuthenticationError('Incorrect credentials');
+              // Check if the accommodation already exists for the student
+              const accommodationExists = user.accommodations.some(
+                (acc) => acc.title === title
+              );
+              if (accommodationExists) {
+                throw new Error(`Accommodation '${title}' is already added for the student.`);
               }
           
-              return user; 
+              user.accommodations.push(accommodation);
+              const updatedUser = await user.save();
+          
+              return updatedUser;
             }
           
             throw new AuthenticationError('You need to be logged in as an administrator!');
           },
+          
           
           removeAccommodationCard: async (parent, args) => {
               const accommodation = await AccommodationCards.findByIdAndDelete(args);

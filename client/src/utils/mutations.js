@@ -48,6 +48,7 @@ mutation RemoveAccommodationFromStudent($accommodationId: ID!, $username: String
     accommodations {
       title
       image
+      _id
     }
   }
 }

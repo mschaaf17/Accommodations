@@ -5,9 +5,11 @@ const dateFormat = require('../utils/dateFormat');
 const accommodationSchema = new Schema(
     {
         title: {
-            type: String
-        },
-        image: {
+            type: String,
+            required: true,
+            unique: true, // Ensure accommodation titles are unique within each student
+          },
+          image: {
             type: String
         },
         username: {

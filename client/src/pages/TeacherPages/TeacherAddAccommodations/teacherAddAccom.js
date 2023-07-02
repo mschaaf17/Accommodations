@@ -4,13 +4,14 @@ import { useQuery, useMutation } from '@apollo/client';
 import { QUERY_ACCOMMODATION_CARDS, QUERY_USER } from '../../../utils/queries';
 import { ADD_ACCOMMODATION_FOR_STUDENT, REMOVE_ACCOMMODATION_FROM_STUDENT } from '../../../utils/mutations';
 import AllAccommodationCards from '../../../components/AllAccommodationCards';
-
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import { Modal, Button } from 'react-bootstrap';
+import './index.css'
 
 
 export default function TeacherAddAccommodations() {
   const { username: userParam } = useParams();
+  const [updateStudentAccommodations, setUpdateStudentAccommodations] = useState([]);
   const [selectedAccommodation, setSelectedAccommodation] = useState(null);
   const [showConfirmationModal, setShowConfirmationModal] = useState(false);
   const [addedAccommodation, setAddedAccommodation] = useState({});
@@ -27,25 +28,30 @@ export default function TeacherAddAccommodations() {
     REMOVE_ACCOMMODATION_FROM_STUDENT
   );
 
-const removeAccommodation = async (id, username) => {
-    setSelectedAccommodation(id)
+const removeAccommodation = async (accommodationId) => {
+    setSelectedAccommodation(accommodationId)
     setShowConfirmationModal(true);
-    return id, username
+
 }
 
-const handleDeleteConfirmation = async (id, username) => {
+const handleDeleteConfirmation = async () => {
     try {
         await removeAccommodationFromStudent({
-            // variables: { _id: accommodationId}
-            // variables: { accommodationId: id, username: userParam },
-            variables: {id: selectedAccommodation, username: userParam},
+            variables: {username: userParam, accommodationId: selectedAccommodation},
             refetchQueries: [
                 {query: QUERY_ACCOMMODATION_CARDS},
-                {query: QUERY_USER}
+                {query: QUERY_USER, variables: {username: userParam}}
             ]
         })
+        // const updatedAccommodations = updateStudentAccommodations.filter(accommodation => accommodation._id !== selectedAccommodation);
+        // setUpdateStudentAccommodations(updatedAccommodations);
+        // setAddedAccommodation((prevAddedAccommodations) => {
+        //   const updatedAddedAccommodations = { ...prevAddedAccommodations };
+        //   delete updatedAddedAccommodations[selectedAccommodation];
+        //   return updatedAddedAccommodations;
+        // });
     } catch (e) {
-        console.loge(e)
+        console.log(e)
     }
     setShowConfirmationModal(false)
     setSelectedAccommodation(null)
@@ -61,6 +67,10 @@ const addAccommodation = async (id, title, image) => {
     try {
         await addAccommodationForStudent({
             variables: { username: userParam, title: title, image: image },
+            refetchQueries: [
+              {query: QUERY_ACCOMMODATION_CARDS},
+              {query: QUERY_USER, variables: {username: userParam}}
+          ]
     })
     setAddedAccommodation((prevAddedAccommodations) => ({
         ...prevAddedAccommodations,
@@ -74,7 +84,7 @@ const addAccommodation = async (id, title, image) => {
 
 const isAccommodationAdded = (title) => {
     const isAdded = addedAccommodation[title] || data.user.accommodations.some((accommodation) => accommodation.title === title);
-    console.log(`Accommodation ID: ${title}, Is Added: ${isAdded}`);
+    console.log(`Accommodation title: ${title}, Is Added: ${isAdded}`);
     return isAdded;
   };
   
@@ -89,23 +99,27 @@ const isAccommodationAdded = (title) => {
   return (
     <div>
       <h2>Which accommodations does {userParam} need?</h2>
+      <div className='flex'>
       <AllAccommodationCards
         addAccommodation={addAccommodation}
         isAccommodationAdded = {isAccommodationAdded}
         addedAccommodation = {addedAccommodation}
         />
-      
-      <div className='user_list'>
+        <div className=''>
+      <h3 className='center_only'>{userParam}'s Selected Accommodations</h3>
+      <div className='border'>
         {studentAccommodations.map((accommodation, index) => (
           <div className='each_student' key={index}>
-              <div className='link-to-page logout center' >
+              <div className='center_only' >
                 {accommodation.title}
               </div>
-              <p onClick={() => removeAccommodation(accommodation._id, accommodation.useParams)} className='center'>
+              <p onClick={() => removeAccommodation(accommodation._id)} className='center'>
                 <DeleteForeverIcon />
               </p>
           </div>
         ))}
+      </div>
+      </div>
       </div>
 
       {showConfirmationModal && (

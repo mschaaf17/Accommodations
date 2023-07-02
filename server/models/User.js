@@ -21,7 +21,7 @@ const userSchema = new Schema(
         accommodationCards: [
             {
                 type: Schema.Types.ObjectId,
-                ref: 'AccommodationCards'
+                ref: 'AccommodationCards',
             }
         ],
         accommodations: [accommodationSchema],

@@ -51,6 +51,7 @@ query user($username: String!) {
   accommodations {
     title
     image
+    _id
   }  
   breaks {
     _id

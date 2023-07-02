@@ -19,18 +19,21 @@ const AllAccommodationCards = ({ addAccommodation,
 
   return (
     <div>
-
-<div className='accom_section'>
+<h3 className='center_only'>Select Accommodations From list</h3>
+<div className='border'>
+    
         { accommodationCards && accommodationCards.map((accommodation, index) => (
             <div  key={`accommodation_${accommodation._id || index}`}onClick={()=> addAccommodation(accommodation._id, accommodation.title, accommodation.image)}>
-              <div>
-              <h3>{accommodation.title}</h3>
-              <img className='accomm_img' src={accommodation.image} alt='Picture of accommodation' />
+              <div className='each_student'>
+              <div className='center_only'>{accommodation.title}</div>
+              <p className='small-image' src={accommodation.image} />
+              <div className='center'>
               {isAccommodationAdded(accommodation.title) ? (
-                    <BookmarkAddedIcon />
-                  ) : (
-                <AddIcon />
+                    <BookmarkAddedIcon  />
+                  ) : ( 
+                <AddIcon className='center' />
                  )}
+                 </div>
                  </div>
             </div>
           ))}
