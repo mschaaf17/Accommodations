@@ -94,11 +94,12 @@ const isAccommodationAdded = (title) => {
     return <div className='loader'>Loading...</div>;
   }
 
-
+  console.log("studentAccommodations.length:", studentAccommodations.length);
 
   return (
     <div>
       <h2>Which accommodations does {userParam} need?</h2>
+
       <div className='flex'>
       <AllAccommodationCards
         addAccommodation={addAccommodation}
@@ -106,7 +107,9 @@ const isAccommodationAdded = (title) => {
         addedAccommodation = {addedAccommodation}
         />
         <div className=''>
-      <h3 className='center_only'>{userParam}'s Selected Accommodations</h3>
+        {studentAccommodations.length > 0 && ( 
+      <h3 className='center_only header'>{userParam}'s Selected Accommodations</h3>
+      )}
       <div className='border'>
         {studentAccommodations.map((accommodation, index) => (
           <div className='each_student' key={index}>
