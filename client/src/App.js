@@ -20,7 +20,7 @@ import TeacherDataTracking from './pages/TeacherPages/TeacherDataTracking'
 import StudentProfile from './pages/StudentPages/StudentProfile'
 import DataLogging from './pages/TeacherPages/DataLogging'
 import StudentCharts from './pages/TeacherPages/StudentCharts'
-import TeacherAddAccommodations from './pages/TeacherPages/TeacherAddAccommodations'
+import TeacherAddAccommodations from './pages/TeacherPages/TeacherAddAccommodations/teacherAddAccom'
 import AdditionalStudentInfo from './pages/TeacherPages/AdditionalStudentInfo'
 import AddStudent from './pages/TeacherPages/AddStudent'
 import NoMatch from './pages/NoMatch';

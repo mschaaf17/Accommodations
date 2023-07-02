@@ -48,9 +48,9 @@ if (loading) {
         
         {/* log data link to = log data page */}
         
-        
+         <div className='center'>
       <NavigationLinks/>
-
+        </div>
     </div>
   )
 }

@@ -2,20 +2,24 @@
     {
         "username": "maddy17",
         "password": "password",
+        "isAdmin": false,
         "accommodations" : []
     },
     {
         "username": "kev",
+        "isAdmin": false,
         "password": "password",
         "accommodations" : []
     },
     {
         "username": "mike",
+        "isAdmin": true,
         "password": "password",
         "accommodations" : []
     },
     {
         "username": "tracy",
+        "isAdmin": false,
         "password": "password",
         "accommodations" : []
     }

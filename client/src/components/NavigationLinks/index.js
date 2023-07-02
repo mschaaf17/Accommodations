@@ -8,9 +8,9 @@ export default function NavigationLinks() {
     const { username: userParam } = useParams()
     const {loading, data} = useQuery(QUERY_ME)
   return (
-    <div className='nav-center'>
+    <div className=''>
 
-        <div className="buttons">
+        <div className="buttons nav-center">
           <button className='profile-options logout'><Link className=" link-to-page" to ={`/studentProfile/${userParam}/addAccommodations`}> Add Accommodations</Link></button>
         <button className = "profile-options logout"><Link className=" link-to-page" to ={`/studentProfile/${userParam}/dataLogging`}>Log Data</Link></button>
         <button className = "profile-options logout"><Link className=" link-to-page" to ={`/studentProfile/${userParam}/studentCharts`}>Charts</Link></button>
