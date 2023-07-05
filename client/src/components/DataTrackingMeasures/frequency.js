@@ -9,34 +9,30 @@ const Frequency = ()=> {
    const {username: usernameFromUrl} = useParams();
    
    const [addOutOfSeat, {error}] = useMutation(ADD_OUT_OF_SEAT)
-  // const [addOutOfSeat, {error}]= useMutation(ADD_OUT_OF_SEAT, {
-  //   update(cache, {data: {addOutOfSeat}}){
 
-  //     try {
-  //       const {user} = cache.readQuery({query: QUERY_USER})
-  //       cache.writeQuery({
-  //         query: QUERY_USER,
-  //         data: {user: {...user, outOfSeatCount: [user.outOfSeatCount, {...addOutOfSeat}]}},
-  //       })
-  //     } catch (e)
-  //     {
-  //       console.log('err: ', e)
-  //     }
-  //   }
-  // })
   const {data} = useQuery(QUERY_USER, {
     variables: {username: usernameFromUrl}
   });
   const user = data?.user || {};
-  const outOfSeatByDay = data?.user?.outOfSeatCountByDay;
-console.log("out of seat by day: ", outOfSeatByDay);
-//create a function that tells me date.now and returns the count that matches the date.now
+  const outOfSeatByDay = data?.user?.outOfSeatCountByDayVirtual
 
 
-  //need to save the count to cache so it saves until reset after 12 hours or button is clicked?? 
-  //or query by day and report back through virtual how many clicks happened that day???
-   const [frequencyCount, setFrequencyCount] = useState(user.outOfSeatCount);
- // const [frequencyCount, setFrequencyCount] = useState(0);
+const getTodayCount = () => {
+  const today = new Date().toISOString().split('T')[0]; 
+
+  const todayData = outOfSeatByDay.find((data) => {
+    const dataDate = new Date(data.createdAt).toISOString().split('T')[0]; 
+
+    return dataDate === today; 
+  });
+
+  console.log(todayData ? todayData.count : 0);
+  return todayData ? todayData.count : 0;
+};
+
+
+   const [frequencyCount, setFrequencyCount] = useState(getTodayCount());
+
   const reset = () => {
     setFrequencyCount(0);
   }
