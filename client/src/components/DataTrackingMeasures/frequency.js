@@ -8,7 +8,9 @@ import { useParams } from 'react-router-dom'
 const Frequency = ()=> {
    const {username: usernameFromUrl} = useParams();
    
-   const [addOutOfSeat, {error}] = useMutation(ADD_OUT_OF_SEAT)
+   const [addOutOfSeat] = useMutation(ADD_OUT_OF_SEAT, {
+    refetchQueries: [{ query: QUERY_USER, variables: { username: usernameFromUrl } }],
+  });
 
   const {data} = useQuery(QUERY_USER, {
     variables: {username: usernameFromUrl}

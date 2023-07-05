@@ -117,6 +117,7 @@ userSchema.virtual('outOfSeatCountByDayVirtual').get(function () {
   const outOfSeatCountByDay = Object.entries(countsByDay).map(([createdAt, count]) => ({
     createdAt,
     count,
+    username: this.username, // Include the username in the returned object
   }));
 
   return outOfSeatCountByDay;

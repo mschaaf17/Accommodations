@@ -27,6 +27,7 @@ const typeDefs = gql `
     type OutOfSeatCountByDay {
         createdAt: String
         count: Int
+        username: String
       }
 
 type Accommodation {
@@ -79,7 +80,7 @@ type Query {
     seatAway(username: String!) : [SeatAway]
     outOfSeatQuery(username: String) : [OutOfSeat]
     outOfSeatToday(username: String, createdAt: String) : [OutOfSeat]
-    
+    outOfSeat(username: String) : [OutOfSeat]
 }
 
 type Mutation {

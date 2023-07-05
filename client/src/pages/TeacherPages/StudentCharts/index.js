@@ -3,8 +3,10 @@ import { Link, useParams } from 'react-router-dom'
 import NavigationLinks from '../../../components/NavigationLinks'
 import { useQuery } from '@apollo/client';
 import WeeklyData from '../../../components/StudentData/weekly'
-import {QUERY_USER, QUERY_BREAKS} from '../../../utils/queries'
+import {QUERY_USER} from '../../../utils/queries'
 import './index.css'
+import moment from 'moment';
+import OutOfSeatData from '../../../components/StudentData/outOfSeatData';
 
 // Student Charts for frequency, duration?? eloping/aggression/other?, observation form, abc data   
 export default function StudentCharts() {
@@ -19,6 +21,10 @@ export default function StudentCharts() {
   });
   const user = data?.user || {};
   console.log(user.username)
+  const outOfSeat = user.outOfSeat
+  const outOfSeatTotalCount = user.outOfSeatCount
+  const outOfSeatByDay = data?.user?.outOfSeatCountByDayVirtual
+ console.log(outOfSeatByDay)
  
   const breakCount = user.breakCount || {}
   console.log(breakCount)
@@ -26,6 +32,17 @@ export default function StudentCharts() {
   console.log(breaks)
   const breakDates = breaks.createdAt || []
   
+  const getTodayCount = () => {
+    const today = new Date().toISOString().split('T')[0]; 
+  
+    const todayData = outOfSeatByDay.find((data) => {
+      const dataDate = new Date(data.createdAt).toISOString().split('T')[0]; 
+  
+      return dataDate === today; 
+    });
+    return todayData ? todayData.count : 0;
+  }
+
   const handlePrintClick = () => {
     setPdfGenerating(true);
     //http://localhost:3000/generate-pdf?url=http://localhost:3000/studentProfile/henry.com/studentCharts
@@ -60,13 +77,52 @@ export default function StudentCharts() {
      
         <div className = "data-to-click">
       <button className='logout' onClick={handleClick}>Frequency</button>
+      {/* if statement for each type of frequenyc to only show data that is created than 1 */}
     {showData && breakCount > 1 && (
+      <>
+      <h4>Today's Break Count: </h4>
+      <h4>Average Daily Break Count:</h4>
+      <h4>Total Break Count: {breakCount}</h4>
       <WeeklyData  
       totalBreaks = {breakCount}
       userBreaks = {breaks}
       breakDates= {breakDates}
       />
+      </>
+      
     )}
+    {showData && outOfSeatTotalCount > 1 && (
+      <>
+        <div className='break_table'>
+        <div className='break_table'>
+        <h4>Today's Out of Seat Count: {getTodayCount()}</h4>
+      <h4>Average Daily Out of Seat Count:</h4>
+      <h4>Total Out of Seat Count: {outOfSeatTotalCount}</h4>
+      <OutOfSeatData
+       outOfSeatByDay = {outOfSeatByDay}
+      />
+
+      <h4>Out Of Seat Information: </h4>
+
+      {Object.values(outOfSeat && outOfSeat).map((amount, index) => {
+  const createdAtTimestamp = parseInt(amount.createdAt);
+  const createdAtDate = new Date(createdAtTimestamp);
+
+  // Check if createdAtDate is a valid date before formatting
+  const formattedDate = moment(createdAtDate).format('MMMM Do, YYYY [at] h:mma');
+
+  return (
+    <div key={index}>
+      <p>{formattedDate}</p>
+    </div>
+  );
+})}
+   
+              </div>
+            </div>
+            </>
+           )}
+   
      
       <button className='logout'>Duration</button>
       <button className='logout'>Contract</button>

@@ -124,7 +124,7 @@ console.log(user.breaks)
 
     <div className='break_table'>
             <div className='break_table'>
-            <h4>Break information</h4>
+            <h4>Break information:</h4>
             {Object.values(userBreaks &&
         userBreaks).map((breaks, index) => (
           <div key={index}>
