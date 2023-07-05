@@ -72,7 +72,7 @@ const userSchema = new Schema(
             {
               createdAt: {
                 type: Date,
-                required: true,
+             
              //  get: timestamp => dateFormat(timestamp)
               },
               count: {
