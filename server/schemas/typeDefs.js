@@ -15,11 +15,17 @@ const typeDefs = gql `
         outOfSeat: [OutOfSeat]
         isAdmin: Boolean
         outOfSeatCountByDay: [OutOfSeatCountByDay]
+        outOfSeatCountByDayVirtual: [OutOfSeatCountByDay]
 
     }
-
+    type OutOfSeat {
+        _id: ID
+        createdAt: String
+        username: String
+    }
+    
     type OutOfSeatCountByDay {
-        date: String
+        createdAt: String
         count: Int
       }
 
@@ -45,7 +51,6 @@ type Break {
     createdAt: String
     breakDate: String
     username: String
-    breakCount: Int
 }
 
 type SeatAway{
@@ -56,16 +61,6 @@ type SeatAway{
     seatAwayCount: Int
 }
 
-type OutOfSeat {
-    _id: ID
-    createdAt: String
-    username: String
-    outOfSeatCountByDay: [OutOfSeatCountByDay]
-}
-type OutOfSeatCountByDay {
-    date: String
-    count: Int
-  }
 
 type Auth {
     token: ID!

@@ -28,6 +28,10 @@ const Frequency = ()=> {
     variables: {username: usernameFromUrl}
   });
   const user = data?.user || {};
+  const outOfSeatByDay = data?.user?.outOfSeatCountByDay;
+console.log("out of seat by day: ", outOfSeatByDay);
+//create a function that tells me date.now and returns the count that matches the date.now
+
 
   //need to save the count to cache so it saves until reset after 12 hours or button is clicked?? 
   //or query by day and report back through virtual how many clicks happened that day???

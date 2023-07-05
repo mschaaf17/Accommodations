@@ -36,12 +36,7 @@ const resolvers = {
           .populate('isAdmin')
           .populate('students')
           .populate('outOfSeat')
-          .populate({
-            path: 'outOfSeat',
-            populate: {
-              path: 'outOfSeatCountByDay',
-            },
-          });
+         
       },
       
        accommodationCards: async () => {
@@ -411,12 +406,12 @@ const resolvers = {
           
           //   throw new AuthenticationError('You need to be logged in!');
           // }
-
           addOutOfSeat: async (parent, { username, createdAt }, context) => {
             if (context.user) {
               const query = { username };
               const update = {
                 $push: { outOfSeat: { createdAt, username: context.user.username } },
+                $inc: { "outOfSeatCountByDay.$[elem].count": 1 },
               };
           
               if (createdAt) {
@@ -427,7 +422,11 @@ const resolvers = {
                 query['outOfSeatCountByDay.createdAt'] = { $gte: startOfDay, $lte: endOfDay };
               }
           
-              const options = { new: true, runValidators: true };
+              const options = {
+                new: true,
+                runValidators: true,
+                arrayFilters: [{ "elem.createdAt": { $gte: startOfDay, $lte: endOfDay } }],
+              };
           
               const updatedOutOfSeat = await User.findOneAndUpdate(query, update, options);
               console.log(updatedOutOfSeat);
@@ -437,6 +436,7 @@ const resolvers = {
           
             throw new AuthenticationError('You need to be logged in!');
           },
+          
           // addOutOfSeat: async (parent, { username, createdAt }, context) => {
           //   if (context.user) {
           //     const query = { username };

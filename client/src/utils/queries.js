@@ -9,6 +9,12 @@ query me {
     username
     _id
   }
+  outOfSeatCount
+
+  outOfSeatCountByDayVirtual {
+    count
+    createdAt
+  }
   breakCount
   hasBreaks
   isAdmin
@@ -48,6 +54,11 @@ query user($username: String!) {
   seatAwayTaken {
     createdAt
   }  
+  outOfSeatCount
+  outOfSeatCountByDayVirtual {
+    count
+    createdAt
+  }
   accommodations {
     title
     image

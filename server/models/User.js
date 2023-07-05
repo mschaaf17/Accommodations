@@ -3,7 +3,7 @@ const bcrypt = require('bcrypt')
 const outOfSeatSchema = require('./OutOfSeat')
 const accommodationSchema = require('./Accommodations')
 const moment = require('moment');
-//import moment from 'moment'
+const dateFormat = require('../utils/dateFormat');
 
 const userSchema = new Schema(
     {
@@ -60,18 +60,20 @@ const userSchema = new Schema(
                 }
             }
         ],
+        isAdmin: {
+          type: Boolean,
+          default: false
+      },
        
         //out of seat is teacher logging for student
         outOfSeat: [outOfSeatSchema],
-        isAdmin: {
-            type: Boolean,
-            default: false
-        },
+       
         outOfSeatCountByDay: [
             {
-              date: {
+              createdAt: {
                 type: Date,
                 required: true,
+             //  get: timestamp => dateFormat(timestamp)
               },
               count: {
                 type: Number,
@@ -105,20 +107,21 @@ userSchema.virtual('outOfSeatCount').get(function() {
 })
 
 userSchema.virtual('outOfSeatCountByDayVirtual').get(function () {
-    const countsByDay = {};
-  
-    this.outOfSeat.forEach((item) => {
-      const day = moment(item.createdAt).startOf('day').toISOString();
-      countsByDay[day] = (countsByDay[day] || 0) + 1;
-    });
-  
-    const outOfSeatCountByDay = Object.entries(countsByDay).map(([date, count]) => ({
-      date,
-      count,
-    }));
-  
-    return outOfSeatCountByDay;
+  const countsByDay = {};
+
+  this.outOfSeat.forEach((item) => {
+    const day = moment(item.createdAt).startOf('day').toISOString();
+    countsByDay[day] = (countsByDay[day] || 0) + 1;
   });
+
+  const outOfSeatCountByDay = Object.entries(countsByDay).map(([createdAt, count]) => ({
+    createdAt,
+    count,
+  }));
+
+  return outOfSeatCountByDay;
+});
+
 
 // set up pre-save middleware to create password
 userSchema.pre('save', async function(next) {
@@ -133,28 +136,27 @@ userSchema.pre('save', async function(next) {
 userSchema.methods.isCorrectPassword = async function(password) {
     return bcrypt.compare(password, this.password)
 }
-
 userSchema.pre('save', function (next) {
-    // Check if the outOfSeatCountByDay field is empty or not present
-    if (!this.outOfSeatCountByDay || this.outOfSeatCountByDay.length === 0) {
-      // Initialize the outOfSeatCountByDay field with appropriate dates
-      const currentDate = moment().startOf('day');
-      const dates = [];
-  
-      // Generate the dates for initialization (e.g., last 30 days)
-      for (let i = 0; i < 30; i++) {
-        dates.push({
-          date: currentDate.toDate(),
-          count: 0,
-        });
-        currentDate.subtract(1, 'day');
-      }
-  
-      this.outOfSeatCountByDay = dates;
+  // Check if the outOfSeatCountByDay field is empty or not present
+  if (!this.outOfSeatCountByDay || this.outOfSeatCountByDay.length === 0) {
+    // Initialize the outOfSeatCountByDay field with appropriate dates
+    const currentDate = moment().startOf('day');
+    const dates = [];
+
+    // Generate the dates for initialization (e.g., last 30 days)
+    for (let i = 0; i < 30; i++) {
+      dates.push({
+        createdAt: currentDate.toDate(),
+        count: 0,
+      });
+      currentDate.subtract(1, 'day');
     }
-  
-    next();
-  });
+
+    this.outOfSeatCountByDay = dates;
+  }
+
+  next();
+});
   
 
 const User = model('User', userSchema)
