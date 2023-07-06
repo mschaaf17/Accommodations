@@ -16,6 +16,27 @@ const typeDefs = gql `
         isAdmin: Boolean
         outOfSeatCountByDay: [OutOfSeatCountByDay]
         outOfSeatCountByDayVirtual: [OutOfSeatCountByDay]
+        userInterventions: [UserInterventions]
+        interventionCount: Int
+
+    }
+
+    type UserInterventions {
+        _id: ID
+        functions: String
+        title: String
+        username: String
+        createdAt: String
+        summary: String
+
+    }
+
+    type InterventionList {
+        _id: ID
+        functions: String
+        title: String
+        username: String
+        summary: String
 
     }
     type OutOfSeat {
@@ -81,6 +102,7 @@ type Query {
     outOfSeatQuery(username: String) : [OutOfSeat]
     outOfSeatToday(username: String, createdAt: String) : [OutOfSeat]
     outOfSeat(username: String) : [OutOfSeat]
+    interventionList: [InterventionList]
 }
 
 type Mutation {
@@ -95,6 +117,10 @@ type Mutation {
     removeAccommodationCard(_id: ID): AccommodationCards
     addStudentToList(studentId: ID!): User
     removeStudentFromList(studentId: ID!): User
+    addIntervention(function: String, title: String, username: String, summary: String): InterventionList
+    removeIntervention(_id: ID): InterventionList
+    addInterventionToStudent(title: String, username: String, functions: String, summary: String): User
+    removeInterventionFromStudent(interventionId: ID!, username: String!): User
 }
 `;
 

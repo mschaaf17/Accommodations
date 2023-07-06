@@ -1,5 +1,5 @@
 const { AuthenticationError } = require('apollo-server-express')
-const { User, Accommodation, AccommodationCards, Break , OutOfSeat, SeatAway} = require('../models');
+const { User, Accommodation, AccommodationCards, Break , OutOfSeat, SeatAway, InterventionList} = require('../models');
 const { signToken } = require('../utils/auth');
 const moment = require('moment')
 const { startOfDay, endOfDay, isEqual } = require('date-fns');
@@ -18,6 +18,7 @@ const resolvers = {
                 .populate('isAdmin')
                 .populate('students')
                 .populate('outOfSeat')
+                .populate('userInterventions')
 
                 return userData
             }
@@ -37,6 +38,7 @@ const resolvers = {
           .populate('isAdmin')
           .populate('students')
           .populate('outOfSeat')
+          .populate('userInterventions')
          
       },
       
@@ -58,6 +60,9 @@ const resolvers = {
         const params = username ? { username } : {};
         return SeatAway.find(params).sort({ createdAt: -1})
        },
+       interventionList: async () => {
+        return InterventionList.find();
+       }
        
       
     },
@@ -92,6 +97,8 @@ const resolvers = {
       
             return { accommodationCards };
           },
+
+        
           addAccommodationForStudent: async (parent, { username, image, title }, context) => {
             if (context.user && context.user.isAdmin) {
               const accommodation = { title, image }; 
@@ -139,6 +146,58 @@ const resolvers = {
       
             throw new AuthenticationError('You need to be logged in as an admin!');
           },
+
+          addIntervention: async (parent, args) => {
+            const interventions = await InterventionList.create(args);
+      
+            return { interventions };
+          },
+
+          removeIntervention: async (parent, args) => {
+            const intervention = await InterventionList.findByIdAndDelete(args);
+            console.log(intervention)
+    
+            return intervention;
+    
+          throw new AuthenticationError('Could not delete accommodation card');
+        },
+        addInterventionToStudent: async (parent, { title, username, functions, summary }, context) => {
+          if (context.user && context.user.isAdmin) {
+            const intervention = {title, functions, summary} ; 
+            const user = await User.findOne({ username: username });
+        
+            // Check if the intervention already exists for the student
+            const interventionExists = user.userInterventions.some(
+              (a) => a.title === title
+            );
+            if (interventionExists) {
+              throw new Error(`Intervention '${title}' is already added for the student.`);
+            }
+        
+            user.userInterventions.push(intervention);
+            const updatedUser = await user.save();
+        
+            return updatedUser;
+          }
+        
+          throw new AuthenticationError('You need to be logged in as an administrator!');
+        },
+        removeInterventionFromStudent: async (parent, {interventionId, username}, context) => {
+          if (context.user && context.user.isAdmin) {
+            const user = await User.findOneAndUpdate(
+              { username: username},
+              {$pull: {userInterventions: {_id: interventionId}}},
+              {new: true, runValidators: true}
+            );
+            if(!user){
+              throw new AuthenticationError('Inccorrect username')
+            }
+            return user;
+          }
+    
+          throw new AuthenticationError('You need to be logged in as an admin!');
+        },
+
           addStudentToList: async (parent, { studentId }, context) => {
             if (context.user) {
               const updatedUser = await User.findOneAndUpdate(

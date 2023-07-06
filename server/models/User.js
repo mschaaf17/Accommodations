@@ -2,6 +2,7 @@ const { Schema, model } = require('mongoose')
 const bcrypt = require('bcrypt')
 const outOfSeatSchema = require('./OutOfSeat')
 const accommodationSchema = require('./Accommodations')
+const userInterventionsSchema = require('./UserInterventions')
 const moment = require('moment');
 const dateFormat = require('../utils/dateFormat');
 
@@ -25,6 +26,13 @@ const userSchema = new Schema(
             }
         ],
         accommodations: [accommodationSchema],
+        interventionList: [
+          {
+              type: Schema.Types.ObjectId,
+              ref: 'InterventionList',
+          }
+      ],
+      userInterventions: [userInterventionsSchema],
         students: [
             {
             type: Schema.Types.ObjectId,
@@ -100,6 +108,9 @@ userSchema.virtual('breakCount').get(function() {
 })
 userSchema.virtual('seatAwayCount').get(function() {
     return this.seatAwayTaken.length;
+})
+userSchema.virtual('interventionCount').get(function() {
+  return this.userInterventions.length;
 })
 
 userSchema.virtual('outOfSeatCount').get(function() {
