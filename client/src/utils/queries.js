@@ -14,6 +14,7 @@ query me {
   outOfSeatCountByDayVirtual {
     count
     createdAt
+    username
   }
   breakCount
   hasBreaks
@@ -58,6 +59,7 @@ query user($username: String!) {
   outOfSeatCountByDayVirtual {
     count
     createdAt
+    username
   }
   accommodations {
     title

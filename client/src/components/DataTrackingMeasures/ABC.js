@@ -249,10 +249,6 @@ const toggleForm = () => {
                 <input type= "checkbox"></input>
                 </label>
                 <label>
-                  
-                <input type= "checkbox"></input>
-                </label>
-                <label>
                   Hitting Others
                 <input type= "checkbox"></input>
                 </label>
@@ -297,14 +293,14 @@ const toggleForm = () => {
               </div>
               {/* a sliding scale that take 1-10? */}
               <div className='abc_block'>
-                <h3>Intensity</h3>
+                <h3 className=''>Intensity</h3>
                 <div className='abc_checklist'>
                 <label>
                   Low
                 <input type= "checkbox"></input>
                 </label>
                 <label>
-                  medium
+                  Medium
                 <input type= "checkbox"></input>
                 </label>
                 <label>

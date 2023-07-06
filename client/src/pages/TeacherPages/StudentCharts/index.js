@@ -32,16 +32,21 @@ export default function StudentCharts() {
   console.log(breaks)
   const breakDates = breaks.createdAt || []
   
+
   const getTodayCount = () => {
     const today = new Date().toISOString().split('T')[0]; 
-  
+
     const todayData = outOfSeatByDay.find((data) => {
       const dataDate = new Date(data.createdAt).toISOString().split('T')[0]; 
-  
+      console.log("todays date " + today)
+      console.log("data.createdAt is returning: " + dataDate)
       return dataDate === today; 
     });
+    console.log(todayData ? todayData.count : 0);
     return todayData ? todayData.count : 0;
   }
+
+
 
   const handlePrintClick = () => {
     setPdfGenerating(true);
@@ -78,7 +83,7 @@ export default function StudentCharts() {
         <div className = "data-to-click">
       <button className='logout' onClick={handleClick}>Frequency</button>
       {/* if statement for each type of frequenyc to only show data that is created than 1 */}
-    {showData && breakCount > 1 && (
+    {showData && breakCount >= 1 && (
       <>
       <h4>Today's Break Count: </h4>
       <h4>Average Daily Break Count:</h4>
@@ -91,7 +96,7 @@ export default function StudentCharts() {
       </>
       
     )}
-    {showData && outOfSeatTotalCount > 1 && (
+    {showData && outOfSeatTotalCount >= 1 && (
       <>
         <div className='break_table'>
         <div className='break_table'>
@@ -126,7 +131,7 @@ export default function StudentCharts() {
      
       <button className='logout'>Duration</button>
       <button className='logout'>Contract</button>
-      <button className='logout'>ABC???</button>
+      <button className='logout'>ABC</button>
       </div>
         </div>
 
@@ -143,6 +148,7 @@ export default function StudentCharts() {
 
       <div>
         Intervention Suggestions:
+        {/* if data point is three points above the aimline offer differnt intervention suggestion?? */}
       </div>
       <div className="view-other-pages"> <Link className="link-to-page logout" to ={`/teacherdata/${userParam}`}> ← Back to Student List</Link></div>
     </div>

@@ -74,6 +74,7 @@ mutation AddOutOfSeat ($username: String) {
       outOfSeatCountByDayVirtual {
         count
         createdAt
+        username
       }
     }
 }
