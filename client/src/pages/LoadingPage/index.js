@@ -22,4 +22,5 @@ export default function LoadingPage() {
   }, [loading, data]);
 
   return <div className='loader'>Loading...</div>;
+  //need to remove the header and everything else while loading
 }

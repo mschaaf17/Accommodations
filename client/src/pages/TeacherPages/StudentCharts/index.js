@@ -82,33 +82,53 @@ export default function StudentCharts() {
      
         <div className = "data-to-click">
       <button className='logout' onClick={handleClick}>Frequency</button>
-      {/* if statement for each type of frequenyc to only show data that is created than 1 */}
+     
     {showData && breakCount >= 1 && (
       <>
+      <div>
+       <div>
       <h4>Today's Break Count: </h4>
       <h4>Average Daily Break Count:</h4>
       <h4>Total Break Count: {breakCount}</h4>
+      {/* move data out of chart and onto this page */}
+      </div> 
       <WeeklyData  
       totalBreaks = {breakCount}
       userBreaks = {breaks}
       breakDates= {breakDates}
       />
+      </div>
       </>
       
     )}
     {showData && outOfSeatTotalCount >= 1 && (
       <>
-        <div className='break_table'>
-        <div className='break_table'>
-        <h4>Today's Out of Seat Count: {getTodayCount()}</h4>
-      <h4>Average Daily Out of Seat Count:</h4>
-      <h4>Total Out of Seat Count: {outOfSeatTotalCount}</h4>
+      <div className='flex key'>
+        <div className='border_solid'>
+          <h3 className='center_only '>Key</h3>
+          <div className='key'>
+            <button className='logout'>Add Intervention</button>
+            {/* after clicking add intervention a modal with a list of all the interventions 
+            should be display to click on -- once clicked it needs to add to this students user model
+            of interventions.. and display in the key as a list with a specific color to match the graph line
+             everytime an intervention is added a new line on the graph needs to be created-- 
+             will need to add interventions for the student on the backend*/}
+            <ul>
+              {/* intevention will need to be dynamic */}
+              <li>Intervention name: will be better to click the intervention from this key</li>
+              <li>Once clicked the graph line needs to match the color of this text</li>
+            </ul>
+          </div>
+        </div>
       <OutOfSeatData
        outOfSeatByDay = {outOfSeatByDay}
       />
-
-      <h4>Out Of Seat Information: </h4>
-
+      <div>
+        <h3>Out of Seat Information:</h3>
+      <h4>Today's Count: {getTodayCount()}</h4>
+      <h4>Average Daily Count: </h4>
+      <h4>Total Count: {outOfSeatTotalCount}</h4>
+      <h4>Dates/Times: </h4>
       {Object.values(outOfSeat && outOfSeat).map((amount, index) => {
   const createdAtTimestamp = parseInt(amount.createdAt);
   const createdAtDate = new Date(createdAtTimestamp);
@@ -116,22 +136,29 @@ export default function StudentCharts() {
   // Check if createdAtDate is a valid date before formatting
   const formattedDate = moment(createdAtDate).format('MMMM Do, YYYY [at] h:mma');
 
-  return (
-    <div key={index}>
-      <p>{formattedDate}</p>
-    </div>
-  );
-})}
+      return (
+        <div key={index}>
+         <p>{formattedDate}</p>
+        </div>
+       );
+    })}
    
-              </div>
-            </div>
+   </div>
+
+         </div>
             </>
            )}
    
      
       <button className='logout'>Duration</button>
+      {/* duration data should be a pie chart with off or on task comparted to class time
+      and a bar chart */}
       <button className='logout'>Contract</button>
+      {/* line graph */}
       <button className='logout'>ABC</button>
+      {/* will be a comprized list of 
+       function of behavior, targeted struggle times, frequency consequences, and
+       antecendent behaviors-- all based on abc logging */}
       </div>
         </div>
 

@@ -1,0 +1,33 @@
+.border_solid {
+    border: 1px solid black;
+    margin-left: 25px;
+    border-radius: 15px;
+    padding: 5px 10px 10px 10px;
+}
+
+.idea_section {
+    margin-right: 25px;
+}
+
+.title {
+    border: 1px solid black;
+    width: 80%;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+ 
+
+}
+.flex_column {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    align-items:flex-start;
+    margin-left: 25px;
+   
+}
+.summary {
+    padding: 25px 0px;
+    border: 1px solid black;
+    
+}

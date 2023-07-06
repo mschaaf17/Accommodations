@@ -14,6 +14,7 @@ export default function NavigationLinks() {
           <button className='profile-options logout'><Link className=" link-to-page" to ={`/studentProfile/${userParam}/addAccommodations`}> Add Accommodations</Link></button>
         <button className = "profile-options logout"><Link className=" link-to-page" to ={`/studentProfile/${userParam}/dataLogging`}>Log Data</Link></button>
         <button className = "profile-options logout"><Link className=" link-to-page" to ={`/studentProfile/${userParam}/studentCharts`}>Charts</Link></button>
+        {/* <button className = "profile-options logout"><Link className=" link-to-page" to ={`/studentProfile/${userParam}/interventions`}>Interventions</Link></button> */}
         </div>
         
         
