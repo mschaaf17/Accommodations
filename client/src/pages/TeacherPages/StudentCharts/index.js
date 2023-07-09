@@ -101,12 +101,15 @@ export default function StudentCharts() {
       </>
       
     )}
+
+
     {showData && outOfSeatTotalCount >= 1 && (
       <>
-      <div className='flex key'>
-        <div className='border_solid'>
+      <div className='graph_flex' >
+
+        <div className=''>
           <h3 className='center_only '>Key</h3>
-          <div className='key'>
+          <div className='margin_auto border_solid'>
             <button className='logout'>Add Intervention</button>
             {/* after clicking add intervention a modal with a list of all the interventions 
             should be display to click on -- once clicked it needs to add to this students user model
@@ -123,12 +126,17 @@ export default function StudentCharts() {
       <OutOfSeatData
        outOfSeatByDay = {outOfSeatByDay}
       />
-      <div>
-        <h3>Out of Seat Information:</h3>
-      <h4>Today's Count: {getTodayCount()}</h4>
-      <h4>Average Daily Count: </h4>
-      <h4>Total Count: {outOfSeatTotalCount}</h4>
-      <h4>Dates/Times: </h4>
+      <div className=''>
+        <h3 className='center_only'>Out of Seat Information:</h3>
+
+      <div className='border_solid'>
+      <h4 className='center_only'>Today's Count: {getTodayCount()}</h4>
+      <h4 className='center_only'>Average Daily Count: </h4>
+      <h4 className='center_only'>Total Count: {outOfSeatTotalCount}</h4>
+      </div>
+
+      <div className='border_solid'>
+      <h4 className='center_only'>Dates/Times: </h4>
       {Object.values(outOfSeat && outOfSeat).map((amount, index) => {
   const createdAtTimestamp = parseInt(amount.createdAt);
   const createdAtDate = new Date(createdAtTimestamp);
@@ -138,7 +146,7 @@ export default function StudentCharts() {
 
       return (
         <div key={index}>
-         <p>{formattedDate}</p>
+         <p className='center_only'>{formattedDate}</p>
         </div>
        );
     })}
@@ -146,10 +154,11 @@ export default function StudentCharts() {
    </div>
 
          </div>
+         </div>
             </>
            )}
    
-     
+
       <button className='logout'>Duration</button>
       {/* duration data should be a pie chart with off or on task comparted to class time
       and a bar chart */}

@@ -33,14 +33,12 @@ if (loading) {
     <div>
           <h2 className='profile-name'>Intervention Ideas</h2>
           {/* find a way to provide teacher with function of behavior based on additional studnet info */}
-          <div className='flex'>
+          <div className='flex_left'>
             {/* Need a search bar and possible make this page large so you can click on the 
             intervention regardless of if the teacher added it so that it more informaton 
             can be provided --teacher much add a detail and a summary of the intervention*/}
-
             {/* thoughts if I add an intervention for a specific student will tha tbe annoying?
-            should their be an add intervention but it adds to the entire list not for a particular student */}
-            
+            should their be an add intervention but it adds to the entire list not for a particular student */}       
             <div className='border_solid'>
                 <h3 className='center_only'>Add Intervention</h3>
                 <form className='flex_column'>
@@ -60,24 +58,24 @@ if (loading) {
                     <button className="submit-btn" type="submit">
                 Submit
               </button>
-                    
                 </form>
             </div>
             
-            <div className='flex idea_section'>
+            <div className=' flex_right'>
             
             <div className='border_solid'>
           <h4>Interventions Ideas for Escape</h4>
-          <ul className='flex'>
+          <ul className='flex_column'>
         {/* possible links to articles for these interventions? as well as added interventions by the teacher */}
             <li>Scheduled Breaks</li>
+            <li>Helper</li>
           </ul>
           </div>
 
 
           <div className='border_solid'>
           <h4>Interventions Ideas for Access to Attention</h4>
-          <ul className='flex'>
+          <ul className='flex_column'>
         {/* possible links to articles for these interventions or instead just a module that gives a description? */}
             <li>Teacher Helper</li>
           </ul>
@@ -85,7 +83,7 @@ if (loading) {
 
           <div className='border_solid'>
           <h4>Interventions Ideas for Sensory Stimulation</h4>
-          <ul className='flex'>
+          <ul className='flex_column'>
         {/* possible links to articles for these interventions? */}
             <li>Desk Velcro</li>
           </ul>
@@ -93,7 +91,7 @@ if (loading) {
 
           <div className='border_solid'>
           <h4>Interventions Ideas for Access to Tangible</h4>
-          <ul className='flex'>
+          <ul className='flex_column'>
         {/* possible links to articles for these interventions? */}
             <li>Token Economy</li>
           </ul>
@@ -101,7 +99,7 @@ if (loading) {
 
           <div className='border_solid'>
           <h4>Other Interventions Ideas</h4>
-          <ul className='flex'>
+          <ul className='flex_column'>
         {/* possible links to articles for these interventions? */}
             <li>Will only display if other was added</li>
           </ul>
