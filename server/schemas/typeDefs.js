@@ -18,6 +18,8 @@ const typeDefs = gql `
         outOfSeatCountByDayVirtual: [OutOfSeatCountByDay]
         userInterventions: [UserInterventions]
         interventionCount: Int
+        averageOutOfSeatCount: Float
+        
 
     }
 
@@ -49,6 +51,7 @@ const typeDefs = gql `
         createdAt: String
         count: Int
         username: String
+        
       }
 
 type Accommodation {
@@ -102,7 +105,7 @@ type Query {
     outOfSeatQuery(username: String) : [OutOfSeat]
     outOfSeatToday(username: String, createdAt: String) : [OutOfSeat]
     outOfSeat(username: String) : [OutOfSeat]
-    interventionList: [InterventionList]
+    interventionList(username: String): [InterventionList]
 }
 
 type Mutation {
@@ -117,7 +120,7 @@ type Mutation {
     removeAccommodationCard(_id: ID): AccommodationCards
     addStudentToList(studentId: ID!): User
     removeStudentFromList(studentId: ID!): User
-    addIntervention(function: String, title: String, username: String, summary: String): InterventionList
+    addIntervention(functions: String, title: String, username: String, summary: String): InterventionList
     removeIntervention(_id: ID): InterventionList
     addInterventionToStudent(title: String, username: String, functions: String, summary: String): User
     removeInterventionFromStudent(interventionId: ID!, username: String!): User

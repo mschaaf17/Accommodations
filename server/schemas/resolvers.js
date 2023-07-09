@@ -30,7 +30,7 @@ const resolvers = {
         .select('-__v -password')
        },
        user: async (parent, { username }) => {
-        return User.findOne({ username })
+        const user = await User.findOne({ username })
           .select('-__v -password')
           .populate('accommodations')
           .populate('breaks')
@@ -38,9 +38,27 @@ const resolvers = {
           .populate('isAdmin')
           .populate('students')
           .populate('outOfSeat')
-          .populate('userInterventions')
-         
+          .populate('userInterventions');
+      
+        if (!user) {
+          throw new Error('User not found');
+        }
+      
+        const outOfSeatCountByDayVirtual = user.outOfSeatCountByDayVirtual;
+      
+        // Calculate the average count
+        let totalCount = 0;
+        for (const { count } of outOfSeatCountByDayVirtual) {
+          totalCount += count;
+        }
+        const averageCount = totalCount / outOfSeatCountByDayVirtual.length;
+      
+        // Add the average count to the user object
+        user.averageOutOfSeatCount = averageCount;
+      
+        return user;
       },
+      
       
        accommodationCards: async () => {
         return AccommodationCards.find()
@@ -60,9 +78,23 @@ const resolvers = {
         const params = username ? { username } : {};
         return SeatAway.find(params).sort({ createdAt: -1})
        },
-       interventionList: async () => {
-        return InterventionList.find();
-       }
+      //  interventionList: async () => {
+      //   return InterventionList.find();
+      //  },
+
+       interventionList: async (parent, { username }) => {
+        const params = username ? { username } : {};
+        
+      
+        if (!params) {
+          throw new Error('User not found');
+        }
+      
+    
+      
+        return InterventionList.find(params)
+      },
+       
        
       
     },

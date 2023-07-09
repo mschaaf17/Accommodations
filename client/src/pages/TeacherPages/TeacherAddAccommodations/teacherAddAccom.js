@@ -43,13 +43,7 @@ const handleDeleteConfirmation = async () => {
                 {query: QUERY_USER, variables: {username: userParam}}
             ]
         })
-        // const updatedAccommodations = updateStudentAccommodations.filter(accommodation => accommodation._id !== selectedAccommodation);
-        // setUpdateStudentAccommodations(updatedAccommodations);
-        // setAddedAccommodation((prevAddedAccommodations) => {
-        //   const updatedAddedAccommodations = { ...prevAddedAccommodations };
-        //   delete updatedAddedAccommodations[selectedAccommodation];
-        //   return updatedAddedAccommodations;
-        // });
+        
     } catch (e) {
         console.log(e)
     }
@@ -100,18 +94,16 @@ const isAccommodationAdded = (title) => {
     <div>
       <h2>Which accommodations does {userParam} need?</h2>
 
-      <div className='flex'>
-      <AllAccommodationCards
-        addAccommodation={addAccommodation}
-        isAccommodationAdded = {isAccommodationAdded}
-        addedAccommodation = {addedAccommodation}
-        />
+      <div className='flex_accomm '>
+
+    
         <div className=''>
         {studentAccommodations.length > 0 && ( 
-      <h3 className='center_only header'>{userParam}'s Selected Accommodations</h3>
+      <h3 className='center_only'>{userParam}'s Selected Accommodations</h3>
       )}
-      <div className='border'>
+      <div className=''>
         {studentAccommodations.map((accommodation, index) => (
+          <div className='center_only'>
           <div className='each_student' key={index}>
               <div className='center_only' >
                 {accommodation.title}
@@ -120,9 +112,19 @@ const isAccommodationAdded = (title) => {
                 <DeleteForeverIcon />
               </p>
           </div>
+          </div>
         ))}
       </div>
       </div>
+
+      <AllAccommodationCards
+        addAccommodation={addAccommodation}
+        isAccommodationAdded = {isAccommodationAdded}
+        addedAccommodation = {addedAccommodation}
+        />
+
+
+
       </div>
 
       {showConfirmationModal && (

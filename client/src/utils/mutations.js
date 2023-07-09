@@ -104,3 +104,54 @@ mutation RemoveStudentFromList($studentId: ID!) {
   }
 }
 `;
+
+export const ADD_INTERVENTION = gql`
+mutation AddIntervention($functions: String, $title: String, $username: String, $summary: String) {
+  addIntervention(functions: $functions, title: $title, username: $username, summary: $summary) {
+    _id
+    functions
+    summary
+    title
+    username
+  }
+}
+`;
+
+export const ADD_INTERVENTION_TO_STUDENT = gql`
+mutation AddInterventionToStudent(  $username: String,  $title: String) {
+  addInterventionToStudent( username: $username, title: $title) {
+    userInterventions {
+      _id
+      createdAt
+      functions
+      summary
+      title
+      username
+    }
+  }
+}
+`;
+
+export const REMOVE_INTERVENTION = gql`
+mutation RemoveIntervention($id: ID) {
+  removeIntervention(_id: $id) {
+    _id
+    functions
+    summary
+    title
+    username
+  }
+}
+`;
+
+export const REMOVE_INTERVENTION_FROM_STUDENT = gql`
+mutation RemoveInterventionFromStudent($interventionId: ID!, $username: String!) {
+  removeInterventionFromStudent(interventionId: $interventionId, username: $username) {
+    userInterventions {
+      title
+      _id
+      username
+    }
+  }
+}
+`;

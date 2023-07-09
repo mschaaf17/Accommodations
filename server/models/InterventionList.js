@@ -24,5 +24,5 @@ const interventionListSchema = new Schema(
 )
 
 
-const AccommodationCards = model('InterventionList', interventionListSchema)
-module.exports = AccommodationCards
+const InterventionList = model('InterventionList', interventionListSchema)
+module.exports = InterventionList 

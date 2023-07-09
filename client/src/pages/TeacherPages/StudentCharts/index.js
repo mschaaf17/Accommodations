@@ -24,7 +24,7 @@ export default function StudentCharts() {
   const outOfSeat = user.outOfSeat
   const outOfSeatTotalCount = user.outOfSeatCount
   const outOfSeatByDay = data?.user?.outOfSeatCountByDayVirtual
- console.log(outOfSeatByDay)
+ 
  
   const breakCount = user.breakCount || {}
   console.log(breakCount)
@@ -131,7 +131,7 @@ export default function StudentCharts() {
 
       <div className='border_solid'>
       <h4 className='center_only'>Today's Count: {getTodayCount()}</h4>
-      <h4 className='center_only'>Average Daily Count: </h4>
+      <h4 className='center_only'>Average Daily Count: {Math.round(user.averageOutOfSeatCount)} </h4>
       <h4 className='center_only'>Total Count: {outOfSeatTotalCount}</h4>
       </div>
 

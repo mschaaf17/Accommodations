@@ -9,8 +9,15 @@ query me {
     username
     _id
   }
+  userInterventions {
+    _id
+    functions
+    summary
+    title
+    username
+  }
   outOfSeatCount
-
+  averageOutOfSeatCount
   outOfSeatCountByDayVirtual {
     count
     createdAt
@@ -51,10 +58,18 @@ query user($username: String!) {
   isAdmin
   breakCount
   outOfSeatCount
+  averageOutOfSeatCount
   seatAwayCount
   seatAwayTaken {
     createdAt
   }  
+  userInterventions {
+    _id
+    functions
+    summary
+    title
+    username
+  }
   outOfSeatCount
   outOfSeatCountByDayVirtual {
     count
@@ -107,3 +122,14 @@ query accommodations {
 }
 `;
 
+export const QUERY_INTERVENTION_LIST = gql`
+query InterventionList($username: String) {
+  interventionList(username: $username) {
+    title
+    summary
+    username
+    _id
+    functions
+  }
+}
+`;

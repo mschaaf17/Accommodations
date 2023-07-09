@@ -20,11 +20,11 @@ const AllAccommodationCards = ({ addAccommodation,
   return (
     <div>
 <h3 className='center_only'>Select Accommodations From list</h3>
-<div className='border'>
+<div className=''>
     
         { accommodationCards && accommodationCards.map((accommodation, index) => (
-            <div  key={`accommodation_${accommodation._id || index}`}onClick={()=> addAccommodation(accommodation._id, accommodation.title, accommodation.image)}>
-              <div className='each_student'>
+            <div  className='center_only' key={`accommodation_${accommodation._id || index}`}onClick={()=> addAccommodation(accommodation._id, accommodation.title, accommodation.image)}>
+              <div className='each_student '>
               <div className='center_only'>{accommodation.title}</div>
               <p className='small-image' src={accommodation.image} />
               <div className='center'>
