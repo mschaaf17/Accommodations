@@ -19,6 +19,10 @@ export default function Interventions() {
 const [formError, setFormError] = useState("");
 const [selectedIntervention, setSelectedIntervention] = useState("");
 const [showConfirmationModal, setShowConfirmationModal] = useState(false);
+const [showSummaryModal, setShowSummaryModal] = useState(false);
+const [selectedSummary, setSelectedSummary] = useState('');
+const [selectedHardcodedIntervention, setSelectedHardcodedIntervention] = useState(null);
+
 const [addedIntervention, setAddedIntervention] = useState([]);
 
 const { loading, data } = useQuery(QUERY_ME)
@@ -32,7 +36,6 @@ const { loading: interventionsLoading, data: interventions } = useQuery(QUERY_IN
   variables: { username: user.username },
 });
 const interventionList = interventions?.interventionList || []
-console.log(interventionList)
 
 
 console.log(user.username)
@@ -73,6 +76,15 @@ const handleDeleteConfirmation = async () => {
 const handleCancelConfirmation = () => {
   setShowConfirmationModal(false)
   setSelectedIntervention(null)
+}
+
+const handleShowSummaryModal = summary => {
+  setSelectedSummary(summary)
+  setShowSummaryModal(true)
+}
+
+const handleHideSummaryModal = () => {
+  setShowSummaryModal(false)
 }
 
 const addIntervention = async (event) => {
@@ -120,6 +132,15 @@ const isInterventionAdded = (title) => {
   console.log(`Intervention title: ${title}, Is Added: ${isAdded}`);
   return isAdded;
 };
+const getHardcodedInterventionSummary = (intervention) => {
+  switch (intervention) {
+    case 'Scheduled Breaks':
+      return 'Summary explaining about the scheduled breaks';
+    // Add more cases for other hardcoded interventions
+    default:
+      return '';
+  }
+};
 
 
 if (loading) {
@@ -162,24 +183,30 @@ if (loading) {
             <div className=' flex_right'>
             
             <div className='border_solid'>
-          <h4>Intervention Ideas for Escape</h4>
+          <h4 className = 'center_only'>Intervention Ideas for Escape</h4>
           {/* if escape was selected then it needs to appear here */}
-          <ul className='flex_column'>
+          <ol className='flex_column ordered_list'>
        
         {isInterventionAdded('Escape') ? (
               interventionList
                 .filter((intervention) => intervention.functions === 'Escape')
                 .map((intervention) => (
-                  <li key={intervention._id}>{intervention.title.charAt(0).toUpperCase() + intervention.title.slice(1)}
-                 
-                <DeleteForeverIcon  onClick={() => removeIntervention(intervention._id)} className='' />          
+                  <li className='flex' key={intervention._id}>
+                    <button className='list_buttons' onClick={() => handleShowSummaryModal(intervention.summary)}>
+                    {intervention.title.charAt(0).toUpperCase() + intervention.title.slice(1)}
+                    </button>
+                    <p className='center'><DeleteForeverIcon className = 'delete' onClick={() => removeIntervention(intervention._id)}  />
+         </p>      
                   </li>                
                 ))
             ) : (
               ""
             )}
-            <li>Scheduled Breaks</li>
-          </ul>
+            <li className= 'ideas_center' onClick={() => setSelectedHardcodedIntervention('Scheduled Breaks')}>
+             <button className='list_buttons'> Scheduled Breaks</button>
+            </li>
+
+          </ol>
      
           </div>
           {showConfirmationModal && (
@@ -200,81 +227,130 @@ if (loading) {
       )}
 
           <div className='border_solid'>
-          <h4>Intervention Ideas for Access to Attention</h4>
-          <ul className='flex_column'>
+          <h4 className ='center_only'>Intervention Ideas for Access to Attention</h4>
+          <ol className='flex_column ordered_list'>
         {/* possible links to articles for these interventions or instead just a module that gives a description? */}
   
         {isInterventionAdded('Attention') ? (
               interventionList
                 .filter((intervention) => intervention.functions === 'Attention')
                 .map((intervention) => (
-                  <li key={intervention._id}>{intervention.title.charAt(0).toUpperCase() + intervention.title.slice(1)}
-                     <DeleteForeverIcon  onClick={() => removeIntervention(intervention._id)} className='' />         
+                  <li className = 'flex' key={intervention._id}>
+                    <button className='list_buttons' onClick={() => handleShowSummaryModal(intervention.summary)}>
+                    {intervention.title.charAt(0).toUpperCase() + intervention.title.slice(1)}
+                    </button>
+                    <p><DeleteForeverIcon className = 'delete' onClick={() => removeIntervention(intervention._id)}  />
+         </p>     
                       </li>
                 ))
             ) : (
               ""
             )}
-            <li>Teacher Helper</li>
-          </ul>
+            {/* teacher helper not in switch yet */}
+            <li className= 'ideas_center' onClick={() => setSelectedHardcodedIntervention('Teacher Helper')}>
+             <button className='list_buttons'>Teacher Helper</button>
+            </li>
+          </ol>
           </div>
 
       
 
           <div className='border_solid'>
-          <h4>Intervention Ideas for Sensory Stimulation</h4>
-          <ul className='flex_column'>
+          <h4 className='center_only'>Intervention Ideas for Sensory Stimulation</h4>
+          <ol className='flex_column ordered_list'>
               
         {isInterventionAdded('Sensory') ? (
               interventionList
                 .filter((intervention) => intervention.functions === 'Sensory')
                 .map((intervention) => (
-                  <li key={intervention._id}>{intervention.title.charAt(0).toUpperCase() + intervention.title.slice(1)}
-                  <DeleteForeverIcon  onClick={() => removeIntervention(intervention._id)} className='' /> 
+                  <li className = 'flex' key={intervention._id}>
+                    <button className='list_buttons' onClick={() => handleShowSummaryModal(intervention.summary)}>
+                    {intervention.title.charAt(0).toUpperCase() + intervention.title.slice(1)}
+                    </button>
+                    <p className='center'><DeleteForeverIcon className = 'delete' onClick={() => removeIntervention(intervention._id)}  />
+         </p>
                   </li>
                 ))
             ) : (
               ""
             )}
-            <li>Desk Velcro</li>
-          </ul>
+            <li className= 'ideas_center' onClick={() => setSelectedHardcodedIntervention('Velcro')}>
+             <button className='list_buttons'> Velcro</button>
+            </li>
+          </ol>
           </div>
 
           <div className='border_solid'>
-          <h4>Intervention Ideas for Access to Tangible</h4>
-          <ul className='flex_column'>
+          <h4 className='center_only'>Intervention Ideas for Access to Tangible</h4>
+          <ol className='flex_column ordered_list'>
         {/* possible links to articles for these interventions? */}
         {isInterventionAdded('Tangible') ? (
               interventionList
                 .filter((intervention) => intervention.functions === 'Tangible')
                 .map((intervention) => (
-                  <li key={intervention._id}>{intervention.title.charAt(0).toUpperCase() + intervention.title.slice(1)}
-                  <DeleteForeverIcon  onClick={() => removeIntervention(intervention._id)} className='' /> </li>
+                  <li className = 'flex' key={intervention._id}>
+                    <button className='list_buttons' onClick={() => handleShowSummaryModal(intervention.summary)}>
+                    {intervention.title.charAt(0).toUpperCase() + intervention.title.slice(1)}
+                    </button>
+                    <p className='center'><DeleteForeverIcon className = 'delete' onClick={() => removeIntervention(intervention._id)}  />
+         </p>
+                  </li>
                 ))
             ) : (
               ""
             )}
-            <li>Token Economy</li>
-          </ul>
+             <li className= 'ideas_center' onClick={() => setSelectedHardcodedIntervention('Token Economy')}>
+             <button className='list_buttons'>Token Economy</button>
+            </li>
+          </ol>
           </div>
 
           {interventionList.map((intervention) => {
   if (intervention.functions === 'Other') {
     return (
       <div className='border_solid' key={intervention._id}>
-        <h4>Other Intervention Ideas</h4>
-        <ul className='flex_column'>
+        <h4 className='center_only'>Other Intervention Ideas</h4>
+        <ol className='flex_column ordered_list'>
           {/* possible links to articles for these interventions? */}
-          <li>
+          <li className='flex'>
+          <button className='list_buttons' onClick={() => handleShowSummaryModal(intervention.summary)}>
             {intervention.title.charAt(0).toUpperCase() + intervention.title.slice(1)}
-            <DeleteForeverIcon onClick={() => removeIntervention(intervention._id)} className='' />
-          </li>
-        </ul>
+            </button>
+            <p className='center'><DeleteForeverIcon className = 'delete' onClick={() => removeIntervention(intervention._id)}  />
+         </p> </li>
+        </ol>
       </div>
     );
   }
   return null; // Return nothing if the intervention is not of the "Other" function
 })}
+{showSummaryModal && (
+            <Modal show={showSummaryModal} onHide={handleHideSummaryModal}>
+              <Modal.Header closeButton>
+                <Modal.Title>Intervention Summary</Modal.Title>
+              </Modal.Header>
+              <Modal.Body>Summary: {selectedSummary}</Modal.Body>
+              <Modal.Footer>
+                <Button variant='secondary' onClick={handleHideSummaryModal}>
+                  Close
+                </Button>
+              </Modal.Footer>
+            </Modal>
+          )}
+
+{selectedHardcodedIntervention && (
+  <Modal show={true} onHide={() => setSelectedHardcodedIntervention(null)}>
+    <Modal.Header closeButton>
+      <Modal.Title>Intervention Summary</Modal.Title>
+    </Modal.Header>
+    <Modal.Body>{getHardcodedInterventionSummary(selectedHardcodedIntervention)}</Modal.Body>
+    <Modal.Footer>
+      <Button variant="secondary" onClick={() => setSelectedHardcodedIntervention(null)}>
+        Close
+      </Button>
+    </Modal.Footer>
+  </Modal>
+)}
 
 
 
