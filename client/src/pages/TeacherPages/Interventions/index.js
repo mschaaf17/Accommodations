@@ -16,7 +16,7 @@ export default function Interventions() {
 // const {loading, data} = useQuery(QUERY_USER, {
 //   variables: {username: userParam}
 // })
-
+const [formError, setFormError] = useState("");
 const [selectedIntervention, setSelectedIntervention] = useState("");
 const [showConfirmationModal, setShowConfirmationModal] = useState(false);
 const [addedIntervention, setAddedIntervention] = useState([]);
@@ -55,7 +55,7 @@ const removeIntervention = async (interventionId) => {
 const handleDeleteConfirmation = async () => {
   try {
       await removeInterventionFromList({
-          variables: {username: user.username, interventionId: selectedIntervention},
+          variables: { id: selectedIntervention},
           refetchQueries: [
               {query: QUERY_INTERVENTION_LIST, variables: {username: user.username}},
               {query: QUERY_ME, variables: {username: user.username}}
@@ -81,6 +81,7 @@ const addIntervention = async (event) => {
   const summary = event.target.elements.summary.value;
 
   if (!selectedIntervention || !title || !summary) {
+    setFormError("Please fill in all the fields.");
     return;
   }
 
@@ -109,6 +110,7 @@ const addIntervention = async (event) => {
 
   event.target.reset();
   setSelectedIntervention('');
+  setFormError("");
   console.log('Intervention has been added');
 };
 
@@ -134,13 +136,13 @@ if (loading) {
             can be provided --teacher much add a detail and a summary of the intervention*/}
             {/* thoughts if I add an intervention for a specific student will tha tbe annoying?
             should their be an add intervention but it adds to the entire list not for a particular student */}       
-            <div className='border_solid'>
+            <div className='border_solid margin_right'>
                 <h3 className='center_only'>Add Intervention</h3>
                 <form className='flex_column' onSubmit={(e) => addIntervention(e)}>
                   {/* this form will be in the user schema,, otherwise 
                   i will seed in intervention ideas  */}
                 <label htmlFor="Functions">Pick a Function:</label>
-                        <select name="" id="functions" value={selectedIntervention} onChange={(e) => setSelectedIntervention(e.target.value)}>
+                        <select name="" id="functions" value={selectedIntervention || ""} onChange={(e) => setSelectedIntervention(e.target.value)}>
                         <option value="">Select</option>
                         <option value="Escape">Escape</option>
                         <option value="Attention">Attention</option>
@@ -153,13 +155,14 @@ if (loading) {
                     <button className="submit-btn" type="submit">
                 Submit
               </button>
+              {formError && <p className="form-error">{formError}</p>}
                 </form>
             </div>
             
             <div className=' flex_right'>
             
             <div className='border_solid'>
-          <h4>Interventions Ideas for Escape</h4>
+          <h4>Intervention Ideas for Escape</h4>
           {/* if escape was selected then it needs to appear here */}
           <ul className='flex_column'>
        
@@ -169,23 +172,22 @@ if (loading) {
                 .map((intervention) => (
                   <li key={intervention._id}>{intervention.title.charAt(0).toUpperCase() + intervention.title.slice(1)}
                  
-                <DeleteForeverIcon  onClick={() => removeIntervention(intervention._id)} className='' />
-           
-                  </li>
-
-                  
+                <DeleteForeverIcon  onClick={() => removeIntervention(intervention._id)} className='' />          
+                  </li>                
                 ))
             ) : (
               ""
             )}
             <li>Scheduled Breaks</li>
           </ul>
+     
+          </div>
           {showConfirmationModal && (
         <Modal show={showConfirmationModal} onHide={handleCancelConfirmation}>
           <Modal.Header closeButton>
             <Modal.Title >Confirmation</Modal.Title>
           </Modal.Header>
-          <Modal.Body>Are you sure you want to delete this student?</Modal.Body>
+          <Modal.Body>Are you sure you want to delete this intervention?</Modal.Body>
           <Modal.Footer>
             <Button className='modal-cancel' variant='secondary' onClick={handleCancelConfirmation}>
               Cancel
@@ -196,11 +198,9 @@ if (loading) {
           </Modal.Footer>
         </Modal>
       )}
-          </div>
-
 
           <div className='border_solid'>
-          <h4>Interventions Ideas for Access to Attention</h4>
+          <h4>Intervention Ideas for Access to Attention</h4>
           <ul className='flex_column'>
         {/* possible links to articles for these interventions or instead just a module that gives a description? */}
   
@@ -208,7 +208,9 @@ if (loading) {
               interventionList
                 .filter((intervention) => intervention.functions === 'Attention')
                 .map((intervention) => (
-                  <li key={intervention._id}>{intervention.title.charAt(0).toUpperCase() + intervention.title.slice(1)}</li>
+                  <li key={intervention._id}>{intervention.title.charAt(0).toUpperCase() + intervention.title.slice(1)}
+                     <DeleteForeverIcon  onClick={() => removeIntervention(intervention._id)} className='' />         
+                      </li>
                 ))
             ) : (
               ""
@@ -217,15 +219,19 @@ if (loading) {
           </ul>
           </div>
 
+      
+
           <div className='border_solid'>
-          <h4>Interventions Ideas for Sensory Stimulation</h4>
+          <h4>Intervention Ideas for Sensory Stimulation</h4>
           <ul className='flex_column'>
               
         {isInterventionAdded('Sensory') ? (
               interventionList
                 .filter((intervention) => intervention.functions === 'Sensory')
                 .map((intervention) => (
-                  <li key={intervention._id}>{intervention.title.charAt(0).toUpperCase() + intervention.title.slice(1)}</li>
+                  <li key={intervention._id}>{intervention.title.charAt(0).toUpperCase() + intervention.title.slice(1)}
+                  <DeleteForeverIcon  onClick={() => removeIntervention(intervention._id)} className='' /> 
+                  </li>
                 ))
             ) : (
               ""
@@ -235,14 +241,15 @@ if (loading) {
           </div>
 
           <div className='border_solid'>
-          <h4>Interventions Ideas for Access to Tangible</h4>
+          <h4>Intervention Ideas for Access to Tangible</h4>
           <ul className='flex_column'>
         {/* possible links to articles for these interventions? */}
         {isInterventionAdded('Tangible') ? (
               interventionList
                 .filter((intervention) => intervention.functions === 'Tangible')
                 .map((intervention) => (
-                  <li key={intervention._id}>{intervention.title.charAt(0).toUpperCase() + intervention.title.slice(1)}</li>
+                  <li key={intervention._id}>{intervention.title.charAt(0).toUpperCase() + intervention.title.slice(1)}
+                  <DeleteForeverIcon  onClick={() => removeIntervention(intervention._id)} className='' /> </li>
                 ))
             ) : (
               ""
@@ -251,22 +258,25 @@ if (loading) {
           </ul>
           </div>
 
-          <div className='border_solid'>
-          <h4>Other Interventions Ideas</h4>
-          <ul className='flex_column'>
-        {/* possible links to articles for these interventions? */}
-        {isInterventionAdded('Other') ? (
-              interventionList
-                .filter((intervention) => intervention.functions === 'Other')
-                .map((intervention) => (
-                  <li key={intervention._id}>{intervention.title.charAt(0).toUpperCase() + intervention.title.slice(1)}</li>
-                ))
-            ) : (
-              ""
-            )}
-           
-          </ul>
-          </div>
+          {interventionList.map((intervention) => {
+  if (intervention.functions === 'Other') {
+    return (
+      <div className='border_solid' key={intervention._id}>
+        <h4>Other Intervention Ideas</h4>
+        <ul className='flex_column'>
+          {/* possible links to articles for these interventions? */}
+          <li>
+            {intervention.title.charAt(0).toUpperCase() + intervention.title.slice(1)}
+            <DeleteForeverIcon onClick={() => removeIntervention(intervention._id)} className='' />
+          </li>
+        </ul>
+      </div>
+    );
+  }
+  return null; // Return nothing if the intervention is not of the "Other" function
+})}
+
+
 
 
           </div>
