@@ -26,6 +26,10 @@
   text-shadow: .15em .10em 0 hsla(230,40%,50%,1);
 
   }
+  .none {
+    text-decoration: none;
+    color: rgb(187, 170, 214);
+}
 
   .mySupport:after {
     position: absolute;

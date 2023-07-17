@@ -9,7 +9,6 @@ const userInterventionsSchema = new Schema(
         },
         title: {
             type: String,
-            required: true,
             unique: true, 
           },
         

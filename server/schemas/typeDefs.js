@@ -122,7 +122,7 @@ type Mutation {
     removeStudentFromList(studentId: ID!): User
     addIntervention(functions: String, title: String, username: String, summary: String): InterventionList
     removeIntervention(_id: ID): InterventionList
-    addInterventionToStudent(title: String, username: String, functions: String, summary: String): User
+    addInterventionToStudent(interventionId: ID, username: String): User
     removeInterventionFromStudent(interventionId: ID!, username: String!): User
 }
 `;

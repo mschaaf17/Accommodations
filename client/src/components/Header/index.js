@@ -28,7 +28,7 @@ const Header = () => {
     <header className="nav">
       <div className="nav-section">
         
-          <h1 className="mySupport">My Support</h1>
+          <h1 className="mySupport"> <a className  = 'none' href="/">My Support</a></h1>
     
         <nav className="nav-options">
           {Auth.loggedIn() && admin != true ? (

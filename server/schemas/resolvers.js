@@ -6,6 +6,7 @@ const { startOfDay, endOfDay, isEqual } = require('date-fns');
 
 
 
+
 const resolvers = {
     Query: {
         me: async (parent, args, context) => {
@@ -193,27 +194,154 @@ const resolvers = {
     
           throw new AuthenticationError('Could not delete accommodation card');
         },
-        addInterventionToStudent: async (parent, { title, username, functions, summary }, context) => {
+        addInterventionToStudent: async (parent, { username, interventionId }, context) => {
           if (context.user && context.user.isAdmin) {
-            const intervention = {title, functions, summary} ; 
-            const user = await User.findOne({ username: username });
-        
-            // Check if the intervention already exists for the student
-            const interventionExists = user.userInterventions.some(
-              (a) => a.title === title
-            );
-            if (interventionExists) {
-              throw new Error(`Intervention '${title}' is already added for the student.`);
+            const intervention = await InterventionList.findById(interventionId);
+            if (!intervention) {
+              throw new Error(`Intervention '${interventionId}' not found.`);
             }
-        
+          
+            const user = await User.findOne({ username: username });
+      
+            if (user.userInterventions.some(i => i._id.equals(interventionId))) {
+              throw new Error(`Intervention '${interventionId}' is already added for the student.`);
+            }
+            
+          
             user.userInterventions.push(intervention);
             const updatedUser = await user.save();
-        
+          
             return updatedUser;
           }
-        
+          
           throw new AuthenticationError('You need to be logged in as an administrator!');
         },
+        
+        // addInterventionToStudent: async (parent, { username, interventionId }, context) => {
+        //   if (context.user && context.user.isAdmin) {
+        //     const intervention = await InterventionList.findById(interventionId);
+        //     if (!intervention) {
+        //       throw new Error(`Intervention '${interventionId}' not found.`);
+        //     }
+          
+        //     const user = await User.findOne({ username: username });
+          
+        //     const interventionExists = user.userInterventions.some(
+        //       (int) => int.interventionId.toString() === interventionId
+        //     );
+        //     if (interventionExists) {
+        //       throw new Error(`Intervention '${interventionId}' is already added for the student.`);
+        //     }
+          
+        //     user.userInterventions.push(intervention);
+        //     const updatedUser = await user.save();
+          
+        //     return updatedUser;
+        //   }
+          
+        //   throw new AuthenticationError('You need to be logged in as an administrator!');
+        // },
+        // addInterventionToStudent: async (parent, { username, interventionId }, context) => {
+        //   if (context.user && context.user.isAdmin) {
+        //     const intervention = await InterventionList.findById(interventionId);
+        //     if (!intervention) {
+        //       throw new Error(`Intervention '${interventionId}' not found.`);
+        //     }
+        
+        //     const user = await User.findOne({ username: username });
+        
+        //     const interventionExists = user.userInterventions.some(
+        //       (int) => int.interventionId === interventionId
+        //     );
+        //     if (interventionExists) {
+        //       throw new Error(`Intervention '${interventionId}' is already added for the student.`);
+        //     }
+        
+        //     user.userInterventions.push(intervention);
+        //     const updatedUser = await user.save();
+        
+        //     return updatedUser;
+        //   }
+        
+        //   throw new AuthenticationError('You need to be logged in as an administrator!');
+        // },
+        
+        // addInterventionToStudent: async (parent, { username, interventionId }, context) => {
+        //   if (context.user && context.user.isAdmin) {
+        //     const user = await User.findOne({ username: username });
+        
+        //     // Check if the intervention already exists for the student
+        //     const interventionExists = user.userInterventions.some(
+        //       (intervention) => intervention._id === interventionId
+        //     );
+        //     if (interventionExists) {
+        //       throw new Error(`Intervention '${interventionId}' is already added for the student.`);
+        //     }
+        
+        //     const intervention = await InterventionList.findById(interventionId);
+        //     if (!intervention) {
+        //       throw new Error(`Intervention '${interventionId}' not found.`);
+        //     }
+        
+        //     const newIntervention = {
+        //       interventionId: intervention._id,
+        //       title: intervention.title,
+        //       functions: intervention.functions,
+        //       summary: intervention.summary,
+        //       username: intervention.username
+        //     };
+        
+        //     user.userInterventions.push(newIntervention);
+        //     const updatedUser = await user.save();
+        
+        //     return updatedUser;
+        //   }
+        
+        //   throw new AuthenticationError('You need to be logged in as an administrator!');
+        // },
+                 
+        // addInterventionToStudent: async (parent, { username, interventionId}, context) => {
+        //   if (context.user && context.user.isAdmin) {
+        //     const intervention = { interventionId }; 
+        //     const user = await User.findOne({ username: username });
+        
+        //     // Check if the intervention already exists for the student
+        //     const interventionExists = user.userInterventions.some(
+        //       (int) => int._id === interventionId
+        //     );
+        //     if (interventionExists) {
+        //       throw new Error(`intervention '${_id}' is already added for the student.`);
+        //     }
+        
+        //     user.userInterventions.push(intervention);
+        //     const updatedUser = await user.save();
+        
+        //     return updatedUser;
+        //   }
+        
+        //   throw new AuthenticationError('You need to be logged in as an administrator!');
+        // },
+        // addInterventionToStudent: async (parent, { title, username, functions, summary }, context) => {
+        //   if (context.user && context.user.isAdmin) {
+        //     const intervention = {title, functions, summary} ; 
+        //     const user = await User.findOne({ username: username });
+        
+        //     // Check if the intervention already exists for the student
+        //     const interventionExists = user.userInterventions.some(
+        //       (a) => a.title === title
+        //     );
+        //     if (interventionExists) {
+        //       throw new Error(`Intervention '${title}' is already added for the student.`);
+        //     }
+        
+        //     user.userInterventions.push(intervention);
+        //     const updatedUser = await user.save();
+        
+        //     return updatedUser;
+        //   }
+        
+        //   throw new AuthenticationError('You need to be logged in as an administrator!');
+        // },
         removeInterventionFromStudent: async (parent, {interventionId, username}, context) => {
           if (context.user && context.user.isAdmin) {
             const user = await User.findOneAndUpdate(

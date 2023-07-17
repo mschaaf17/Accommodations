@@ -36,7 +36,7 @@ const { loading: interventionsLoading, data: interventions } = useQuery(QUERY_IN
   variables: { username: user.username },
 });
 const interventionList = interventions?.interventionList || []
-
+console.log(interventionList)
 
 console.log(user.username)
 const [addInterventionToList, {error}] = useMutation(

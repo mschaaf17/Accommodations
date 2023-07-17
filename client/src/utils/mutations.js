@@ -118,8 +118,8 @@ mutation AddIntervention($functions: String, $title: String, $username: String, 
 `;
 
 export const ADD_INTERVENTION_TO_STUDENT = gql`
-mutation AddInterventionToStudent(  $username: String,  $title: String) {
-  addInterventionToStudent( username: $username, title: $title) {
+mutation AddInterventionToStudent($interventionId: ID!, $username: String) {
+  addInterventionToStudent(interventionId: $interventionId, username: $username) {
     userInterventions {
       _id
       createdAt
