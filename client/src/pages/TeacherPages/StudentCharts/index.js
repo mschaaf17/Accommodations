@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import { Link, useParams } from 'react-router-dom'
 import NavigationLinks from '../../../components/NavigationLinks'
 import { useQuery, useMutation } from '@apollo/client';
@@ -34,9 +34,21 @@ export default function StudentCharts() {
   const [showData, setShowData] = useState(false);
   const { username: userParam } = useParams()
   const [showConfirmationModal, setShowConfirmationModal] = useState(false);
-
-
   const [pdfGenerating, setPdfGenerating] = useState(false);
+
+  useEffect(() => {
+    // Retrieve intervention colors from local storage on component mount
+    const storedInterventionColors = localStorage.getItem('interventionColors');
+    if (storedInterventionColors) {
+      setInterventionColors(JSON.parse(storedInterventionColors));
+    }
+  }, []);
+
+  useEffect(() => {
+    // Save intervention colors to local storage whenever it changes
+    localStorage.setItem('interventionColors', JSON.stringify(interventionColors));
+  }, [interventionColors]);
+
 
   //issue is that we need ot query who is logge din not userparem
   const {data} = useQuery(QUERY_USER, {
