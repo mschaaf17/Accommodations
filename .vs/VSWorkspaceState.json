@@ -1,6 +1,16 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\client",
+    "\\client\\src",
+    "\\client\\src\\components",
+    "\\client\\src\\components\\AllAccommodationCards",
+    "\\client\\src\\components\\DataTrackingMeasures",
+    "\\client\\src\\pages",
+    "\\client\\src\\pages\\TeacherPages",
+    "\\client\\src\\pages\\TeacherPages\\StudentCharts",
+    "\\client\\src\\pages\\TeacherPages\\TeacherAddAccommodations"
   ],
+  "SelectedNode": "\\client\\src\\pages\\TeacherPages\\StudentCharts\\index.js",
   "PreviewInSolutionExplorer": false
 }

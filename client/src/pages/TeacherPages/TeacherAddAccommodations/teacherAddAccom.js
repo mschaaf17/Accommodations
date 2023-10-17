@@ -91,7 +91,9 @@ const isAccommodationAdded = (title) => {
   console.log("studentAccommodations.length:", studentAccommodations.length);
 
   return (
-    <div>
+      <div>
+          <button className='submit-btn'>Add Accommodation</button>
+          {/* a modal displays with name and description... -- save or cancel once saved it populates in the list below-- i don't want it for ever teacher just for the teacher who added it*/}
       <h2>Which accommodations does {userParam} need?</h2>
 
       <div className='flex_accomm '>

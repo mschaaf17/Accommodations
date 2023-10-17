@@ -15,7 +15,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 
 
-
+//this needs to be saved to the backend rather than local storage
 const getRandomColor = () => {
   const letters = '0123456789ABCDEF';
   let color = '#';
@@ -34,7 +34,9 @@ export default function StudentCharts() {
   const [showData, setShowData] = useState(false);
   const { username: userParam } = useParams()
   const [showConfirmationModal, setShowConfirmationModal] = useState(false);
-  const [pdfGenerating, setPdfGenerating] = useState(false);
+    const [pdfGenerating, setPdfGenerating] = useState(false);
+    const [showOutOfSeatData, setShowOutOfSeatData] = useState(false);
+    const [showBreakData, setShowBreakData] = useState(false);
 
   useEffect(() => {
     // Retrieve intervention colors from local storage on component mount
@@ -50,7 +52,7 @@ export default function StudentCharts() {
   }, [interventionColors]);
 
 
-  //issue is that we need ot query who is logge din not userparem
+  //issue is that we need ot query who is logged in not userparem
   const {data} = useQuery(QUERY_USER, {
     variables: {username: userParam}
   });
@@ -194,8 +196,8 @@ const handleCancelConfirmation = () => {
     //http://localhost:3000/generate-pdf?url=http://localhost:3000/studentProfile/henry.com/studentCharts
    // http://localhost:3000/studentProfile/henry.com/studentCharts
     //const url = `/generate-pdf?url=${encodeURIComponent(window.location.href)}`;
-    //const url = 'http://localhost:3001/generate-pdf?url=' + encodeURIComponent('http://localhost:3000/studentProfile/' + userParam + '/studentCharts');
-    const url = 'https://inclusion-student-app-351765654f70.herokuapp.com/generate-pdf?url=' + encodeURIComponent('https://inclusion-student-app-351765654f70.herokuapp.com/studentProfile/' + userParam + '/studentCharts');
+    const url = 'http://localhost:3001/generate-pdf?url=' + encodeURIComponent('http://localhost:3000/studentProfile/' + userParam + '/studentCharts');
+   // const url = 'https://inclusion-student-app-351765654f70.herokuapp.com/generate-pdf?url=' + encodeURIComponent('https://inclusion-student-app-351765654f70.herokuapp.com/studentProfile/' + userParam + '/studentCharts');
     console.log(url);
     const printWindow = window.open(url, '_blank', 'noopener,noreferrer');
     
@@ -210,8 +212,16 @@ const handleCancelConfirmation = () => {
   };
   
   const handleClick = () => {
-    setShowData(!showData);
-  };
+      setShowData(!showData);
+  
+    };
+
+    const handleOutOfSeatClick = () => {
+        setShowOutOfSeatData(!showOutOfSeatData)
+    }
+    const handleBreakClick = () => {
+        setShowBreakData(!showBreakData)
+    }
   
   return (
     <>
@@ -224,9 +234,14 @@ const handleCancelConfirmation = () => {
       <h2>Viewing Charts and Data for {userParam}</h2>
      
         <div className = "data-to-click">
-      <button className='logout' onClick={handleClick}>Frequency</button>
-     
-    {showData && breakCount >= 1 && (
+                      <button className='logout' onClick={handleClick}>Frequency</button>
+                      
+                      {showData && breakCount >= 1 && (
+                          <>
+                              <button onClick={() => handleBreakClick()}> Breaks </button>
+                          </>
+                            )}
+    {showBreakData && breakCount >= 1 && (
       <>
       <div>
        <div>
@@ -243,12 +258,18 @@ const handleCancelConfirmation = () => {
       </div>
       </>
       
-    )}
-
-
-    {showData && outOfSeatTotalCount >= 1 && (
-      <>
+                      )}
+                      {showData && outOfSeatTotalCount >= 1 && (
+                          <>
+                              <button onClick={() => handleOutOfSeatClick()}>Out Of Seat</button>
+                          </>
+                        )}
+                       
+                      {showOutOfSeatData && outOfSeatTotalCount >= 1 && (
+                          <>
+                             
       <div className='graph_flex' >
+
         <div className=''>
           <h3 className='center_only'>Key</h3>
           <div className='margin_auto border_solid'>
@@ -285,7 +306,9 @@ const handleCancelConfirmation = () => {
            
           </div>
           </div>
-        </div>
+           </div>
+
+
       <OutOfSeatData
        outOfSeatByDay = {outOfSeatByDay}
       />
