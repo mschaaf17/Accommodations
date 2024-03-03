@@ -73,15 +73,18 @@ const addAccommodation = async (id, title, image) => {
     } catch (e) {
         console.log(e)
     }
-    console.log('student has been added')
+    console.log('students accommodation has been added')
 }
 
 const isAccommodationAdded = (title) => {
-    const isAdded = addedAccommodation[title] || data.user.accommodations.some((accommodation) => accommodation.title === title);
-    console.log(`Accommodation title: ${title}, Is Added: ${isAdded}`);
-    return isAdded;
-  };
-  
+  if (!data || !data.user || !data.user.accommodations) {
+      return false; // Return false if data is not available
+  }
+  const isAdded = addedAccommodation[title] || data.user.accommodations.some((accommodation) => accommodation.title === title);
+  console.log(`Accommodation title: ${title}, Is Added: ${isAdded}`);
+  return isAdded;
+};
+
 
 
   if (loading) {

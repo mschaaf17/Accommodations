@@ -7,7 +7,7 @@ const accommodationSchema = new Schema(
         title: {
             type: String,
             required: true,
-            unique: true, // Ensure accommodation titles are unique within each student
+            unique: true,
           },
           image: {
             type: String
@@ -20,13 +20,7 @@ const accommodationSchema = new Schema(
             default: Date.now,
             get: timestamp => dateFormat(timestamp)
         },
-        // breaks: [breakSchema]
-        // breaks: [
-        //     {
-        //         type: Schema.Types.ObjectId,
-        //         ref: 'Break'
-        //     }
-        // ]
+    
     },
     {
     toJSON: {
@@ -35,10 +29,4 @@ const accommodationSchema = new Schema(
 }
 )
 
-// AccommodationSchema.virtual('breakCount').get(function() {
-//     return this.breaks.length;
-// })
-
-// const Accommodation = model('Accommodation', AccommodationSchema)
-// module.exports = Accommodation\
 module.exports = accommodationSchema

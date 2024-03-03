@@ -25,14 +25,26 @@ const userSchema = new Schema(
                 ref: 'AccommodationCards',
             }
         ],
-        accommodations: [accommodationSchema],
+        accommodations: [
+         {
+            type: [accommodationSchema],
+            unique: false
+          }
+        ],
+        //accommodations: [accommodationSchema],
         interventionList: [
           {
               type: Schema.Types.ObjectId,
               ref: 'InterventionList',
           }
       ],
-      userInterventions: [userInterventionsSchema],
+     // userInterventions: [userInterventionsSchema],
+     userInterventions: [
+      {
+        type: [userInterventionsSchema],
+        unique: false
+      }
+     ],
         students: [
             {
             type: Schema.Types.ObjectId,
@@ -70,7 +82,7 @@ const userSchema = new Schema(
         ],
         isAdmin: {
           type: Boolean,
-          default: false
+          default: false,
       },
        
         //out of seat is teacher logging for student
@@ -171,6 +183,30 @@ userSchema.pre('save', function (next) {
 });
   
 
+
 const User = model('User', userSchema)
 
+
+
+
+
 module.exports = User;
+
+
+// User.collection.dropIndex('accommodations.title_1', function(err, result) {
+//   if (err) {
+//     console.error('Error dropping accommodations index:', err);
+//   } else {
+//     console.log('Accommodations index dropped successfully:', result);
+//   }
+// });
+
+// // Drop the index for userInterventions.title
+// User.collection.dropIndex('userInterventions.title_1', function(err, result) {
+//   if (err) {
+//     console.error('Error dropping userInterventions index:', err);
+//   } else {
+//     console.log('UserInterventions index dropped successfully:', result);
+//   }
+// });
+

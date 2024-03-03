@@ -94,14 +94,14 @@ export default function TeacherDataTracking() {
       <div className='user_list'>
         {Object.values(getMyStudentList && getMyStudentList).map((student, index) => (
           <div className='each_student' key={index}>
-            <p>
+            <div>
               <Link className='link-to-page logout center' to={`/studentProfile/${student.username}`}>
                 {student.username}
               </Link>
               <p onClick={() => removeStudent(student._id)} className='center'>
                 <DeleteForeverIcon />
               </p>
-            </p>
+            </div>
           </div>
         ))}
       </div>
