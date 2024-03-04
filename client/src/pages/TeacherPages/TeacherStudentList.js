@@ -1,18 +1,18 @@
 import React, { useState } from 'react';
 import { useQuery, useMutation } from '@apollo/client';
-import { QUERY_USERS, QUERY_ME, QUERY_USER } from '../../../utils/queries';
+import { QUERY_USERS, QUERY_ME, QUERY_USER } from '../../utils/queries';
 import { Link } from 'react-router-dom';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import { Modal, Button } from 'react-bootstrap';
-import { REMOVE_STUDENT_FROM_LIST } from '../../../utils/mutations';
-import './index.css'
-import SearchBar from '../../../components/SearchBar';
+import { REMOVE_STUDENT_FROM_LIST } from '../../utils/mutations';
+import '../TeacherPages/TeacherStudentList.css'
+import SearchBar from '../../components/SearchBar';
 import AddIcon from '@mui/icons-material/Add';
 
-import { ADD_STUDENT_TO_LIST } from '../../../utils/mutations';
+import { ADD_STUDENT_TO_LIST } from '../../utils/mutations';
 
 
-export default function TeacherDataTracking() {
+export default function TeacherStudentList() {
   const [selectedStudent, setSelectedStudent] = useState(null);
   const [showConfirmationModal, setShowConfirmationModal] = useState(false);
   const [addedStudents, setAddedStudents] = useState({});

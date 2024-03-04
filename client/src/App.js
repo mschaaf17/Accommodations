@@ -16,11 +16,11 @@ import Footer from './components/Footer'
 import Login from './pages/Login'
 import Signup from './pages/Signup'
 import StudentGraph from './pages/StudentViewableGraphs'
-import TeacherDataTracking from './pages/TeacherPages/TeacherDataTracking'
+import TeacherStudentList from './pages/TeacherPages/TeacherStudentList'
 import StudentProfile from './pages/StudentPages/StudentProfile'
 import DataLogging from './pages/TeacherPages/DataLogging'
 import StudentCharts from './pages/TeacherPages/StudentCharts'
-import TeacherAddAccommodations from './pages/TeacherPages/TeacherAddAccommodations/teacherAddAccom'
+import TeacherAddAccommodations from './pages/TeacherPages/TeacherAddAccommodations'
 import AdditionalStudentInfo from './pages/TeacherPages/AdditionalStudentInfo'
 import AddStudent from './pages/TeacherPages/AddStudent'
 import NoMatch from './pages/NoMatch';
@@ -59,7 +59,7 @@ function App() {
           <Route path ="/studentAccommodations" element = {<StudentAccommodations/>} />
           <Route path ="/breakTimer" element ={<BreakTimer/>} />
           <Route path ="/data" element = {<StudentGraph/>}/>
-          <Route path = "/teacherdata/:username" element = {<TeacherDataTracking/>}/>
+          <Route path = "/teacherdata/:username" element = {<TeacherStudentList/>}/>
           <Route path ="/studentProfile/:username" element={<StudentProfile/>}/>
           <Route path ="/studentProfile/:username/addAccommodations" element ={<TeacherAddAccommodations/>}/>
             {/* <Route path =":username" element ={<StudentProfile/>}/>

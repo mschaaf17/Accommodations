@@ -5,6 +5,9 @@ import {QUERY_ME, QUERY_BREAKS} from '../../utils/queries'
 
 import React, {useEffect} from 'react';
 import ReactEcharts from 'echarts-for-react';
+
+// I think this page is just for student viewed graphs and should be in student pages-- seems to be in twice!???????????
+
 // import WeeklyData from '../../components/StudentData/weekly';
 const StudentData = () => {
   

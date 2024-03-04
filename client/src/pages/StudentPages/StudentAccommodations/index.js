@@ -1,7 +1,7 @@
 import React from 'react'
 import {Navigate, useParams, Link} from 'react-router-dom'
 import './index.css';
-import AccommodationList from '../../../components/AccommodationList';
+import AccommodationList from '../../../components/Accommodation/AccommodationList';
 import Messaging from '../../../components/Messaging'
 // import BreakCard from '../../components/Break'
 import Auth from '../../../utils/auth'

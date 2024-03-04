@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { useQuery, useMutation } from '@apollo/client';
-import { QUERY_ACCOMMODATION_CARDS, QUERY_USER } from '../../../utils/queries';
-import { ADD_ACCOMMODATION_FOR_STUDENT, REMOVE_ACCOMMODATION_FROM_STUDENT } from '../../../utils/mutations';
-import AllAccommodationCards from '../../../components/AllAccommodationCards';
+import { QUERY_ACCOMMODATION_CARDS, QUERY_USER } from '../../utils/queries';
+import { ADD_ACCOMMODATION_FOR_STUDENT, REMOVE_ACCOMMODATION_FROM_STUDENT } from '../../utils/mutations';
+import AllAccommodationCards from '../../components/Accommodation/AllAccommodationCards';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import { Modal, Button } from 'react-bootstrap';
-import './index.css'
+import './TeacherAddAccom.css'
 
 
 export default function TeacherAddAccommodations() {

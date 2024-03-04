@@ -10,8 +10,10 @@ const puppeteer = require('puppeteer')
 const {ApolloServer} = require('apollo-server-express')
 const path = require('path')
 
+//const cors = require('cors');
+
 // import our typeDefs and resolvers
-const { typeDefs, resolvers } = require('./schemas')
+const { typeDefs, resolvers } = require('./schemas/index')
 const {authMiddleware} = require('./utils/auth')
 const db = require('./config/connection')
 
@@ -23,7 +25,13 @@ const server = new ApolloServer({
     context: authMiddleware
 })
 
+/*const corsOptions = {
+    origin: 'https://inclusion-student-app-351765654f70.herokuapp.com/'
+};*/
+
 const app = express()
+//app.use(cors(corsOptions));
+
 
 app.use(express.urlencoded({extended: false}))
 app.use(express.json())

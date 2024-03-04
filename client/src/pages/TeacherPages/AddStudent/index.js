@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+/*import React, { useState } from 'react';
 import { useQuery, useMutation } from '@apollo/client';
 import { QUERY_USERS, QUERY_ME } from '../../../utils/queries';
 import { Link, useParams } from 'react-router-dom';
@@ -73,3 +73,4 @@ export default function AddStudent() {
     </div>
   );
 }
+*/

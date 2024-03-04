@@ -23,9 +23,15 @@ module.exports = {
     try {
       const { data } = jwt.verify(token, secret, { maxAge: expiration });
       req.user = data;
-    } catch {
-      console.log('Invalid token');
-    }
+        } catch (err) {
+            if (err.name === 'TokenExpiredError') {
+                // Token has expired, you can send an alert message to the user
+                res.status(401).json({ message: 'You have been logged out due to inactivity.' });
+            } else {
+                console.log('Invalid token');
+            }
+        }
+
 
     return req;
   },

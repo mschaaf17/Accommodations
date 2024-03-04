@@ -2,10 +2,10 @@
 import React from 'react'
 import { Navigate, useParams, Link } from 'react-router-dom'
 import {useQuery} from '@apollo/client'
-import {QUERY_USER, QUERY_ME} from '../../../utils/queries'
-import Auth from '../../../utils/auth'
-import NavigationLinks from '../../../components/NavigationLinks'
-import './index.css'
+import {QUERY_USER, QUERY_ME} from '../../utils/queries'
+import Auth from '../../utils/auth'
+import NavigationLinks from '../../components/NavigationLinks'
+import './AdditionalStudentInfo.css'
 
 //props was taken out in StudentProfile(props)
 export default function AdditionalStudentInfo() {

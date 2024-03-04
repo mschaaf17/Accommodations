@@ -44,7 +44,7 @@ const resolvers = {
         return AccommodationCards.find()
        },
        accommodations: async (parent, { username }) => {
-        const params = username ? { username } : {};
+        const params = username ? { username } : {};git 
         return Accommodation.find(params).sort({ createdAt: -1})
        },
        accommodation: async(parent, { _id}) => {
