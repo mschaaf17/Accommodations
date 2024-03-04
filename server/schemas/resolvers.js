@@ -64,13 +64,30 @@ const resolvers = {
        accommodationCards: async () => {
         return AccommodationCards.find()
        },
-       accommodations: async (parent, { username }) => {
+      //  accommodations: async (parent, { username }) => {
+      //   const params = username ? { username } : {};
+      //   return Accommodation.find(params).sort({ createdAt: -1})
+      //  },
+      accommodations: async (parent, { username }) => {
         const params = username ? { username } : {};
-        return Accommodation.find(params).sort({ createdAt: -1})
-       },
-       accommodation: async(parent, { _id}) => {
-        return Accommodation.findOne({_id})
-       },
+        const user = await User.findOne(params);
+        return user ? user.accommodations : [];
+    },
+    
+      //  accommodation: async(parent, { _id}) => {
+      //   return Accommodation.findOne({_id})
+      //  },
+      accommodation: async(parent, { _id }) => {
+        try {
+            // Assuming parent represents the user object
+            const accommodation = parent.accommodations.find(acc => acc._id === _id);
+            return accommodation;
+        } catch (error) {
+            console.error("Error finding accommodation:", error);
+            throw new Error("Failed to find accommodation");
+        }
+    },
+    
        break: async (parent, { username }) => {
         const params = username ? { username } : {};
         return Break.find(params).sort({ createdAt: -1})
@@ -132,27 +149,62 @@ const resolvers = {
           },
 
         
+          // addAccommodationForStudent: async (parent, { username, image, title }, context) => {
+          //   if (context.user && context.user.isAdmin) {
+          //     const accommodation = { title, image }; 
+          //     const user = await User.findOne({ username: username });
+          
+          //     // Check if the accommodation already exists for the student
+          //     const accommodationExists = user.accommodations.some(
+          //       (acc) => acc.title === title
+          //     );
+          //     if (accommodationExists) {
+          //       throw new Error(`Accommodation '${title}' is already added for the student.`);
+          //     }
+          
+          //     user.accommodations.push(accommodation);
+          //     const updatedUser = await user.save();
+          
+          //     return updatedUser;
+          //   }
+          
+          //   throw new AuthenticationError('You need to be logged in as an administrator!');
+          // },
+        
           addAccommodationForStudent: async (parent, { username, image, title }, context) => {
             if (context.user && context.user.isAdmin) {
-              const accommodation = { title, image }; 
-              const user = await User.findOne({ username: username });
-          
-              // Check if the accommodation already exists for the student
-              const accommodationExists = user.accommodations.some(
-                (acc) => acc.title === title
-              );
-              if (accommodationExists) {
-                throw new Error(`Accommodation '${title}' is already added for the student.`);
-              }
-          
-              user.accommodations.push(accommodation);
-              const updatedUser = await user.save();
-          
-              return updatedUser;
+                try {
+                    const user = await User.findOne({ username: username });
+        
+                    // Check if the accommodation already exists for the student
+                    const accommodationExists = user.accommodations.some(
+                        (acc) => acc.title === title
+                    );
+        
+                    if (accommodationExists) {
+                        throw new Error(`Accommodation '${title}' is already added for the student.`);
+                    }
+        
+                    // Create a new accommodation object with the provided title
+                    const accommodation = new Accommodation({ title, image });
+        
+                    // Add the accommodation to the user's accommodations array
+                    user.accommodations.push(accommodation);
+        
+                    // Save the updated user document
+                    const updatedUser = await user.save();
+        
+                    return updatedUser;
+                } catch (error) {
+                    console.error("Error adding accommodation for student:", error);
+                    throw new Error("Failed to add accommodation for student: " + error.message);
+                }
             }
-          
+        
             throw new AuthenticationError('You need to be logged in as an administrator!');
-          },
+        },
+        
+
           
           
           removeAccommodationCard: async (parent, args) => {

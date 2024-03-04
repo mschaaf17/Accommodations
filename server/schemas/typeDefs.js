@@ -19,7 +19,6 @@ const typeDefs = gql `
         userInterventions: [UserInterventions]
         interventionCount: Int
         averageOutOfSeatCount: Float
-        
 
     }
 

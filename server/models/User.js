@@ -25,13 +25,13 @@ const userSchema = new Schema(
                 ref: 'AccommodationCards',
             }
         ],
-        accommodations: [
-         {
-            type: [accommodationSchema],
-            unique: false
-          }
-        ],
-        //accommodations: [accommodationSchema],
+        // accommodations: [
+        //  {
+        //     type: [accommodationSchema],
+        //     unique: false
+        //   }
+        // ],
+        accommodations: [accommodationSchema],
         interventionList: [
           {
               type: Schema.Types.ObjectId,
@@ -82,7 +82,7 @@ const userSchema = new Schema(
         ],
         isAdmin: {
           type: Boolean,
-          default: false,
+          default: false
       },
        
         //out of seat is teacher logging for student
