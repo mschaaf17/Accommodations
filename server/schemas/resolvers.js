@@ -13,7 +13,7 @@ const resolvers = {
             if (context.user) {
                 const userData = await User.findOne({_id: context.user._id})
                 .select('-__v -password')
-                .populate('accommodations')
+                //.populate('accommodations')
                 .populate('breaks')
                 .populate('seatAwayTaken')
                 .populate('isAdmin')
@@ -33,7 +33,7 @@ const resolvers = {
        user: async (parent, { username }) => {
         const user = await User.findOne({ username })
           .select('-__v -password')
-          .populate('accommodations')
+         // .populate('accommodations')
           .populate('breaks')
           .populate('seatAwayTaken')
           .populate('isAdmin')
@@ -68,19 +68,19 @@ const resolvers = {
       //   const params = username ? { username } : {};
       //   return Accommodation.find(params).sort({ createdAt: -1})
       //  },
-      accommodations: async (parent, { username }) => {
+      userAccommodations: async (parent, { username }) => {
         const params = username ? { username } : {};
         const user = await User.findOne(params);
-        return user ? user.accommodations : [];
+        return user ? user.userAccommodations : [];
     },
     
       //  accommodation: async(parent, { _id}) => {
       //   return Accommodation.findOne({_id})
       //  },
-      accommodation: async(parent, { _id }) => {
+      userAccommodation: async(parent, { _id }) => {
         try {
             // Assuming parent represents the user object
-            const accommodation = parent.accommodations.find(acc => acc._id === _id);
+            const accommodation = parent.userAccommodations.find(acc => acc._id === _id);
             return accommodation;
         } catch (error) {
             console.error("Error finding accommodation:", error);
@@ -170,39 +170,169 @@ const resolvers = {
           
           //   throw new AuthenticationError('You need to be logged in as an administrator!');
           // },
+          
+//this needs to only be able to add acommodation froms accommodation cards--- can i just pull everything with the id but still display a name and image?
+
+
+// addAccommodationForStudent: async (parent, {accommodationCardsId, username }, context) => {
+//   if (context.user && context.user.isAdmin) {
+//       try {
+//           // Find the user by username
+//           const user = await User.findOne({ username });
+
+//           if (!user) {
+//               throw new Error(`User '${username}' not found.`);
+//           }
+
+//           // Find the accommodation by ID
+//           const accommodation = await AccommodationCards.findById(accommodationCardsId);
+
+//           if (!accommodation) {
+//               throw new Error(`Accommodation with ID '${accommodationCardsId}' not found.`);
+//           }
+
+//           // Validate if the accommodation exists in the accommodationCard schema
+//           const validAccommodation = await AccommodationCards.findOne({ title: accommodation.title });
+
+//           if (!validAccommodation) {
+//               throw new Error(`Accommodation '${accommodation.title}' is not valid.`);
+//           }
+
+//           // Add the accommodation to the user's accommodations array
+//           user.userAccommodations.push(accommodation);
+
+//           // Save the updated user document
+//           const updatedUser = await user.save();
+
+//           // Populate the accommodation with image and title
+//           await updatedUser.populate('userAccommodations').execPopulate();
+
+//           // Return the populated user document
+//           return updatedUser;
+//       } catch (error) {
+//           console.error("Error adding accommodation for student:", error);
+//           throw new Error("Failed to add accommodation for student: " + error.message);
+//       }
+//   }
+
+//   throw new AuthenticationError('You need to be logged in as an administrator!');
+// },
+
+addAccommodationForStudent: async (parent, { accommodationCardsId, username }, context) => {
+  // Check if the user is an admin
+  if (context.user && context.user.isAdmin) {
+      try {
+          // Find the user by username
+          const user = await User.findOne({ username });
+
+          if (!user) {
+              throw new Error(`User '${username}' not found.`);
+          }
+
+          // Find the accommodation by ID
+          const accommodation = await AccommodationCards.findById(accommodationCardsId);
+
+          if (!accommodation) {
+              throw new Error(`Accommodation with ID '${accommodationCardsId}' not found.`);
+          }
+
+          // Validate if the accommodation exists in the accommodationCard schema
+          const validAccommodation = await AccommodationCards.findOne({ title: accommodation.title });
+
+          if (!validAccommodation) {
+              throw new Error(`Accommodation '${accommodation.title}' is not valid.`);
+          }
+
+          // Add the accommodation to the user's accommodations array
+          user.userAccommodations.push(accommodation);
+
+          // Save the updated user document
+          const updatedUser = await user.save();
+
+          // Populate the accommodation with image and title
+          await updatedUser.populate('userAccommodations').execPopulate();
+
+          // Return the populated user document
+          return updatedUser;
+      } catch (error) {
+          console.error("Error adding accommodation for student:", error);
+          throw new Error("Failed to add accommodation for student: " + error.message);
+      }
+  }
+
+  // Throw an error if the user is not an admin
+  throw new AuthenticationError('You need to be logged in as an administrator!');
+},
+
+
+
+
+        //   addAccommodationForStudent: async (parent, { username, image, title }, context) => {
+        //     if (context.user && context.user.isAdmin) {
+        //         try {
+        //             // Find the user by username
+        //             const user = await User.findOne({ username: username });
         
-          addAccommodationForStudent: async (parent, { username, image, title }, context) => {
-            if (context.user && context.user.isAdmin) {
-                try {
-                    const user = await User.findOne({ username: username });
+        //             // Log user object
+        //             console.log("User:", user);
         
-                    // Check if the accommodation already exists for the student
-                    const accommodationExists = user.accommodations.some(
-                        (acc) => acc.title === title
-                    );
+        //             // Check if the user exists
+        //             if (!user) {
+        //                 throw new Error(`User '${username}' not found.`);
+        //             }
         
-                    if (accommodationExists) {
-                        throw new Error(`Accommodation '${title}' is already added for the student.`);
-                    }
+        //             // Log existing accommodations
+        //             console.log("Existing accommodations:", user.accommodations);
         
-                    // Create a new accommodation object with the provided title
-                    const accommodation = new Accommodation({ title, image });
+        //             // Check if the accommodation already exists for the student
+        //             const accommodationExists = user.accommodations && user.accommodations.some(
+        //                 (acc) => acc.title === title
+        //             );
         
-                    // Add the accommodation to the user's accommodations array
-                    user.accommodations.push(accommodation);
+        //             if (accommodationExists) {
+        //                 throw new Error(`Accommodation '${title}' is already added for the student.`);
+        //             }
         
-                    // Save the updated user document
-                    const updatedUser = await user.save();
+        //             // Create a new accommodation object with the provided title
+        //             const accommodation = new Accommodation({ title, image });
         
-                    return updatedUser;
-                } catch (error) {
-                    console.error("Error adding accommodation for student:", error);
-                    throw new Error("Failed to add accommodation for student: " + error.message);
-                }
-            }
+        //             // Log new accommodation object
+        //             console.log("New accommodation:", accommodation);
         
-            throw new AuthenticationError('You need to be logged in as an administrator!');
-        },
+        //             // Add the accommodation to the user's accommodations array
+        //             user.accommodations.push(accommodation);
+        
+        //             // Save the updated user document
+        //             const updatedUser = await user.save();
+        
+        //             // Log updated user object
+        //             console.log("Updated user:", updatedUser);
+        
+        //             return updatedUser;
+        //         } catch (error) {
+        //             console.error("Error adding accommodation for student:", error);
+        //             throw new Error("Failed to add accommodation for student: " + error.message);
+        //         }
+        //     }
+        
+        //      throw new AuthenticationError('You need to be logged in as an administrator!');
+        //  },
+
+        // addAccommodationForStudent: async (parent, { title, image }, context) => {
+        //   if (context.user) {
+        //     const updatedUser = await User.findOneAndUpdate(
+        //       { _id: context.user._id },
+        //       { $addToSet: { accommodations: {title, image} } },
+        //       { new: true }
+        //     ).populate('accommodations');
+        
+        //     return updatedUser;
+        //   }
+        
+        //   throw new AuthenticationError('You need to be logged in as an admin!');
+        // },
+        
+        
         
 
           

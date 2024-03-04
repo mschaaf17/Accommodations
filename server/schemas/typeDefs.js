@@ -4,7 +4,7 @@ const typeDefs = gql `
     type User {
         _id: ID
         username: String
-        accommodations: [Accommodation]
+        userAccommodations: [UserAccommodations]
         students: [User]
         breakCount: Int
         hasBreaks: Boolean
@@ -53,7 +53,7 @@ const typeDefs = gql `
         
       }
 
-type Accommodation {
+type UserAccommodations {
     _id: ID
     title: String
     image: String
@@ -95,9 +95,9 @@ type Query {
     me: User
     users: [User]
     user(username: String!): User
-    accommodationCards: [Accommodation]
-    accommodations(username: String): [Accommodation]
-    accommodation(_id: ID!): Accommodation
+    accommodationCards: AccommodationCards
+    userAccommodations(username: String): [UserAccommodations]
+    userAccommodation(_id: ID!): UserAccommodations
     students(username: String!): User
     break(username: String!) : [Break]
     seatAway(username: String!) : [SeatAway]
@@ -110,11 +110,11 @@ type Query {
 type Mutation {
     login(username: String!, password: String!, isAdmin: Boolean): Auth
     addUser(username: String!, password: String!, isAdmin: Boolean): Auth
-    addAccommodationForStudent(title: String, image: String, username: String): User
+    addAccommodationForStudent(accommodationCardsId: ID!, username: String): User
     addBreak(_id: ID): Break
     addSeatAway(_id: ID) : SeatAway
     addOutOfSeat(username: String): User
-    removeAccommodationFromStudent(accommodationId: ID!, username: String!): User
+    removeAccommodationFromStudent(userAccommodationsId: ID!, username: String!): User
     addAccommodationCard(title: String, image: String, username: String): AccommodationCards
     removeAccommodationCard(_id: ID): AccommodationCards
     addStudentToList(studentId: ID!): User

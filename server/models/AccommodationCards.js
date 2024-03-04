@@ -9,8 +9,13 @@ const accommodationCardsSchema = new Schema(
             type: String
         },
         username: {
-            type: String
-        },
+            type: Schema.Types.ObjectId,
+            ref: 'User'
+        }
+        
+        // username: {
+        //     type: String
+        // },
         
     },
     {

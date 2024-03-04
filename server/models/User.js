@@ -1,7 +1,7 @@
 const { Schema, model } = require('mongoose')
 const bcrypt = require('bcrypt')
 const outOfSeatSchema = require('./OutOfSeat')
-const accommodationSchema = require('./Accommodations')
+//const accommodationSchema = require('./Accommodation')
 const userInterventionsSchema = require('./UserInterventions')
 const moment = require('moment');
 const dateFormat = require('../utils/dateFormat');
@@ -19,19 +19,41 @@ const userSchema = new Schema(
             required: true,
             minlength: 5
         },
-        accommodationCards: [
-            {
-                type: Schema.Types.ObjectId,
-                ref: 'AccommodationCards',
-            }
-        ],
-        // accommodations: [
-        //  {
-        //     type: [accommodationSchema],
-        //     unique: false
-        //   }
+        // accommodationCards: [
+        //     {
+        //         type: Schema.Types.ObjectId,
+        //         ref: 'AccommodationCards',
+        //     }
         // ],
-        accommodations: [accommodationSchema],
+      //   accommodations: {
+      //     type: [{ type: Schema.Types.ObjectId, ref: 'Accommodation' }],
+      //     default: []
+      // },
+        userAccommodations: [
+         {
+            title: {
+              type: String,
+              //required: true,
+              unique: true
+            },
+            image: {
+              type: String
+          },
+          username: {
+              type: String
+          },
+          createdAt: {
+              type: Date,
+              default: Date.now,
+              get: timestamp => dateFormat(timestamp)
+          },
+            //type: [accommodationSchema],
+            //type: Schema.Types.ObjectId,
+            //ref: 'UserAccommodations',
+            //unique: false
+          }
+         ],
+        //accommodations: [accommodationSchema],
         interventionList: [
           {
               type: Schema.Types.ObjectId,

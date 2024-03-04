@@ -3,24 +3,24 @@
         "username": "maddy17",
         "password": "password",
         "isAdmin": false,
-        "accommodations" : []
+        "userAccommodations" : []
     },
     {
         "username": "kev",
         "isAdmin": false,
         "password": "password",
-        "accommodations" : []
+        "userAccommodations" : []
     },
     {
         "username": "mike",
         "isAdmin": true,
         "password": "password",
-        "accommodations" : []
+        "userAccommodations" : []
     },
     {
         "username": "tracy",
         "isAdmin": false,
         "password": "password",
-        "accommodations" : []
+        "userAccommodations" : []
     }
 ]
